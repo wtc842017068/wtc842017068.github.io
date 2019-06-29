@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,李宏毅,ERROR,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sky C.W BLOG" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="分析误差的原因以及改进的方法">
+<meta name="keywords" content="机器学习,李宏毅,ERROR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Error(误差)的来源">
+<meta property="og:url" content="https://wtc842017068.github.io/2019/05/06/Error/index.html">
+<meta property="og:site_name" content="Sky C.W BLOG">
+<meta property="og:description" content="分析误差的原因以及改进的方法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190426180317.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190426181009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427162332.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427173635.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427174024.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427233808.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428000821.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428002051.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428002549.png">
+<meta property="og:updated_time" content="2019-05-06T05:07:41.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Error(误差)的来源">
+<meta name="twitter:description" content="分析误差的原因以及改进的方法">
+<meta name="twitter:image" content="https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wtc842017068.github.io/2019/05/06/Error/">
+
+
+
+
+
+
+
+  <title>Error(误差)的来源 | Sky C.W BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+         <span class="site-title" style=" font-family:FreeStyle Script;color: #AC161A;">
+        Sky C.W BLOG
+         </span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wtc842017068.github.io/2019/05/06/Error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sky C.W">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head.PNG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky C.W BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Error(误差)的来源</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-06T11:50:08+08:00">
+                2019-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/06/Error/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/06/Error/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            阅读数</span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  614
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div align="center"> 
+<blockquote class="blockquote-center">分析误差的原因以及改进的方法</blockquote>
+<img src="https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></div>
+
+ <a id="more"></a>
+<h2 id="Error-的来源"><a href="#Error-的来源" class="headerlink" title="Error 的来源"></a>Error 的来源</h2><p>真正的函数Y我们并不清楚，我们要使用数据来估计Y，我们估计得Y与真实的Y值之间是有一些距离的。这个距离由：</p>
+<ul>
+<li>Bias</li>
+<li>Variance</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190426180317.png" width="400" hegiht="650"></p>
+<h3 id="估计随机变量x的均值和方差"><a href="#估计随机变量x的均值和方差" class="headerlink" title="估计随机变量x的均值和方差"></a>估计随机变量x的均值和方差</h3><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190426181009.png" width="400" hegiht="650"></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+m = \frac 1 N ·{ \sum _n x^n \neq \mu}
+E(m)=E(\frac 1 N ·{ \sum _n x^n})=\frac 1 N·E({ \sum _n x^n})=\frac 1 N· \sum _n E(x^n)=\mu
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+var(m)=D(m)=D(\frac 1 N ·{ \sum _n x^n}) &=\frac {1}  {N^2}D({ \sum _n x^n}) \\
+&=\frac {1} {N^2} \sum_n D({x^n})\\
+&=\frac {1} {N^2} \sum_n \delta^{2} \\
+&=\frac {\delta^{2} }{N}
+\end{aligned}</script><script type="math/tex; mode=display">E[s^2]= \frac {N} {N-1} · \delta^{2}</script><script type="math/tex; mode=display">E[s^2] \neq \delta^{2}\;\lim_{N \to \infty} E[s^2] \to  \delta^{2}</script><ul>
+<li>假设样的的均值和方差存在，如上图所示<ul>
+<li>随机抽取N个样本点的均值为m</li>
+<li>x之间相互独立，N为常数，故打开括号</li>
+<li>随机变量x的期望和方差如上式</li>
+</ul>
+</li>
+</ul>
+<p>故上式成立</p>
+<h4 id="所以m是μ的无偏估计"><a href="#所以m是μ的无偏估计" class="headerlink" title="所以m是μ的无偏估计"></a>所以m是μ的无偏估计</h4><h5 id="所以我们的误差包含两个方面"><a href="#所以我们的误差包含两个方面" class="headerlink" title="所以我们的误差包含两个方面"></a>所以我们的误差包含两个方面</h5><ul>
+<li>bias</li>
+<li>Variance。<h6 id="Variance"><a href="#Variance" class="headerlink" title="Variance"></a>Variance</h6></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427162332.png" width="400" hegiht="650"></p>
+<ul>
+<li>假设我们的函数是为一次函数时，当我们获取不同的数据会得到不同的直线。<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427173635.png" width="400" hegiht="650"></li>
+<li>所以函数越复杂，他的Variance也就越大</li>
+<li>越简单的模型越不容易受到样本的干扰</li>
+<li>越复杂的模型越容易受到样本的干扰</li>
+</ul>
+<h6 id="bias"><a href="#bias" class="headerlink" title="bias"></a>bias</h6><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427174024.png" width="400" hegiht="650"></p>
+<script type="math/tex; mode=display">
+\text {假设实际函数为}\hat{y}
+
+\text {假设函数的期望为}E[f^*]=\overline{f}</script><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190427233808.png" width="400" hegiht="650"></p>
+<ul>
+<li>简单的模型的variance小，bias大，所表示的范围小</li>
+<li>复杂的模型bias小，variance大，所表示的范围大</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428000821.png" width="400" hegiht="650"></p>
+<h3 id="误差的识别与改进"><a href="#误差的识别与改进" class="headerlink" title="误差的识别与改进"></a>误差的识别与改进</h3><h4 id="当我们的模型无法fit-training-example时"><a href="#当我们的模型无法fit-training-example时" class="headerlink" title="当我们的模型无法fit training example时"></a>当我们的模型无法fit training example时</h4><ul>
+<li>我们的误差来源是bias，是underfitting</li>
+<li>我们应该改进我们的模型，增加feature<h4 id="当我们的模型在tarining-example上获得较好的结果，但在test-set上获得较差的表现时"><a href="#当我们的模型在tarining-example上获得较好的结果，但在test-set上获得较差的表现时" class="headerlink" title="当我们的模型在tarining example上获得较好的结果，但在test set上获得较差的表现时"></a>当我们的模型在tarining example上获得较好的结果，但在test set上获得较差的表现时</h4></li>
+<li>我们的误差来源是variance，是overfitting</li>
+<li>我们可以增加data</li>
+<li>可以加入regularization</li>
+</ul>
+<h3 id="如何选择模型"><a href="#如何选择模型" class="headerlink" title="如何选择模型"></a>如何选择模型</h3><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428002051.png" width="400" hegiht="650"></p>
+<h4 id="我们的test-set有可能会有bias"><a href="#我们的test-set有可能会有bias" class="headerlink" title="我们的test set有可能会有bias"></a>我们的test set有可能会有bias</h4><p>所以我们如果单纯依据test set的结果来选择模型，可能最后的实际测试结果比我们的测试结果要差</p>
+<h4 id="挑选方法"><a href="#挑选方法" class="headerlink" title="挑选方法"></a>挑选方法</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190428002549.png" width="400" hegiht="650"></p>
+<ul>
+<li>将训练集划分为N个组，依次训练。选择各方面err最低的为最佳的模型。</li>
+<li>在用全部的数据对其训练</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+     <div>
+     
+       <div>
+    
+    <style>
+    .passage_end::after{
+        content: "- The End -";
+        text-align:center;
+        color: #252525;
+        display: block;
+        font-size:26px;
+        font-weight:bold;
+        font-family: Vladimir Script;
+    }
+    </style>
+        <div class="passage_end"></div>
+    
+</div>
+       
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/06/Error/">Error(误差)的来源</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Sky C.W 的个人博客">Sky C.W</a></p>
+  <p><span>发布时间:</span>2019年05月06日 - 11:50</p>
+  <p><span>最后更新:</span>2019年05月06日 - 13:07</p>
+  <p><span>原始链接:</span><a href="/2019/05/06/Error/" title="Error(误差)的来源">https://wtc842017068.github.io/2019/05/06/Error/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://wtc842017068.github.io/2019/05/06/Error/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+     
+     </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Sky C.W 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Sky C.W 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Sky C.W
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://wtc842017068.github.io/2019/05/06/Error/" title="Error(误差)的来源">https://wtc842017068.github.io/2019/05/06/Error/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/李宏毅/" rel="tag"><i class="fa fa-tag"></i> 李宏毅</a>
+          
+            <a href="/tags/ERROR/" rel="tag"><i class="fa fa-tag"></i> ERROR</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/04/Regression/" rel="next" title="Regression(回归)">
+                <i class="fa fa-chevron-left"></i> Regression(回归)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/17/Descent/" rel="prev" title="Gradient Descent(梯度下降)">
+                Gradient Descent(梯度下降) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.PNG" alt="Sky C.W">
+            
+              <p class="site-author-name" itemprop="name">Sky C.W</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wtc842017068" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/tian-lan-46" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-book"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://stackoverflow.com/" title="Stackoverflow" target="_blank">Stackoverflow</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-的来源"><span class="nav-number">1.</span> <span class="nav-text">Error 的来源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#估计随机变量x的均值和方差"><span class="nav-number">1.1.</span> <span class="nav-text">估计随机变量x的均值和方差</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#所以m是μ的无偏估计"><span class="nav-number">1.1.1.</span> <span class="nav-text">所以m是μ的无偏估计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#所以我们的误差包含两个方面"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">所以我们的误差包含两个方面</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Variance"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">Variance</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#bias"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">bias</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#误差的识别与改进"><span class="nav-number">1.2.</span> <span class="nav-text">误差的识别与改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当我们的模型无法fit-training-example时"><span class="nav-number">1.2.1.</span> <span class="nav-text">当我们的模型无法fit training example时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当我们的模型在tarining-example上获得较好的结果，但在test-set上获得较差的表现时"><span class="nav-number">1.2.2.</span> <span class="nav-text">当我们的模型在tarining example上获得较好的结果，但在test set上获得较差的表现时</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选择模型"><span class="nav-number">1.3.</span> <span class="nav-text">如何选择模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我们的test-set有可能会有bias"><span class="nav-number">1.3.1.</span> <span class="nav-text">我们的test set有可能会有bias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挑选方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">挑选方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sky C.W</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">9.1k</span>
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'cekoA2Kid1fqXmw5hfGausbh-gzGzoHsz',
+        appKey: '9HlHRr2fPAbcimLErDOuof61',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

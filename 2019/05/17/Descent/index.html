@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Gradient Descent,机器学习,李宏毅,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sky C.W BLOG" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="介绍梯度下降的技巧以及数学原理">
+<meta name="keywords" content="Gradient Descent,机器学习,李宏毅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradient Descent(梯度下降)">
+<meta property="og:url" content="https://wtc842017068.github.io/2019/05/17/Descent/index.html">
+<meta property="og:site_name" content="Sky C.W BLOG">
+<meta property="og:description" content="介绍梯度下降的技巧以及数学原理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.pexels.com/photos/2261726/pexels-photo-2261726.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500/">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509171755.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509172123.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190510160104.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509185501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190510235132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190511114432.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190511115032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190513234552.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190515001615.png">
+<meta property="og:updated_time" content="2019-05-18T17:12:56.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradient Descent(梯度下降)">
+<meta name="twitter:description" content="介绍梯度下降的技巧以及数学原理">
+<meta name="twitter:image" content="https://images.pexels.com/photos/2261726/pexels-photo-2261726.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wtc842017068.github.io/2019/05/17/Descent/">
+
+
+
+
+
+
+
+  <title>Gradient Descent(梯度下降) | Sky C.W BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+         <span class="site-title" style=" font-family:FreeStyle Script;color: #AC161A;">
+        Sky C.W BLOG
+         </span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wtc842017068.github.io/2019/05/17/Descent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sky C.W">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head.PNG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky C.W BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradient Descent(梯度下降)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T23:29:07+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/17/Descent/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/17/Descent/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            阅读数</span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div align="center"> 
+<blockquote class="blockquote-center">介绍梯度下降的技巧以及数学原理</blockquote>
+<img src="https://images.pexels.com/photos/2261726/pexels-photo-2261726.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500/">
+</div>
+
+ <a id="more"></a>
+<h2 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h2><h2 id="数学表示"><a href="#数学表示" class="headerlink" title="数学表示"></a>数学表示</h2><script type="math/tex; mode=display">
+\theta^0 =  \left[  { \theta^0_1 \atop \theta_2^0 } \right] \text{随机设定的初始位置}</script><script type="math/tex; mode=display">
+\left[  { \theta^1_1 \atop \theta_2^1 } \right] = \left[  { \theta^0_1 \atop \theta_2^0 }\right] - \eta \left[  {\frac  {\partial{L(\theta^0_1)}}{\partial{\theta_1}}   \atop \frac{\partial{L(\theta^0_2)}}{\partial{\theta_2}} } \right] \text{第一次迭代}</script><script type="math/tex; mode=display">
+\left[  { \theta^2_1 \atop \theta_2^2 } \right] = \left[  { \theta^1_1 \atop \theta_2^1 } \right] - \eta \left[  {\frac  {\partial{L(\theta^1_1)}}{\partial{\theta_1}}   \atop \frac  {\partial{L(\theta^1_2)}}{\partial{\theta_2}} } \right] \text{第二次迭代}</script><script type="math/tex; mode=display">
+\nabla L(\theta)=\left[  {\frac  {\partial{L(\theta_1)}}{\partial{\theta_1}}   \atop \frac  {\partial{L(\theta_2)}}{\partial{\theta_2}} } \right] \text{简化表示为}</script><script type="math/tex; mode=display">
+\theta^1=\theta^0-\eta  \nabla L(\theta_0)</script><h2 id="可视化表示"><a href="#可视化表示" class="headerlink" title="可视化表示"></a>可视化表示</h2><p> <img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509171755.png" width="400" hegiht="650"></p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><h4 id="1-Learning-Rate"><a href="#1-Learning-Rate" class="headerlink" title="1.Learning Rate"></a>1.Learning Rate</h4><p>Learning Rate 要选择合适<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509172123.png" width="400" hegiht="650"></p>
+<ul>
+<li>自动调整Learning Rate 方法（迭代次数越多，学习率越小）：<br> $<br>  \eta^t=  \frac {\eta}{\sqrt{t+1}}<br> $</li>
+<li>这样也不够好，我们要给不同的参数不同的learning Rate<ul>
+<li>Adagrad</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+w^{t+1}=w^t-\eta^tg^t           \text{  (传统方法)}</script><script type="math/tex; mode=display">
+g^t=\frac{\partial{L(\theta^t)}}{\partial{w}}</script><script type="math/tex; mode=display">
+\eta^t=\frac {\eta}{\sqrt{t+1}}</script><script type="math/tex; mode=display">
+w^{t+1}=w^t-\frac{\eta^t}{\sigma^t}g^t \text{  (Adagrad方法)}</script><h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><script type="math/tex; mode=display">
+w^{1}=w^0-\frac{\eta^0}{\sigma^0}g^0  \quad \sigma^0=\sqrt{(g^0)^2}</script><script type="math/tex; mode=display">
+……</script><script type="math/tex; mode=display">
+\begin{aligned}
+w^{t+1}=w^t-\frac{\eta^t}{\sigma^t}g^t  \quad
+\sigma^t&=\sqrt{\frac{\sum_{(算过的微分值)^2}}{t+1}}\\
+&=\sqrt{\frac{1}{t+1}\sum_{i=0}^{t}(g^i)^2}
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+w^{t+1}&=w^t-\frac{\eta^t}{\sigma^t}g^t\\ 
+&=w^t-\frac{\frac{\eta}{\sqrt{t+1}}}{\sqrt{\frac{1}{t+1}\sum_{i=0}^{t}(g^i)^2}}\\
+&=\frac{\eta}{\sqrt{\sum_{i=0}^{t}(g^i)^2}}g^t
+\end{aligned}</script><script type="math/tex; mode=display">
+\text{当}g^t\text{很大}\sum\text{会很大，会使我们的结果减小。与我们的目标相悖。}</script><h5 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h5><h6 id="直观："><a href="#直观：" class="headerlink" title="直观："></a>直观：</h6><p>   这个等式表示，我们当前计算的学习率，和以前的结果相比差距有多大。<br>   <img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190510160104.png" width="400" hegiht="650"></p>
+<h6 id="理论："><a href="#理论：" class="headerlink" title="理论："></a>理论：</h6><p>   <img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190509185501.png" width="400" hegiht="650"></p>
+<script type="math/tex; mode=display">
+\frac{-b}{2a} \text{是对称轴，任取一点}x_0\text{的理想更新值为}|\frac{-b}{2a}+x_0|=|\frac{-b+2ax_0}{2a}|</script><script type="math/tex; mode=display">
+y=ax^2+bx+c</script><script type="math/tex; mode=display">
+|\frac{\partial{y}}{\partial{x}}|=|-b+2ax_0|\text{    微分越大与目标点越远}</script><script type="math/tex; mode=display">
+|\frac{\partial{^2y}}{\partial{x^2}}|=2a</script><h6 id="当我们考虑多个参数的时候，上述结果就不一定成立"><a href="#当我们考虑多个参数的时候，上述结果就不一定成立" class="headerlink" title="当我们考虑多个参数的时候，上述结果就不一定成立"></a>当我们考虑多个参数的时候，上述结果就不一定成立</h6><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190510235132.png" width="400" hegiht="650"></p>
+<ul>
+<li><p>当我们只考虑一个参数的时候，确实微分值越大，离最低点越远例如a&gt;b，所以a也比b离最低点远。c&gt;d,所以c也比d离最低点远。</p>
+</li>
+<li><p>当我们考虑两个参数的时候，c&gt;d，但是c点离最佳点的距离小于a点。</p>
+<ul>
+<li>最好的step应该和二次微分成反比 </li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+最好的距离=\frac{|一阶微分|}{二阶微分}</script><script type="math/tex; mode=display">
+\begin{aligned}
+w^{t+1}&=w^t-\frac{\eta}{\sqrt{\sum_{i=0}^{t}(g^i)^2}}g^t\\
+&\to g^t\text{为一阶微分}\\
+&\to \sqrt{\sum_{i=0}^{t}(g^i)^2}\text{用来代替二阶微分，（用于简化二阶微分计算的复杂的）}
+\end{aligned}</script><h4 id="2-Stochastic-Gradient-Descent"><a href="#2-Stochastic-Gradient-Descent" class="headerlink" title="2.Stochastic Gradient Descent"></a>2.Stochastic Gradient Descent</h4><p>$<br>L=\sum_n(\hat{y}^n-(b+\sum{w_ix_i^n)})^2 \text{——-Loss function}<br>$</p>
+<h5 id="Gradient-Descent-Loss-sum-all-train-example"><a href="#Gradient-Descent-Loss-sum-all-train-example" class="headerlink" title="Gradient Descent  (Loss sum all train example)"></a>Gradient Descent  (Loss sum all train example)</h5><p>$<br>\theta^i=\theta^{i-1}-\eta\nabla{L(\theta^{i-1})}<br>$</p>
+<h5 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h5><p>$<br>L^n=(\hat{y}^n-(b+\sum{w_ix_i^n)})^2\text{——-一个样本计算一次误差}<br>$<br>对比图<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190511114432.png" width="400" hegiht="650"></p>
+<h4 id="3-Feature-Scaling-使不同的特征有有相同的量级"><a href="#3-Feature-Scaling-使不同的特征有有相同的量级" class="headerlink" title="3.Feature Scaling(使不同的特征有有相同的量级)"></a>3.Feature Scaling(使不同的特征有有相同的量级)</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190511115032.png" width="400" hegiht="650"><br>Feature Scaling 的直观解释<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190513234552.png" width="400" hegiht="650"></p>
+<ul>
+<li>蓝色的会向着梯度下降的方向走，学习率w1和w2应是不同的</li>
+<li>绿色的会向着圆心走</li>
+</ul>
+<h6 id="举例如何做："><a href="#举例如何做：" class="headerlink" title="举例如何做："></a>举例如何做：</h6><p>每一个feature都减去mean，除以方差，进行归一化。</p>
+<h4 id="数学证明"><a href="#数学证明" class="headerlink" title="数学证明"></a>数学证明</h4><ol>
+<li>泰勒展开</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\text{单参数 :}\,
+h(x)&=\sum_{k=0}^{\infty}\frac{h^{(k)}(x_0)}{k！}(x-x_0)\\
+&=h(x_0)+h'(x)(x-x_0)+……+h^n(x-x_0)+o(x^(n+1))
+\text{在x0点泰勒展开 }
+\end{aligned}</script><script type="math/tex; mode=display">
+\text{多参数 :}\,
+h(x,y)=h(x_0,y_0)+\frac{\partial h{(x_0,y_0)}}{\partial x}(x-x_0)+\frac{\partial h{(x_0,y_0)}}{\partial y}(y-y_0)+……\text{其他高次项}</script><p>2.方向导数与梯度</p>
+<script type="math/tex; mode=display">
+
+z=f(x,y)\text{再点}M_0(x_0,y_0)\text{沿}\vec{l}=(\cos\alpha,\cos\beta)</script><script type="math/tex; mode=display">
+\cos\alpha=\frac{\Delta x}{\sqrt{ {\Delta y}^2+{\Delta x}^2}}</script><script type="math/tex; mode=display">
+\cos\beta=\frac{\Delta y}{\sqrt{ {\Delta y}^2+{\Delta x}^2}}</script><script type="math/tex; mode=display">
+\rho = \sqrt{ {\Delta y}^2+{\Delta x}^2}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial {z}}{\partial{\vec{l}}}&=\lim_{x \to 0 \, y \to 0}  \frac{f(x_0+\Delta x,y_0 + \Delta y)}{\rho}\\
+&=\lim_{\rho \to 0^+}  \frac{f(x_0+\rho \cos\alpha,y_0 + \rho\cos\beta)}{\rho}
+\end{aligned}</script><script type="math/tex; mode=display">
+\text{若f(x,y)可微分则}f(x,y)=\lim_{x \to 0 \, y \to 0}f'_x*\Delta x+f'_y*\Delta y+ o(\rho)</script><script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial {f}}{\partial{l}}&=\lim_{\rho \to 0}\frac{f'_x*\rho\cos\alpha+f'_y*\rho\cos\beta +o(\rho)}{\rho}\\
+&=f'_x*\cos\alpha+f'_y*\cos\beta=(f'_x,f'_y)\cdot{(cos\alpha,\cos\beta)}\\
+&=|(f'_x,f'_y)|*(cos\alpha,\cos\beta)*cos<f',\vec{l}>\\
+&=|(f'_x,f'_y)| * \cos<f',\vec{l}>  \text{由于}|(cos\alpha,\cos\beta|=1
+\end{aligned}</script><script type="math/tex; mode=display">
+\text{当}\cos<f',\vec{l}>=0\text{时方向导数最大，将方向导数表示为}</script><script type="math/tex; mode=display">
+\nabla{f}=(f'_x,f'_y)\text{ 方向导数最大的方向}</script><ol>
+<li>Loss Function Taylor expand (在很小的范围内将损失函数泰勒展开，代替原式)</li>
+</ol>
+<script type="math/tex; mode=display">
+L(\theta)=L(a,b)+\frac{\partial{L(a,b)}}{\partial{\theta_1}}(\theta_1-a)+\frac{\partial{L(a,b)}}{\partial{\theta_2}}(\theta_2-b)</script><script type="math/tex; mode=display">
+L(a,b)=s</script><script type="math/tex; mode=display">
+\frac{\partial{L(a,b)}}{\partial{\theta_1}}=u</script><script type="math/tex; mode=display">
+\frac{\partial{L(a,b)}}{\partial{\theta_2}}=b</script><script type="math/tex; mode=display">
+L(\theta)= s+u(\theta_1-a)+v(\theta_2-b)</script><script type="math/tex; mode=display">
+(\theta_1-a)=\Delta\theta_1</script><script type="math/tex; mode=display">
+(\theta_2-b)=\Delta\theta_2</script><script type="math/tex; mode=display">
+(\theta_1-a)^2+(\theta_2-b)^2<=d^2</script><script type="math/tex; mode=display">
+\text{当}(\Delta\theta_1,\Delta\theta_2)\text{与}(u,v)\text{反向时}L(\theta)\text{最小}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\left[{\Delta\theta_1} \atop{\Delta\theta_2}
+\right]=-\eta\left[{u} \atop {v}\right] \to \left[{\theta_1} \atop{\theta_2} \right]&=\left[ {a}\atop{b} \right]-\eta\left[ {u}\atop {v}\right]\\
+&=\left[ {a}\atop{b} \right]-\eta\left[{\frac{\partial{L(a,b)}}{\partial{\theta_1}} }\atop{\frac{\partial{L(a,b)}}{\partial{\theta_2}}}\right]\text{这是梯度}
+\text{前提是}\eta\text{足够小}
+\end{aligned}</script><h4 id="Gradient-Descent-缺点"><a href="#Gradient-Descent-缺点" class="headerlink" title="Gradient Descent(缺点)"></a>Gradient Descent(缺点)</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190515001615.png" width="400" hegiht="650"></p>
+
+      
+    </div>
+    
+    
+    
+     <div>
+     
+       <div>
+    
+    <style>
+    .passage_end::after{
+        content: "- The End -";
+        text-align:center;
+        color: #252525;
+        display: block;
+        font-size:26px;
+        font-weight:bold;
+        font-family: Vladimir Script;
+    }
+    </style>
+        <div class="passage_end"></div>
+    
+</div>
+       
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/17/Descent/">Gradient Descent(梯度下降)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Sky C.W 的个人博客">Sky C.W</a></p>
+  <p><span>发布时间:</span>2019年05月17日 - 23:29</p>
+  <p><span>最后更新:</span>2019年05月19日 - 01:12</p>
+  <p><span>原始链接:</span><a href="/2019/05/17/Descent/" title="Gradient Descent(梯度下降)">https://wtc842017068.github.io/2019/05/17/Descent/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://wtc842017068.github.io/2019/05/17/Descent/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+     
+     </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Sky C.W 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Sky C.W 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Sky C.W
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://wtc842017068.github.io/2019/05/17/Descent/" title="Gradient Descent(梯度下降)">https://wtc842017068.github.io/2019/05/17/Descent/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Gradient-Descent/" rel="tag"><i class="fa fa-tag"></i> Gradient Descent</a>
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/李宏毅/" rel="tag"><i class="fa fa-tag"></i> 李宏毅</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/06/Error/" rel="next" title="Error(误差)的来源">
+                <i class="fa fa-chevron-left"></i> Error(误差)的来源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/23/Pandas/" rel="prev" title="Pandas">
+                Pandas <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.PNG" alt="Sky C.W">
+            
+              <p class="site-author-name" itemprop="name">Sky C.W</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wtc842017068" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/tian-lan-46" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-book"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://stackoverflow.com/" title="Stackoverflow" target="_blank">Stackoverflow</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">1.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学表示"><span class="nav-number">2.</span> <span class="nav-text">数学表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化表示"><span class="nav-number">3.</span> <span class="nav-text">可视化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">3.1.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Learning-Rate"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.Learning Rate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">3.1.2.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解释"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">解释</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#直观："><span class="nav-number">3.1.2.1.1.</span> <span class="nav-text">直观：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#理论："><span class="nav-number">3.1.2.1.2.</span> <span class="nav-text">理论：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#当我们考虑多个参数的时候，上述结果就不一定成立"><span class="nav-number">3.1.2.1.3.</span> <span class="nav-text">当我们考虑多个参数的时候，上述结果就不一定成立</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Stochastic-Gradient-Descent"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.Stochastic Gradient Descent</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradient-Descent-Loss-sum-all-train-example"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">Gradient Descent  (Loss sum all train example)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stochastic-Gradient-Descent"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">Stochastic Gradient Descent</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Feature-Scaling-使不同的特征有有相同的量级"><span class="nav-number">3.1.4.</span> <span class="nav-text">3.Feature Scaling(使不同的特征有有相同的量级)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#举例如何做："><span class="nav-number">3.1.4.0.1.</span> <span class="nav-text">举例如何做：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数学证明"><span class="nav-number">3.1.5.</span> <span class="nav-text">数学证明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-Descent-缺点"><span class="nav-number">3.1.6.</span> <span class="nav-text">Gradient Descent(缺点)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sky C.W</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">9.1k</span>
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'cekoA2Kid1fqXmw5hfGausbh-gzGzoHsz',
+        appKey: '9HlHRr2fPAbcimLErDOuof61',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

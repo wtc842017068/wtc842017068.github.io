@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,李宏毅,Regression,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sky C.W BLOG" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="以案例为主线讲解Regression(回归)的适用领域、数学表示、常用的改进方法">
+<meta name="keywords" content="机器学习,李宏毅,Regression">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regression(回归)">
+<meta property="og:url" content="https://wtc842017068.github.io/2019/05/04/Regression/index.html">
+<meta property="og:site_name" content="Sky C.W BLOG">
+<meta property="og:description" content="以案例为主线讲解Regression(回归)的适用领域、数学表示、常用的改进方法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.pexels.com/photos/2187629/pexels-photo-2187629.jpeg?cs=srgb&dl=adventure-climb-landscape-2187629.jpg&fm=jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130815.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130849.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131905.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132114.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132759.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132854.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502133313.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502133525.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134130.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134330.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134521.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134555.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134750.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134840.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134928.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135105.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135202.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135242.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190506114221.png">
+<meta property="og:updated_time" content="2019-06-29T13:29:38.547Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Regression(回归)">
+<meta name="twitter:description" content="以案例为主线讲解Regression(回归)的适用领域、数学表示、常用的改进方法">
+<meta name="twitter:image" content="https://images.pexels.com/photos/2187629/pexels-photo-2187629.jpeg?cs=srgb&dl=adventure-climb-landscape-2187629.jpg&fm=jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wtc842017068.github.io/2019/05/04/Regression/">
+
+
+
+
+
+
+
+  <title>Regression(回归) | Sky C.W BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+         <span class="site-title" style=" font-family:FreeStyle Script;color: #AC161A;">
+        Sky C.W BLOG
+         </span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wtc842017068.github.io/2019/05/04/Regression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sky C.W">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head.PNG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky C.W BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Regression(回归)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-04T00:38:05+08:00">
+                2019-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/04/Regression/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/04/Regression/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            阅读数</span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div align="center"> 
+<blockquote class="blockquote-center">以案例为主线讲解Regression(回归)的适用领域、数学表示、常用的改进方法</blockquote>
+<img src="https://images.pexels.com/photos/2187629/pexels-photo-2187629.jpeg?cs=srgb&dl=adventure-climb-landscape-2187629.jpg&fm=jpg"></div>
+
+ <a id="more"></a>
+<h2 id="Regression-回归"><a href="#Regression-回归" class="headerlink" title="Regression(回归)"></a>Regression(回归)</h2><h3 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h3><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130815.png" width="400" hegiht="650"></p>
+<ul>
+<li>第一个是用历史的数据预测未来的道琼斯指数</li>
+<li>第二个是用车辆附近的环境信息来决定方向盘的角度</li>
+<li>可以表示用户和商品的匹配程度</li>
+</ul>
+<h3 id="实际例子"><a href="#实际例子" class="headerlink" title="实际例子"></a>实际例子</h3><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130849.png" width="400" hegiht="650"></p>
+<ul>
+<li>解释：我们使用CP值来估计进化后的CP值<h4 id="1-定义函数的集合："><a href="#1-定义函数的集合：" class="headerlink" title="1.定义函数的集合："></a>1.定义函数的集合：</h4><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502130914.png" width="400" hegiht="650"></li>
+</ul>
+<h5 id="假设函数为："><a href="#假设函数为：" class="headerlink" title="假设函数为："></a>假设函数为：</h5><script type="math/tex; mode=display">
+y=b+w·x_{cb}</script><p>w 和 b 是参数，给定不同的w和b会得到不同的函数。由不同的w和b所组成的一组函数。我们是再这样的一组函数中找到最佳的一组参数（w、b）。这组参数所确定的函数就是最佳的函数。</p>
+<ul>
+<li>例：</li>
+</ul>
+<script type="math/tex; mode=display">y_1=10.0+9.0·x_{cb}</script><script type="math/tex; mode=display">y_2=9.8+9.2·x_{cb}</script><script type="math/tex; mode=display">……</script><script type="math/tex; mode=display">y_n=b_n+w_n·x_{cb}</script><h5 id="线性模型："><a href="#线性模型：" class="headerlink" title="线性模型："></a>线性模型：</h5><script type="math/tex; mode=display">
+y=b+\sum{w_i·x_i}</script><ul>
+<li>xi：表示输入的x的属性，既特征</li>
+<li>wi：表示weight</li>
+<li>bi：表示bias<h4 id="2-搜集数据-监督学习-："><a href="#2-搜集数据-监督学习-：" class="headerlink" title="2.搜集数据(监督学习)："></a>2.搜集数据(监督学习)：</h4></li>
+</ul>
+<ol>
+<li>获取数据<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131420.png" width="400" hegiht="650"><br>解释：用x1表示输入，y^1中1表示第一个数据的值，^表示是真实测量的值</li>
+</ol>
+<p>搜集的数据：<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131905.png" width="400" hegiht="650"></p>
+<h4 id="3-定义LossFunction-损失函数-："><a href="#3-定义LossFunction-损失函数-：" class="headerlink" title="3.定义LossFunction(损失函数)："></a>3.定义LossFunction(损失函数)：</h4><ul>
+<li>输入：函数</li>
+<li>输出：当前这个函数是有多不好</li>
+</ul>
+<script type="math/tex; mode=display">
+L(f)=L(w,b)=\sum_{n=1}^{10}(\hat{y}^n-(b+w·x_{cp}^n))^2</script><ul>
+<li>图像化表示LossFunction,图片上每个点都表示一组w和b，颜色表示这一组wb的误差是多少。红色表示误差大，蓝色表示误差小<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502131956.png" width="400" hegiht="650"></li>
+</ul>
+<h4 id="4-找出损失最下的那个函数："><a href="#4-找出损失最下的那个函数：" class="headerlink" title="4.找出损失最下的那个函数："></a>4.找出损失最下的那个函数：</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132037.png" width="400" hegiht="650"></p>
+<ul>
+<li>使用Gradient Descend，求解这个损失函数，找到误差最小的哪一组函数</li>
+</ul>
+<h5 id="Gradient-Descend"><a href="#Gradient-Descend" class="headerlink" title="Gradient Descend"></a>Gradient Descend</h5><h6 id="1-假设LossFunction只有一个参数w"><a href="#1-假设LossFunction只有一个参数w" class="headerlink" title="1.假设LossFunction只有一个参数w"></a>1.假设LossFunction只有一个参数w</h6><script type="math/tex; mode=display">
+w^*={argmin\atop w}L(w)</script><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132114.png" width="400" hegiht="650"></p>
+<p>说明：将LossFunction对参数w求微分，并将w0带入</p>
+<script type="math/tex; mode=display">
+\frac{dL}{dw}|_{w=w^0}</script><p>如果这个数是负的，表示斜率向下，应该增加w，使得LossFunction的输出减小。</p>
+<script type="math/tex; mode=display">
+w_1=w_0-\eta·\frac{dL}{dw}|_{w=w^0}</script><p>重复以上步骤，当微分为0时，就不会发生变化了</p>
+<h6 id="2-假设LossFunction只有两个参数w和b时"><a href="#2-假设LossFunction只有两个参数w和b时" class="headerlink" title="2.假设LossFunction只有两个参数w和b时"></a>2.假设LossFunction只有两个参数w和b时</h6><script type="math/tex; mode=display">
+w^*,b^*={argmin\atop w,b}L(w,b)</script><ol>
+<li>随即初始化w,b</li>
+<li>分别计算w与b的偏导</li>
+</ol>
+<script type="math/tex; mode=display">\frac{\partial{L}}{\partial{w}}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">\frac{\partial{L}}{\partial{b}}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">w^1\leftarrow w^0 - \eta·\frac{\partial{L}}{\partial{w}}|_{w=w^0,b=b^0}</script><script type="math/tex; mode=display">b^1\leftarrow b^0 - \eta·\frac{\partial{L}}{\partial{b}}|_{w=w^0,b=b^0}</script><p>重复以上步骤</p>
+<h6 id="3-梯度算子，可将以上方程简化表示"><a href="#3-梯度算子，可将以上方程简化表示" class="headerlink" title="3.梯度算子，可将以上方程简化表示"></a>3.梯度算子，可将以上方程简化表示</h6><script type="math/tex; mode=display">
+\nabla L= \left[ { \frac{\partial{L}}{\partial{w}} \atop \frac{\partial{L}}{\partial{b}} }  \right]_{gradient}</script><h6 id="4-可视化表示"><a href="#4-可视化表示" class="headerlink" title="4.可视化表示"></a>4.可视化表示</h6><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132759.png" width="400" hegiht="650"></p>
+<h6 id="5-缺点"><a href="#5-缺点" class="headerlink" title="5.缺点"></a>5.缺点</h6><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132854.png" width="400" hegiht="650"></p>
+<ul>
+<li>会存在局部最低点。所以对一般的函数使用时会得到不同的结果</li>
+<li>当我们的损失函数是convas(凸函数)时就不会存在Local Minima(局部最小值)</li>
+</ul>
+<h4 id="5-例子的Gradient-Descent表示"><a href="#5-例子的Gradient-Descent表示" class="headerlink" title="5.例子的Gradient Descent表示"></a>5.例子的Gradient Descent表示</h4><script type="math/tex; mode=display">L(w,b)=\sum_{n=1}^{10}(\hat{y}^n-(b+w·x_{cp}^n))^2</script><script type="math/tex; mode=display">\nabla L= \left[{\frac{\partial{L}}{\partial{w}} \atop \frac{\partial{L}}{\partial{b}} }  \right]_{gradient}=\left[ 2·\sum_{n=1}^{10}(\hat{y}^n-(b+w·x_{cp}^n))·(-x_{cp}^n)\atop 2·\sum_{n=1}^{10}(\hat{y}^n-(b+w·x_{cp}^n))·(-1)\right]_{gradient}</script><h4 id="6-例子的结果"><a href="#6-例子的结果" class="headerlink" title="6.例子的结果"></a>6.例子的结果</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502132938.png" width="400" hegiht="650"></p>
+<h4 id="7-改进模型"><a href="#7-改进模型" class="headerlink" title="7.改进模型"></a>7.改进模型</h4><h5 id="从新设计我们的模型，使用二次式表示方程"><a href="#从新设计我们的模型，使用二次式表示方程" class="headerlink" title="从新设计我们的模型，使用二次式表示方程"></a>从新设计我们的模型，使用二次式表示方程</h5><script type="math/tex; mode=display">
+y= b+w_1·x_{cp}+w_2·(x_{cp})^2</script><p>求解的Best Function：<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502133313.png" width="400" hegiht="650"></p>
+<h5 id="再次改进模型，使用三次式"><a href="#再次改进模型，使用三次式" class="headerlink" title="再次改进模型，使用三次式"></a>再次改进模型，使用三次式</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502133525.png" width="400" hegiht="650"></p>
+<h5 id="改进，使用四次式"><a href="#改进，使用四次式" class="headerlink" title="改进，使用四次式"></a>改进，使用四次式</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134130.png" width="400" hegiht="650"></p>
+<h5 id="改进，使用五次式"><a href="#改进，使用五次式" class="headerlink" title="改进，使用五次式"></a>改进，使用五次式</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134330.png" width="400" hegiht="650"></p>
+<h4 id="8-改进对比"><a href="#8-改进对比" class="headerlink" title="8.改进对比"></a>8.改进对比</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134429.png" width="400" hegiht="650"></p>
+<h5 id="解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小"><a href="#解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小" class="headerlink" title="解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小"></a>解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134521.png" width="400" hegiht="650"></p>
+<h5 id="解释：但是更加复杂的函数的表现并不总是比简单的函数要好"><a href="#解释：但是更加复杂的函数的表现并不总是比简单的函数要好" class="headerlink" title="解释：但是更加复杂的函数的表现并不总是比简单的函数要好"></a>解释：但是更加复杂的函数的表现并不总是比简单的函数要好</h5><ul>
+<li>我们称这叫做overfitting</li>
+<li>所以我们不应该选择的越复杂的函数，目前应选择三次式来预测</li>
+</ul>
+<h4 id="9-当我们有更多的数据时"><a href="#9-当我们有更多的数据时" class="headerlink" title="9.当我们有更多的数据时"></a>9.当我们有更多的数据时</h4><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134555.png" width="400" hegiht="650"></p>
+<h5 id="明显有其他的因素来影响CP值，就是物种，下面我们来修正模型"><a href="#明显有其他的因素来影响CP值，就是物种，下面我们来修正模型" class="headerlink" title="明显有其他的因素来影响CP值，就是物种，下面我们来修正模型"></a>明显有其他的因素来影响CP值，就是物种，下面我们来修正模型</h5><h4 id="10-修正模型"><a href="#10-修正模型" class="headerlink" title="10.修正模型"></a>10.修正模型</h4><h5 id="逻辑表示"><a href="#逻辑表示" class="headerlink" title="逻辑表示"></a>逻辑表示</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134750.png" width="400" hegiht="650"></p>
+<h6 id="解释：将我们的模型按照物种分类"><a href="#解释：将我们的模型按照物种分类" class="headerlink" title="解释：将我们的模型按照物种分类"></a>解释：将我们的模型按照物种分类</h6><ul>
+<li>这样的表示方式，并不方便我们求解问题。因此我们为了简化表示，使用另一种方法表示这样的一组方程</li>
+</ul>
+<h5 id="数学表示"><a href="#数学表示" class="headerlink" title="数学表示"></a>数学表示</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134840.png" width="400" hegiht="650"></p>
+<h6 id="解释：蓝色框内的是x-即数据的特征"><a href="#解释：蓝色框内的是x-即数据的特征" class="headerlink" title="解释：蓝色框内的是x,即数据的特征"></a>解释：蓝色框内的是x,即数据的特征</h6><ul>
+<li>所以这样还是一个线性的模型。</li>
+</ul>
+<h5 id="修正后的结果"><a href="#修正后的结果" class="headerlink" title="修正后的结果"></a>修正后的结果</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502134928.png" width="400" hegiht="650"></p>
+<h6 id="解释：误差还是过大，可能还有其他的因素来影响CP值"><a href="#解释：误差还是过大，可能还有其他的因素来影响CP值" class="headerlink" title="解释：误差还是过大，可能还有其他的因素来影响CP值"></a>解释：误差还是过大，可能还有其他的因素来影响CP值</h6><ul>
+<li>可能CP值有一定的随机因素</li>
+<li>也有可能有其他的特征会影响CP值：<ul>
+<li>例：体重、身高、HP<br><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135105.png" width="400" hegiht="650"></li>
+</ul>
+</li>
+</ul>
+<h6 id="再次修正"><a href="#再次修正" class="headerlink" title="再次修正"></a>再次修正</h6><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135202.png" width="400" hegiht="650"></p>
+<h6 id="解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了"><a href="#解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了" class="headerlink" title="解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了"></a>解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了</h6><h6 id="改进：使用Regularization"><a href="#改进：使用Regularization" class="headerlink" title="改进：使用Regularization"></a>改进：使用Regularization</h6><ul>
+<li>重新定义我们的Loss Function,将一些信息放进去。使得我们可以获得更好的结果。</li>
+</ul>
+<script type="math/tex; mode=display">y=b+\sum w_i·x_i</script><script type="math/tex; mode=display">L(w,b)=\sum_{n}(\hat{y}^n-(b+w·x_{cp}^n))^2+\lambda · \sum(w_i)^2</script><p>注释：损失不单单是让对于直线的误差最小，还要使我们w参数较小w较小意味着我们的参数是更加平滑的。</p>
+<p><div align="lift"><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135242.png" width="200" hegiht="330">大参数</div></p>
+<p><div align="right"><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190502135316.png" width="200" hegiht="330">小参数</div><br>即对一个输入x来说，当w大于1时，x的变化会得到扩大，当w小于1时，x的变化会缩小。当w小时函数是趋向于平的。</p>
+<h5 id="何时选择较小的w呢？"><a href="#何时选择较小的w呢？" class="headerlink" title="何时选择较小的w呢？"></a>何时选择较小的w呢？</h5><p>我们认为在大多数的情况下，较平滑的w更倾向于是正确的</p>
+<h5 id="为什么bias没有加入Regularization的一项。"><a href="#为什么bias没有加入Regularization的一项。" class="headerlink" title="为什么bias没有加入Regularization的一项。"></a>为什么bias没有加入Regularization的一项。</h5><p>因为bias这一项只是影响函数图像的位置上移或者下移。并不影响函数的平滑程度。所以Regularization这一项中并没有考虑bias。</p>
+<h5 id="正则化后的结果"><a href="#正则化后的结果" class="headerlink" title="正则化后的结果"></a>正则化后的结果</h5><p><img src="https://raw.githubusercontent.com/wtc842017068/Pictures/master/20190506114221.png" width="400" hegiht="650"></p>
+
+      
+    </div>
+    
+    
+    
+     <div>
+     
+       <div>
+    
+    <style>
+    .passage_end::after{
+        content: "- The End -";
+        text-align:center;
+        color: #252525;
+        display: block;
+        font-size:26px;
+        font-weight:bold;
+        font-family: Vladimir Script;
+    }
+    </style>
+        <div class="passage_end"></div>
+    
+</div>
+       
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/04/Regression/">Regression(回归)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Sky C.W 的个人博客">Sky C.W</a></p>
+  <p><span>发布时间:</span>2019年05月04日 - 00:38</p>
+  <p><span>最后更新:</span>2019年06月29日 - 21:29</p>
+  <p><span>原始链接:</span><a href="/2019/05/04/Regression/" title="Regression(回归)">https://wtc842017068.github.io/2019/05/04/Regression/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://wtc842017068.github.io/2019/05/04/Regression/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+     
+     </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Sky C.W 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Sky C.W 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Sky C.W
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://wtc842017068.github.io/2019/05/04/Regression/" title="Regression(回归)">https://wtc842017068.github.io/2019/05/04/Regression/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/李宏毅/" rel="tag"><i class="fa fa-tag"></i> 李宏毅</a>
+          
+            <a href="/tags/Regression/" rel="tag"><i class="fa fa-tag"></i> Regression</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/23/MachineLearning/" rel="next" title="机器学习-简介">
+                <i class="fa fa-chevron-left"></i> 机器学习-简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/06/Error/" rel="prev" title="Error(误差)的来源">
+                Error(误差)的来源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.PNG" alt="Sky C.W">
+            
+              <p class="site-author-name" itemprop="name">Sky C.W</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wtc842017068" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/tian-lan-46" target="_blank" title="ZhiHu">
+                      
+                        <i class="fa fa-fw fa-book"></i>ZhiHu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://stackoverflow.com/" title="Stackoverflow" target="_blank">Stackoverflow</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression-回归"><span class="nav-number">1.</span> <span class="nav-text">Regression(回归)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用举例"><span class="nav-number">1.1.</span> <span class="nav-text">应用举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际例子"><span class="nav-number">1.2.</span> <span class="nav-text">实际例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-定义函数的集合："><span class="nav-number">1.2.1.</span> <span class="nav-text">1.定义函数的集合：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#假设函数为："><span class="nav-number">1.2.1.1.</span> <span class="nav-text">假设函数为：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线性模型："><span class="nav-number">1.2.1.2.</span> <span class="nav-text">线性模型：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-搜集数据-监督学习-："><span class="nav-number">1.2.2.</span> <span class="nav-text">2.搜集数据(监督学习)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-定义LossFunction-损失函数-："><span class="nav-number">1.2.3.</span> <span class="nav-text">3.定义LossFunction(损失函数)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-找出损失最下的那个函数："><span class="nav-number">1.2.4.</span> <span class="nav-text">4.找出损失最下的那个函数：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradient-Descend"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Gradient Descend</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-假设LossFunction只有一个参数w"><span class="nav-number">1.2.4.1.1.</span> <span class="nav-text">1.假设LossFunction只有一个参数w</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-假设LossFunction只有两个参数w和b时"><span class="nav-number">1.2.4.1.2.</span> <span class="nav-text">2.假设LossFunction只有两个参数w和b时</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-梯度算子，可将以上方程简化表示"><span class="nav-number">1.2.4.1.3.</span> <span class="nav-text">3.梯度算子，可将以上方程简化表示</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-可视化表示"><span class="nav-number">1.2.4.1.4.</span> <span class="nav-text">4.可视化表示</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-缺点"><span class="nav-number">1.2.4.1.5.</span> <span class="nav-text">5.缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-例子的Gradient-Descent表示"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.例子的Gradient Descent表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-例子的结果"><span class="nav-number">1.2.6.</span> <span class="nav-text">6.例子的结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-改进模型"><span class="nav-number">1.2.7.</span> <span class="nav-text">7.改进模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#从新设计我们的模型，使用二次式表示方程"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">从新设计我们的模型，使用二次式表示方程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#再次改进模型，使用三次式"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">再次改进模型，使用三次式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改进，使用四次式"><span class="nav-number">1.2.7.3.</span> <span class="nav-text">改进，使用四次式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改进，使用五次式"><span class="nav-number">1.2.7.4.</span> <span class="nav-text">改进，使用五次式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-改进对比"><span class="nav-number">1.2.8.</span> <span class="nav-text">8.改进对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">解释：越复杂的模型可以包含更大的范围，并且在训练集上的误差越小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解释：但是更加复杂的函数的表现并不总是比简单的函数要好"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">解释：但是更加复杂的函数的表现并不总是比简单的函数要好</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-当我们有更多的数据时"><span class="nav-number">1.2.9.</span> <span class="nav-text">9.当我们有更多的数据时</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#明显有其他的因素来影响CP值，就是物种，下面我们来修正模型"><span class="nav-number">1.2.9.1.</span> <span class="nav-text">明显有其他的因素来影响CP值，就是物种，下面我们来修正模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-修正模型"><span class="nav-number">1.2.10.</span> <span class="nav-text">10.修正模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑表示"><span class="nav-number">1.2.10.1.</span> <span class="nav-text">逻辑表示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#解释：将我们的模型按照物种分类"><span class="nav-number">1.2.10.1.1.</span> <span class="nav-text">解释：将我们的模型按照物种分类</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数学表示"><span class="nav-number">1.2.10.2.</span> <span class="nav-text">数学表示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#解释：蓝色框内的是x-即数据的特征"><span class="nav-number">1.2.10.2.1.</span> <span class="nav-text">解释：蓝色框内的是x,即数据的特征</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修正后的结果"><span class="nav-number">1.2.10.3.</span> <span class="nav-text">修正后的结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#解释：误差还是过大，可能还有其他的因素来影响CP值"><span class="nav-number">1.2.10.3.1.</span> <span class="nav-text">解释：误差还是过大，可能还有其他的因素来影响CP值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#再次修正"><span class="nav-number">1.2.10.3.2.</span> <span class="nav-text">再次修正</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了"><span class="nav-number">1.2.10.3.3.</span> <span class="nav-text">解释：将我们的模型变得更加复杂，将全部的可能情况都考虑进去。但是测试数据坏掉了</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#改进：使用Regularization"><span class="nav-number">1.2.10.3.4.</span> <span class="nav-text">改进：使用Regularization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#何时选择较小的w呢？"><span class="nav-number">1.2.10.4.</span> <span class="nav-text">何时选择较小的w呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么bias没有加入Regularization的一项。"><span class="nav-number">1.2.10.5.</span> <span class="nav-text">为什么bias没有加入Regularization的一项。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正则化后的结果"><span class="nav-number">1.2.10.6.</span> <span class="nav-text">正则化后的结果</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sky C.W</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">9.1k</span>
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'cekoA2Kid1fqXmw5hfGausbh-gzGzoHsz',
+        appKey: '9HlHRr2fPAbcimLErDOuof61',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
