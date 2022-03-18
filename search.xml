@@ -18,4 +18,27 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>cpp 侯捷Note</title>
+    <url>/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/</url>
+    <content><![CDATA[<!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
+<!-- 其中 class="blockquote-center" 是必须的 -->
+<blockquote class="blockquote-center">this is note</blockquote>
+
+<!-- 标签 方式，要求版本在0.4.5或以上 -->
+<blockquote class="blockquote-center">
+<p>this is note</p>
+
+</blockquote>
+
+<!-- 标签别名 -->
+<blockquote class="blockquote-center">
+<p>nick name </p>
+
+</blockquote>]]></content>
+      <tags>
+        <tag>cpp</tag>
+        <tag>侯捷</tag>
+      </tags>
+  </entry>
 </search>
