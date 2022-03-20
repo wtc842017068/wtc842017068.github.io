@@ -25,18 +25,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="this is note    this is note      nick name">
+    <meta name="description" content="基本概念1.c与cpp 的区别   语言 c cpp     Object Base(基于对象) Object Oriented(面向对象)    面对**单一的class(类)**设计 面对多重classes的设计，着重于class之间的关系   头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c &lt;stdio&gt; &lt;cstdio&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cpp 侯捷Note">
+<meta property="og:title" content="cpp 面向对象基础--基础与头文件声明">
 <meta property="og:url" content="http://example.com/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/index.html">
 <meta property="og:site_name" content="Sky Blog">
-<meta property="og:description" content="this is note    this is note      nick name">
+<meta property="og:description" content="基本概念1.c与cpp 的区别   语言 c cpp     Object Base(基于对象) Object Oriented(面向对象)    面对**单一的class(类)**设计 面对多重classes的设计，着重于class之间的关系   头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c &lt;stdio&gt; &lt;cstdio&gt;">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-18T16:11:15.000Z">
-<meta property="article:modified_time" content="2022-03-18T16:13:54.749Z">
+<meta property="article:modified_time" content="2022-03-20T12:17:37.769Z">
 <meta property="article:author" content="SkyCW">
 <meta property="article:tag" content="cpp">
 <meta property="article:tag" content="侯捷">
+<meta property="article:tag" content="头文件">
 <meta name="twitter:card" content="summary">
 
 
@@ -44,10 +45,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/","path":"2022/03/19/cpp-侯捷Note/","title":"cpp 侯捷Note"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/","path":"2022/03/19/cpp-侯捷Note/","title":"cpp 面向对象基础--基础与头文件声明"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>cpp 侯捷Note | Sky Blog</title>
+<title>cpp 面向对象基础--基础与头文件声明 | Sky Blog</title>
   
 
 
@@ -98,7 +99,6 @@
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
-        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
       <li class="menu-item menu-item-search">
@@ -144,7 +144,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -157,6 +157,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-c%E4%B8%8Ecpp-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">1.c与cpp 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%98%B2%E5%8D%AB%E5%BC%8F%E7%94%9F%E5%91%BD"><span class="nav-number">1.2.</span> <span class="nav-text">2. 防卫式生命</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">头文件布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class%E5%A3%B0%E6%98%8E-%E6%A8%A1%E6%9D%BF%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">class声明(模板类)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,13 +172,19 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -236,12 +243,12 @@
     </span>
     
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="cpp 侯捷Note | Sky Blog">
+      <meta itemprop="name" content="cpp 面向对象基础--基础与头文件声明 | Sky Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cpp 侯捷Note
+          cpp 面向对象基础--基础与头文件声明
         </h1>
 
         <div class="post-meta-container">
@@ -251,11 +258,40 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-03-19 00:11:15 / Modified: 00:13:54" itemprop="dateCreated datePublished" datetime="2022-03-19T00:11:15+08:00">2022-03-19</time>
+      <time title="Created: 2022-03-19 00:11:15" itemprop="dateCreated datePublished" datetime="2022-03-19T00:11:15+08:00">2022-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-20 20:17:37" itemprop="dateModified" datetime="2022-03-20T20:17:37+08:00">2022-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
     </span>
 
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 面向对象基础--基础与头文件声明" href="/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::45dd64dfe2df95900fc984067d59c72d" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="Symbols count in article">
@@ -263,7 +299,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>28</span>
+      <span>815</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -283,19 +319,45 @@
     <div class="post-body" itemprop="articleBody">
         <!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
 <!-- 其中 class="blockquote-center" 是必须的 -->
-<blockquote class="blockquote-center">this is note</blockquote>
+<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
 
-<!-- 标签 方式，要求版本在0.4.5或以上 -->
-<blockquote class="blockquote-center">
-<p>this is note</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-c与cpp-的区别"><a href="#1-c与cpp-的区别" class="headerlink" title="1.c与cpp 的区别"></a>1.c与cpp 的区别</h3><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>c</th>
+<th>cpp</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>Object Base(基于对象)</td>
+<td>Object Oriented(面向对象)</td>
+</tr>
+<tr>
+<td></td>
+<td>面对**单一的class(类)**设计</td>
+<td>面对多重classes的设计，着重于<strong>class之间的关系</strong></td>
+</tr>
+<tr>
+<td>头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c</td>
+<td>&lt;stdio&gt;</td>
+<td>&lt;cstdio&gt; &lt;iostream&gt;</td>
+</tr>
+</tbody></table>
+<h3 id="2-防卫式生命"><a href="#2-防卫式生命" class="headerlink" title="2. 防卫式生命"></a>2. 防卫式生命</h3><p><em>为了解决引用顺序的问题</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="头文件布局"><a href="#头文件布局" class="headerlink" title="头文件布局"></a>头文件布局</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line"><span class="comment">// 前项生命</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类声明</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义</span></span><br><span class="line">complex::<span class="built_in">method</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
-</blockquote>
+<h2 id="class声明-模板类"><a href="#class声明-模板类" class="headerlink" title="class声明(模板类)"></a>class声明(模板类)</h2><ul>
+<li>complex.h</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125;</span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
-<!-- 标签别名 -->
-<blockquote class="blockquote-center">
-<p>nick name </p>
-
-</blockquote>
+<ul>
+<li>Complex 类的使用</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">complexDouble</span><span class="params">(<span class="number">1.0</span>,<span class="number">2.0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -353,19 +415,11 @@
           <div class="post-tags">
               <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> cpp</a>
               <a href="/tags/%E4%BE%AF%E6%8D%B7/" rel="tag"><i class="fa fa-tag"></i> 侯捷</a>
+              <a href="/tags/%E5%A4%B4%E6%96%87%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 头文件</a>
           </div>
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2022/03/13/hello-world/" rel="prev" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
-                </a>
-            </div>
-            <div class="post-nav-item">
-            </div>
-          </div>
     </footer>
   </article>
 </div>
@@ -375,11 +429,24 @@
 
 
 
-    
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-changyan">changyan</a></li>
+            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="45dd64dfe2df95900fc984067d59c72d"></div>
+            </div>
+            <div class="tab-pane disqusjs" id="comment-disqusjs">
+              
   <div class="comments" id="disqus_thread">
     <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
+            </div>
+        </div>
+      </div>
 </div>
   </main>
 
@@ -400,7 +467,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">0k</span>
+    <span title="Symbols count total">1k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -432,9 +499,11 @@
 
 
 
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvXLLUFD","appkey":"ce48e24fb9dd5ba5923cc4921ebe91d7"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" integrity="sha256-GxdCIOyfxQ1OBfS99qAIJDoGK1ADuBsxhMTqXG82fAY=" crossorigin="anonymous">
 
-<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/","apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"天王星","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":null,"apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"skycw-disqus-com","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
 <script src="/js/third-party/comments/disqusjs.js"></script>
 
 </body>

@@ -1,44 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>cpp 侯捷Note</title>
+    <title>cpp 面向对象基础--基础与头文件声明</title>
     <url>/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/</url>
     <content><![CDATA[<!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
 <!-- 其中 class="blockquote-center" 是必须的 -->
-<blockquote class="blockquote-center">this is note</blockquote>
+<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
 
-<!-- 标签 方式，要求版本在0.4.5或以上 -->
-<blockquote class="blockquote-center">
-<p>this is note</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-c与cpp-的区别"><a href="#1-c与cpp-的区别" class="headerlink" title="1.c与cpp 的区别"></a>1.c与cpp 的区别</h3><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>c</th>
+<th>cpp</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>Object Base(基于对象)</td>
+<td>Object Oriented(面向对象)</td>
+</tr>
+<tr>
+<td></td>
+<td>面对**单一的class(类)**设计</td>
+<td>面对多重classes的设计，着重于<strong>class之间的关系</strong></td>
+</tr>
+<tr>
+<td>头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c</td>
+<td>&lt;stdio&gt;</td>
+<td>&lt;cstdio&gt; &lt;iostream&gt;</td>
+</tr>
+</tbody></table>
+<h3 id="2-防卫式生命"><a href="#2-防卫式生命" class="headerlink" title="2. 防卫式生命"></a>2. 防卫式生命</h3><p><em>为了解决引用顺序的问题</em></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="头文件布局"><a href="#头文件布局" class="headerlink" title="头文件布局"></a>头文件布局</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line"><span class="comment">// 前项生命</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类声明</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义</span></span><br><span class="line">complex::<span class="built_in">method</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
-</blockquote>
+<h2 id="class声明-模板类"><a href="#class声明-模板类" class="headerlink" title="class声明(模板类)"></a>class声明(模板类)</h2><ul>
+<li>complex.h</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125;</span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
-<!-- 标签别名 -->
-<blockquote class="blockquote-center">
-<p>nick name </p>
-
-</blockquote>]]></content>
+<ul>
+<li>Complex 类的使用</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">complexDouble</span><span class="params">(<span class="number">1.0</span>,<span class="number">2.0</span>)</span></span>;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
       <tags>
         <tag>cpp</tag>
         <tag>侯捷</tag>
+        <tag>头文件</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/03/13/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
