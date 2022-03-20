@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hD9G1CERbajkxJHKNOGHCZn211qP8IK9ARPWLrMaK4E">
+  <meta name="msvalidate.01" content="F2F94B24520E8120CD768575C9B5141C">
+  <meta name="yandex-verification" content="15903ac9a50f3a5d">
+  <meta name="baidu-site-verification" content="code-aE9xzlo0dF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="inline（内联函数）若在函数体内定义完成，变为内联函数的候选人inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp 构造与析构（侯捷）">
+<meta property="og:url" content="http://example.com/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/index.html">
+<meta property="og:site_name" content="Sky Blog">
+<meta property="og:description" content="inline（内联函数）若在函数体内定义完成，变为内联函数的候选人inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-03-20T12:26:09.000Z">
+<meta property="article:modified_time" content="2022-03-20T13:59:32.280Z">
+<meta property="article:author" content="SkyCW">
+<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="侯捷">
+<meta property="article:tag" content="构造">
+<meta property="article:tag" content="析构">
+<meta property="article:tag" content="内联函数">
+<meta property="article:tag" content="操作符重载">
+<meta property="article:tag" content="临时对象">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/","path":"2022/03/20/cpp-构造与析构/","title":"cpp 构造与析构（侯捷）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cpp 构造与析构（侯捷） | Sky Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sky Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#inline%EF%BC%88%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">inline（内联函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">3.</span> <span class="nav-text">友元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">4.</span> <span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%EF%BC%8C%E5%85%A5%E5%8F%82%E4%BB%A5%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">尽量使用引用传递，入参以及返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%EF%BC%8C%E8%8B%A5%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%9C%A8%E7%A6%BB%E5%BC%80%E5%87%BD%E6%95%B0%E5%90%8E%E4%B8%8D%E5%AD%98%E5%9C%A8"><span class="nav-number">4.2.</span> <span class="nav-text">返回值不能使用引用，若返回的值在离开函数后不存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">非成员函数</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SkyCW"
+      src="/images/image.jpg">
+  <p class="site-author-name" itemprop="name">SkyCW</p>
+  <div class="site-description" itemprop="description">Discipline is the bridege between goals and accomplishment</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wtc842017068" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wtc842017068" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wtc84201068@gmail.com" title="E-Mail → mailto:wtc84201068@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyCW">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cpp 构造与析构（侯捷） | Sky Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp 构造与析构（侯捷）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-03-20 20:26:09 / Modified: 21:59:32" itemprop="dateCreated datePublished" datetime="2022-03-20T20:26:09+08:00">2022-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 构造与析构（侯捷）" href="/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::d19f3b38beeeaac785a665e99fcf673d" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="inline（内联函数）"><a href="#inline（内联函数）" class="headerlink" title="inline（内联函数）"></a>inline（内联函数）</h2><p><em>若在函数体内定义完成，变为内联函数的候选人</em><br>inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定</p>
+<span id="more"></span>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>函数重载 :由编译器负责将函数命名唯一化，使用<strong>函数名</strong>和<strong>参数</strong> 有关</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125; <span class="comment">//inline 使用初始化构造列表,优点构造函数运行更快：因为在变量初始化时就进行了赋值</span></span><br><span class="line">    <span class="comment">// (T r=0,T i=0) 默认实参</span></span><br><span class="line">    <span class="built_in">complex</span>():<span class="built_in">re</span>(<span class="number">0</span>),<span class="built_in">im</span>(<span class="number">0</span>)&#123;&#125;<span class="comment">// 与 上面的构造函数冲突，因此这种构造不允许存在</span></span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125; <span class="comment">//inline</span></span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;<span class="comment">//inline</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;); <span class="comment">//友元 可以直接访问类的私有成员</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>尽量inline由编译器决定</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">double</span> <span class="title">imag</span><span class="params">(<span class="type">const</span> conplex&amp; x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.<span class="built_in">imag</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> complex&amp;</span><br><span class="line">__doapl (complex* ths,<span class="type">const</span> comlex&amp; r)&#123;</span><br><span class="line">    ths-&gt;re +=r.re;</span><br><span class="line">    ths-&gt;im +=r.im;</span><br><span class="line">    <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p><strong>同一个class的各个objects互为友元</strong></p>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><h3 id="尽量使用引用传递，入参以及返回值"><a href="#尽量使用引用传递，入参以及返回值" class="headerlink" title="尽量使用引用传递，入参以及返回值"></a>尽量使用引用传递，入参以及返回值</h3><p><em>引用实际上是由编译器使用指针实现</em></p>
+<h3 id="返回值不能使用引用，若返回的值在离开函数后不存在"><a href="#返回值不能使用引用，若返回的值在离开函数后不存在" class="headerlink" title="返回值不能使用引用，若返回的值在离开函数后不存在"></a>返回值不能使用引用，若返回的值在离开函数后不存在</h3><p>使用引用的方式<strong>传递着</strong>，无需知道<strong>接受者是以引用</strong>的方式接受的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> complex&amp;</span><br><span class="line">comolex::operayor += (<span class="type">const</span> comlex&amp; r)&#123;</span><br><span class="line">   <span class="keyword">return</span> __doapl(<span class="keyword">this</span>,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">c2 +=c1;</span><br><span class="line">c2+=c2+=c1;<span class="comment">// 因为是引用的方式，所以这种写法是可以的。既传递着无需关心接受者的接收方式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="操作符重载"><a href="#操作符重载" class="headerlink" title="操作符重载"></a>操作符重载</h2><h3 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">complex c1;</span><br><span class="line">complex c2;</span><br><span class="line">c2+=c1;<span class="comment">//操作符被作用到左侧的这个类型上</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">inline</span> complex&amp;</span><br><span class="line"><span class="comment">//由于这个函数其他地方可能会用到，因此我们需要把它独立出来</span></span><br><span class="line">__doapl (complex* ths,<span class="type">const</span> comlex&amp; r)&#123;<span class="comment">//第二个参数不会改动，因此添加const关键字</span></span><br><span class="line">    ths-&gt;re +=r.re;</span><br><span class="line">    ths-&gt;im +=r.im;</span><br><span class="line">    <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> complex&amp;</span><br><span class="line">comolex::operayor += (<span class="type">const</span> comlex&amp; r)&#123;</span><br><span class="line">   <span class="keyword">return</span> __doapl(<span class="keyword">this</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非成员函数"><a href="#非成员函数" class="headerlink" title="非成员函数"></a>非成员函数</h3><p><em>临时对象</em><br>特殊操作符要使用全局的操作符重载<br>cout&lt;&lt; conj(c1);<br>cout&lt;&lt; c1&lt;&lt; conj(c1);</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局函数</span></span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x,<span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));<span class="comment">//类型（）创建临时变量。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x, <span class="type">double</span> y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +( <span class="type">double</span> x, <span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(x+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> +(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> -(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(-<span class="built_in">real</span>(x),-<span class="built_in">imag</span>(x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="built_in">imag</span>(y);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">double</span> y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==y &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">double</span> x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> x==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line">ostream &amp;</span><br><span class="line"><span class="keyword">operator</span> &lt;&lt; (ostream&amp; os,<span class="type">const</span> compelx&amp;x)&#123;<span class="comment">//os 不能const，因为每次输出改变os的状态</span></span><br><span class="line">    <span class="keyword">return</span> os&lt;&lt;<span class="string">&quot;&quot;</span>&lt;&lt;<span class="built_in">real</span>(x)&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;<span class="built_in">imag</span>(x)&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="SkyCW WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="SkyCW Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/skyCW">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://www.zhihu.com/people/skyCW">
+          <span class="icon">
+            <i class="fab fa-zhihu"></i>
+          </span>
+
+          <span class="label">Zhihu</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> cpp</a>
+              <a href="/tags/%E4%BE%AF%E6%8D%B7/" rel="tag"><i class="fa fa-tag"></i> 侯捷</a>
+              <a href="/tags/%E6%9E%84%E9%80%A0/" rel="tag"><i class="fa fa-tag"></i> 构造</a>
+              <a href="/tags/%E6%9E%90%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 析构</a>
+              <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 内联函数</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag"><i class="fa fa-tag"></i> 操作符重载</a>
+              <a href="/tags/%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 临时对象</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/" rel="prev" title="cpp 面向对象基础--基础与头文件声明">
+                  <i class="fa fa-chevron-left"></i> cpp 面向对象基础--基础与头文件声明
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-changyan">changyan</a></li>
+            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="d19f3b38beeeaac785a665e99fcf673d"></div>
+            </div>
+            <div class="tab-pane disqusjs" id="comment-disqusjs">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SkyCW</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">3k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">3 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvXLLUFD","appkey":"ce48e24fb9dd5ba5923cc4921ebe91d7"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" integrity="sha256-GxdCIOyfxQ1OBfS99qAIJDoGK1ADuBsxhMTqXG82fAY=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":null,"apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"skycw-disqus-com","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>
