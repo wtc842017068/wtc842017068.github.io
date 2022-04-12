@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hD9G1CERbajkxJHKNOGHCZn211qP8IK9ARPWLrMaK4E">
+  <meta name="msvalidate.01" content="F2F94B24520E8120CD768575C9B5141C">
+  <meta name="yandex-verification" content="15903ac9a50f3a5d">
+  <meta name="baidu-site-verification" content="code-aE9xzlo0dF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Variadic Templates(可变参数模板) 123456789101112&#x2F;&#x2F; 可变参数模板&#x2F;&#x2F; 无参数函数，用于结束调用 void printX()&amp;#123;&amp;#125;&#x2F;&#x2F; 包含一个参数固定参数的可变模板函数template &lt;typename T,typename... types&gt;void printX(const T&amp; firstArg,const T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp 11&amp;14 可变参数模板与空指针,auto">
+<meta property="og:url" content="http://example.com/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="CodeSkyBlue Blog">
+<meta property="og:description" content="Variadic Templates(可变参数模板) 123456789101112&#x2F;&#x2F; 可变参数模板&#x2F;&#x2F; 无参数函数，用于结束调用 void printX()&amp;#123;&amp;#125;&#x2F;&#x2F; 包含一个参数固定参数的可变模板函数template &lt;typename T,typename... types&gt;void printX(const T&amp; firstArg,const T">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-03-20T15:08:29.000Z">
+<meta property="article:modified_time" content="2022-04-12T13:53:30.465Z">
+<meta property="article:author" content="SkyBlue">
+<meta property="article:tag" content="cpp11&amp;14">
+<meta property="article:tag" content="可变参数模板">
+<meta property="article:tag" content="nullptr">
+<meta property="article:tag" content="auto">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/","path":"2022/03/20/cpp-11-14-可变参数模板与空指针/","title":"cpp 11&14 可变参数模板与空指针,auto"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cpp 11&14 可变参数模板与空指针,auto | CodeSkyBlue Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CodeSkyBlue Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cpp-11-amp-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88-auto"><span class="nav-number">1.</span> <span class="nav-text">cpp 11&amp;14 可变参数模板与空指针,auto</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Variadic-Templates-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.1.</span> <span class="nav-text">Variadic Templates(可变参数模板)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E6%88%91%E4%BB%AC%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92"><span class="nav-number">1.1.1.</span> <span class="nav-text">帮助我们实现递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.2.</span> <span class="nav-text">code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cpp%E5%BA%93%E5%87%BD%E6%95%B0%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">cpp库函数举例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#calculate-Hash"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">calculate Hash</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tuple-realise"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">tuple realise</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tuple-sample"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">tuple sample</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nullptr-%E7%A9%BA%E6%8C%87%E9%92%88"><span class="nav-number">1.2.</span> <span class="nav-text">nullptr(空指针)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E5%8C%BA%E5%88%86%E7%A9%BA%E6%8C%87%E9%92%88%E4%B8%8ENULL"><span class="nav-number">1.2.1.</span> <span class="nav-text">用于区分空指针与NULL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auto"><span class="nav-number">1.3.</span> <span class="nav-text">auto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%B1%BB%E5%9E%8B%E7%B9%81%E7%90%90%E4%BB%A5%E5%8F%8A%E6%97%A0%E6%B3%95%E7%A1%AE%E5%AE%9A%E8%BF%94%E5%9B%9E%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%97%B6%E4%BD%BF%E7%94%A8-lambda-function"><span class="nav-number">1.3.1.</span> <span class="nav-text">在类型繁琐以及无法确定返回参数类型时使用(lambda function)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">code</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SkyBlue"
+      src="/images/image.jpg">
+  <p class="site-author-name" itemprop="name">SkyBlue</p>
+  <div class="site-description" itemprop="description">Discipline is the bridege between goals and accomplishment</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wtc842017068" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wtc842017068" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wtc84201068@gmail.com" title="E-Mail → mailto:wtc84201068@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cpp 11&14 可变参数模板与空指针,auto | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp 11&14 可变参数模板与空指针,auto
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-20 23:08:29" itemprop="dateCreated datePublished" datetime="2022-03-20T23:08:29+08:00">2022-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-12 21:53:30" itemprop="dateModified" datetime="2022-04-12T21:53:30+08:00">2022-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 11&14 可变参数模板与空指针,auto" href="/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::4b391012acde559061aac3b3ade67c85" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li><p>Variadic Templates(可变参数模板)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可变参数模板</span></span><br><span class="line"><span class="comment">// 无参数函数，用于结束调用 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 包含一个参数固定参数的可变模板函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> T&amp; firstArg,<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt; firstArg&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printX</span>(args...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>空指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;&#125;<span class="comment">//function1</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">void</span>* a)</span></span>&#123;&#125;<span class="comment">//funtion2</span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">NULL</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">nullptr</span>);<span class="comment">//call function2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模板函数书写变化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt; &gt;<span class="comment">//</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;<span class="comment">//Ok since c++11</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="cpp-11-amp-14-可变参数模板与空指针-auto"><a href="#cpp-11-amp-14-可变参数模板与空指针-auto" class="headerlink" title="cpp 11&amp;14 可变参数模板与空指针,auto"></a>cpp 11&amp;14 可变参数模板与空指针,auto</h1></li>
+</ul>
+<h2 id="Variadic-Templates-可变参数模板"><a href="#Variadic-Templates-可变参数模板" class="headerlink" title="Variadic Templates(可变参数模板)"></a>Variadic Templates(可变参数模板)</h2><h3 id="帮助我们实现递归"><a href="#帮助我们实现递归" class="headerlink" title="帮助我们实现递归"></a><strong>帮助我们实现递归</strong></h3><h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可变参数模板</span></span><br><span class="line"><span class="comment">// 无参数函数，用于结束调用 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 包含一个参数固定参数的可变模板函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// type2 和 type 3 可以并存 2为特</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// type2 接收1个和各式各样的入参</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> T&amp; firstArg,<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt; firstArg&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt; <span class="keyword">sizeof</span>...(args...)&lt;&lt;endl;<span class="comment">// 可以使用sizeof...(args) 获取args的个数</span></span><br><span class="line">    <span class="built_in">printX</span>(args...);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// type3 接收各式各样的入参</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt; firstArg&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt; <span class="keyword">sizeof</span>...(args...)&lt;&lt;endl;<span class="comment">// 可以使用sizeof...(args) 获取args的个数</span></span><br><span class="line">    <span class="built_in">printX</span>(args...);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="cpp库函数举例"><a href="#cpp库函数举例" class="headerlink" title="cpp库函数举例"></a>cpp库函数举例</h4><h5 id="calculate-Hash"><a href="#calculate-Hash" class="headerlink" title="calculate Hash"></a>calculate Hash</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// another file</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">hash_combine</span><span class="params">(<span class="type">size_t</span>&amp; seed,<span class="type">const</span> T&amp; val)</span></span>&#123;</span><br><span class="line">    seed^=std::<span class="built_in">hash</span>&lt;T&gt;()(val)+<span class="number">0x9e3779b9</span>+(seed&lt;&lt;<span class="number">6</span>)+(seed&gt;&gt;<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// call sequence 1-&gt;2-&gt;recurse-&gt;3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// function 1</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>.. Type&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="title">hash_val</span><span class="params">(<span class="type">size_t</span>&amp; seed, <span class="type">const</span> T&amp; val,<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    <span class="built_in">hash_combine</span>(seed,val);</span><br><span class="line">    <span class="built_in">hash_val</span>(seed,args...);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// function 2</span></span><br><span class="line"><span class="comment">// auxiliary generic function</span></span><br><span class="line"><span class="keyword">template</span> &lt;typeame... Types&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">size_t</span> <span class="title">hash_val</span><span class="params">(<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    <span class="type">size_t</span> seed=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">hash_val</span>(seed,args);</span><br><span class="line">    <span class="keyword">return</span> seed;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function 3</span></span><br><span class="line"><span class="comment">// auxiliary generic function</span></span><br><span class="line"><span class="keyword">template</span> &lt;typeame T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">size_t</span> <span class="title">hash_val</span><span class="params">(<span class="type">size_t</span>&amp; seed,<span class="type">const</span> T&amp; val)</span></span>&#123;</span><br><span class="line">    <span class="built_in">hash_combine</span>(seed,val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="tuple-realise"><a href="#tuple-realise" class="headerlink" title="tuple realise"></a>tuple realise</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Values&gt;<span class="keyword">class</span> <span class="title class_">tuple</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;&gt;<span class="keyword">class</span> <span class="title class_">tuple</span>&lt;&gt;&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Head,<span class="keyword">typename</span>... Tail&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">tuple</span>&lt;Head,Tail...&gt;:<span class="keyword">private</span> typle&lt;Tail...&gt;&#123;</span><br><span class="line">    <span class="keyword">typedef</span> typle&lt;Tail...&gt; inherited;</span><br><span class="line"> </span><br><span class="line">pubic:</span><br><span class="line">    <span class="built_in">tuple</span>()&#123;&#125;</span><br><span class="line">    <span class="built_in">tuple</span>(Head v,Tail... vtail):<span class="built_in">m_head</span>(v),<span class="built_in">inherited</span>(vtail...)&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">typename</span> Head::type <span class="title">head</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_head;&#125;</span><br><span class="line"><span class="function">inherited&amp; <span class="title">tail</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">Head m_head;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="tuple-sample"><a href="#tuple-sample" class="headerlink" title="tuple sample"></a>tuple sample</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">tuple&lt;<span class="type">int</span>,<span class="type">float</span>,string&gt; <span class="title">t</span><span class="params">(<span class="number">41</span>,<span class="number">6.3</span>,<span class="string">&quot;nico&quot;</span>)</span></span>;</span><br><span class="line">t.<span class="built_in">head</span>();<span class="comment">//-&gt;4.1</span></span><br><span class="line">t.<span class="built_in">tail</span>().<span class="built_in">head</span>()<span class="comment">//-&gt;6.3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="nullptr-空指针"><a href="#nullptr-空指针" class="headerlink" title="nullptr(空指针)"></a>nullptr(空指针)</h2><h3 id="用于区分空指针与NULL"><a href="#用于区分空指针与NULL" class="headerlink" title="用于区分空指针与NULL"></a><strong>用于区分空指针与NULL</strong></h3><h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;&#125;<span class="comment">//function1</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">void</span>* a)</span></span>&#123;&#125;<span class="comment">//funtion2</span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">NULL</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">nullptr</span>);<span class="comment">//call function2</span></span><br></pre></td></tr></table></figure>
+<p><strong>file_name</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> <span class="keyword">define</span>(__cplusplus)&amp;&amp; __cplusplus&gt;=201103L</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _GXX_NULLPTR_T</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _GXX_NULLPTR_T</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(<span class="literal">nullptr</span>)</span> <span class="type">nullptr_t</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// ...</span></span></span><br><span class="line"><span class="function"><span class="meta">#<span class="keyword">endif</span></span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><h3 id="在类型繁琐以及无法确定返回参数类型时使用-lambda-function"><a href="#在类型繁琐以及无法确定返回参数类型时使用-lambda-function" class="headerlink" title="在类型繁琐以及无法确定返回参数类型时使用(lambda function)"></a><strong>在类型繁琐以及无法确定返回参数类型时使用(lambda function)</strong></h3><h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;string&gt; v;</span><br><span class="line"><span class="keyword">auto</span> pos=v.<span class="built_in">begin</span>();<span class="comment">// 类型写起来繁琐</span></span><br><span class="line"><span class="keyword">auto</span> i=[](<span class="type">int</span> x)-&gt;<span class="type">bool</span>&#123; <span class="comment">// lambda</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="SkyBlue WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="SkyBlue Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/skyCW">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://www.zhihu.com/people/skyCW">
+          <span class="icon">
+            <i class="fab fa-zhihu"></i>
+          </span>
+
+          <span class="label">Zhihu</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/cpp11-14/" rel="tag"><i class="fa fa-tag"></i> cpp11&14</a>
+              <a href="/tags/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/" rel="tag"><i class="fa fa-tag"></i> 可变参数模板</a>
+              <a href="/tags/nullptr/" rel="tag"><i class="fa fa-tag"></i> nullptr</a>
+              <a href="/tags/auto/" rel="tag"><i class="fa fa-tag"></i> auto</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/" rel="prev" title="cpp 构造与析构（侯捷）">
+                  <i class="fa fa-chevron-left"></i> cpp 构造与析构（侯捷）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-changyan">changyan</a></li>
+            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="4b391012acde559061aac3b3ade67c85"></div>
+            </div>
+            <div class="tab-pane disqusjs" id="comment-disqusjs">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SkyBlue</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">6k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvXLLUFD","appkey":"ce48e24fb9dd5ba5923cc4921ebe91d7"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" integrity="sha256-GxdCIOyfxQ1OBfS99qAIJDoGK1ADuBsxhMTqXG82fAY=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":null,"apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"skycw-disqus-com","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>
