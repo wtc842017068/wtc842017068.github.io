@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -224,6 +224,135 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/15/cpp-11-14-type-Alias-nonexcep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/15/cpp-11-14-type-Alias-nonexcep/" class="post-title-link" itemprop="url">cpp 11&14 type Alias,nonexcep和override</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-04-15 00:04:56 / Modified: 01:11:26" itemprop="dateCreated datePublished" datetime="2022-04-15T00:04:56+08:00">2022-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 11&14 type Alias,nonexcep和override" href="/2022/04/15/cpp-11-14-type-Alias-nonexcep/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::2fc386db2ff9cc2c16f4eb5c92a9184b" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>Type ALias <strong>(与typedef 相似)</strong><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//type alias,identical to</span></span><br><span class="line"><span class="comment">//typedef void(*func)(int,int);</span></span><br><span class="line"><span class="keyword">using</span> func=<span class="built_in">void</span>(*)(<span class="type">int</span>,<span class="type">int</span>);</span><br><span class="line"><span class="comment">//func 表示一个入参为(int,int)类型的函数指针</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">example</span><span class="params">(<span class="type">int</span>,<span class="type">int</span>)</span></span>&#123;&#125;</span><br><span class="line">func fn=example;</span><br><span class="line">typdef basic_string&lt;<span class="type">char</span>&gt; string;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//局部的typedef</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Container</span>&#123;</span><br><span class="line">    <span class="keyword">using</span> value_type=T;<span class="comment">//typedef T value_type</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//并且可以应用到原编程,如果上述定义了value_type</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Cntr&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fn2</span><span class="params">(<span class="type">const</span> Cntr&amp; c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">typename</span> Cntr::value_type n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//用于隐藏模板参数</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">CharT</span>&gt; <span class="keyword">using</span> mystring=std::basic_string&lt;CharT,std::char_traits&lt;Chart&gt;&gt;</span><br><span class="line">mystring&lt;<span class="type">char</span>&gt; str;</span><br></pre></td></tr></table></figure></li>
+<li>nonexcep<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span>noexcep</span>;</span><br><span class="line"><span class="comment">//void foo()noexcept(true); 表示不会抛出异常</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/15/cpp-11-14-type-Alias-nonexcep/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/13/cpp-11-14-default&delete%20%E4%BB%A5%E5%8F%8Atemplate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -252,9 +381,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-04-13 16:11:22 / Modified: 23:47:50" itemprop="dateCreated datePublished" datetime="2022-04-13T16:11:22+08:00">2022-04-13</time>
+      <time title="Created: 2022-04-13 16:11:22" itemprop="dateCreated datePublished" datetime="2022-04-13T16:11:22+08:00">2022-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-15 00:59:16" itemprop="dateModified" datetime="2022-04-15T00:59:16+08:00">2022-04-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,7 +450,7 @@
     <div class="post-body" itemprop="articleBody">
           <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
 <ul>
-<li>default&amp;delete<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Zoo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//big five 可以运用到default，其它函数上会报错</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">int</span> i1,<span class="type">int</span> i2):<span class="built_in">d1</span>(i1),<span class="built_in">d2</span>(i2)&#123;&#125;<span class="comment">//构造函数</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">const</span> Zoo&amp;)=<span class="keyword">delete</span>;<span class="comment">//拷贝构造函数，不要这个函数,不可以使用</span></span><br><span class="line">        <span class="built_in">Zoo</span>(Zoo&amp;&amp;)=<span class="keyword">default</span>;<span class="comment">//右值引用，使用编译器默认的版本</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;)=<span class="keyword">default</span>;<span class="comment">//拷贝赋值</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;&amp;)=<span class="keyword">delete</span>;<span class="comment">//移动赋值</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">Zoo</span>()&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> d1,d2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>default&amp;delete<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Zoo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//big five 可以运用到default，其它函数上会报错</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">int</span> i1,<span class="type">int</span> i2):<span class="built_in">d1</span>(i1),<span class="built_in">d2</span>(i2)&#123;&#125;<span class="comment">//构造函数</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">const</span> Zoo&amp;)=<span class="keyword">delete</span>;<span class="comment">//拷贝构造函数，不要这个函数,不可以使用</span></span><br><span class="line">        <span class="built_in">Zoo</span>(Zoo&amp;&amp;)=<span class="keyword">default</span>;<span class="comment">//移动构造，右值引用，使用编译器默认的版本</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;)=<span class="keyword">default</span>;<span class="comment">//拷贝赋值</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;&amp;)=<span class="keyword">delete</span>;<span class="comment">//移动赋值</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">Zoo</span>()&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> d1,d2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 <li>alias Template<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Vec=std::vector&lt;T,MyAlloc&lt;T&gt;&gt;;</span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用宏定义</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Vec<span class="string">&lt;T&gt;</span> template<span class="string">&lt;typename T&gt;</span> std::vector<span class="string">&lt;T,MyAlloc&lt;T&gt;</span>&gt;;</span></span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"><span class="comment">//template&lt;typename int&gt; std::vector&lt;int,MyAlloc&lt;int&gt;&gt; 是这样的效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用typedef,因为typedef 不接收参数,只能使用如下所示</span></span><br><span class="line"><span class="keyword">typedef</span> std::vector&lt;<span class="type">int</span>,MyAlloc&lt;<span class="type">int</span>&gt;&gt; Vec;</span><br></pre></td></tr></table></figure></li>
 <li>template template parameter</li>
 </ul>
@@ -925,13 +1060,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">20k</span>
+    <span title="Symbols count total">23k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">18 mins.</span>
+    <span title="Reading time total">21 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
