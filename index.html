@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -215,6 +215,134 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/cpp-11-14-decltype&lambdas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/16/cpp-11-14-decltype&lambdas/" class="post-title-link" itemprop="url">cpp 11&14 decltype&lambdas</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-04-16 00:30:31 / Modified: 01:49:15" itemprop="dateCreated datePublished" datetime="2022-04-16T00:30:31+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 11&14 decltype&lambdas" href="/2022/04/16/cpp-11-14-decltype&lambdas/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::e685c742941d9febcdc3c3e7f5ddfff4" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>decltype<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br></pre></td></tr></table></figure></li>
+<li>lambdas<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutable 关键字，表示是否可以改写</span></span><br><span class="line"><span class="comment">//thorwSpec 表示可以抛出的异常</span></span><br><span class="line"><span class="comment">//retType 表示返回值</span></span><br><span class="line"><span class="comment">//三个都没有(parameters)可以不写</span></span><br><span class="line"><span class="comment">//             ^</span></span><br><span class="line"><span class="comment">//[] 这个里面可以放外部的变量，不放入就看不见。可以传值和引用</span></span><br><span class="line">[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i=[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;()<span class="comment">//表示直接调用</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/16/cpp-11-14-decltype&lambdas/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -389,7 +517,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-15 00:59:16" itemprop="dateModified" datetime="2022-04-15T00:59:16+08:00">2022-04-15</time>
+      <time title="Modified: 2022-04-15 01:13:55" itemprop="dateModified" datetime="2022-04-15T01:13:55+08:00">2022-04-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -450,7 +578,7 @@
     <div class="post-body" itemprop="articleBody">
           <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
 <ul>
-<li>default&amp;delete<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Zoo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//big five 可以运用到default，其它函数上会报错</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">int</span> i1,<span class="type">int</span> i2):<span class="built_in">d1</span>(i1),<span class="built_in">d2</span>(i2)&#123;&#125;<span class="comment">//构造函数</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">const</span> Zoo&amp;)=<span class="keyword">delete</span>;<span class="comment">//拷贝构造函数，不要这个函数,不可以使用</span></span><br><span class="line">        <span class="built_in">Zoo</span>(Zoo&amp;&amp;)=<span class="keyword">default</span>;<span class="comment">//移动构造，右值引用，使用编译器默认的版本</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;)=<span class="keyword">default</span>;<span class="comment">//拷贝赋值</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;&amp;)=<span class="keyword">delete</span>;<span class="comment">//移动赋值</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">Zoo</span>()&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> d1,d2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>default&amp;delete<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Zoo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//big five 可以运用到default，其它函数上会报错</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">int</span> i1,<span class="type">int</span> i2):<span class="built_in">d1</span>(i1),<span class="built_in">d2</span>(i2)&#123;&#125;<span class="comment">//构造函数</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">const</span> Zoo&amp;)=<span class="keyword">delete</span>;<span class="comment">//拷贝构造函数，不要这个函数,不可以使用</span></span><br><span class="line">        <span class="built_in">Zoo</span>(Zoo&amp;&amp;)=<span class="keyword">default</span>;<span class="comment">//右值引用，使用编译器默认的版本</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;)=<span class="keyword">default</span>;<span class="comment">//拷贝赋值</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;&amp;)=<span class="keyword">delete</span>;<span class="comment">//移动赋值</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">Zoo</span>()&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> d1,d2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 <li>alias Template<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Vec=std::vector&lt;T,MyAlloc&lt;T&gt;&gt;;</span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用宏定义</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Vec<span class="string">&lt;T&gt;</span> template<span class="string">&lt;typename T&gt;</span> std::vector<span class="string">&lt;T,MyAlloc&lt;T&gt;</span>&gt;;</span></span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"><span class="comment">//template&lt;typename int&gt; std::vector&lt;int,MyAlloc&lt;int&gt;&gt; 是这样的效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用typedef,因为typedef 不接收参数,只能使用如下所示</span></span><br><span class="line"><span class="keyword">typedef</span> std::vector&lt;<span class="type">int</span>,MyAlloc&lt;<span class="type">int</span>&gt;&gt; Vec;</span><br></pre></td></tr></table></figure></li>
 <li>template template parameter</li>
 </ul>
@@ -1060,13 +1188,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">23k</span>
+    <span title="Symbols count total">28k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">21 mins.</span>
+    <span title="Reading time total">25 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>

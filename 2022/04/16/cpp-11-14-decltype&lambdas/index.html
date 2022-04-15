@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hD9G1CERbajkxJHKNOGHCZn211qP8IK9ARPWLrMaK4E">
+  <meta name="msvalidate.01" content="F2F94B24520E8120CD768575C9B5141C">
+  <meta name="yandex-verification" content="15903ac9a50f3a5d">
+  <meta name="baidu-site-verification" content="code-aE9xzlo0dF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="decltype12map&lt;string,float&gt; coll;decltype(coll)::value_type elem; &#x2F;&#x2F; map&lt;string,float&gt;::value ele; lambdas12345678910111213&#x2F;&#x2F;mutable 关键字，表示是否可以改写&#x2F;&#x2F;thorwSpec 表示可以抛出的异常&#x2F;&#x2F;retType 表示返回值&#x2F;&#x2F;三个都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp 11&amp;14 decltype&amp;lambdas">
+<meta property="og:url" content="http://example.com/2022/04/16/cpp-11-14-decltype&lambdas/index.html">
+<meta property="og:site_name" content="CodeSkyBlue Blog">
+<meta property="og:description" content="decltype12map&lt;string,float&gt; coll;decltype(coll)::value_type elem; &#x2F;&#x2F; map&lt;string,float&gt;::value ele; lambdas12345678910111213&#x2F;&#x2F;mutable 关键字，表示是否可以改写&#x2F;&#x2F;thorwSpec 表示可以抛出的异常&#x2F;&#x2F;retType 表示返回值&#x2F;&#x2F;三个都">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-04-15T16:30:31.000Z">
+<meta property="article:modified_time" content="2022-04-15T17:49:15.281Z">
+<meta property="article:author" content="SkyBlue">
+<meta property="article:tag" content="decltype">
+<meta property="article:tag" content="lambdas">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/04/16/cpp-11-14-decltype&lambdas/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/04/16/cpp-11-14-decltype&lambdas/","path":"2022/04/16/cpp-11-14-decltype&lambdas/","title":"cpp 11&14 decltype&lambdas"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cpp 11&14 decltype&lambdas | CodeSkyBlue Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CodeSkyBlue Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#decltype"><span class="nav-number">1.</span> <span class="nav-text">decltype</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">1.1.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sample"><span class="nav-number">1.2.</span> <span class="nav-text">sample</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambdas"><span class="nav-number">2.</span> <span class="nav-text">lambdas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#code-1"><span class="nav-number">2.1.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sample-1"><span class="nav-number">2.2.</span> <span class="nav-text">sample</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lambdas%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.2.1.</span> <span class="nav-text">lambdas的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">注意</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SkyBlue"
+      src="/images/image.jpg">
+  <p class="site-author-name" itemprop="name">SkyBlue</p>
+  <div class="site-description" itemprop="description">Discipline is the bridege between goals and accomplishment</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wtc842017068" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wtc842017068" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wtc84201068@gmail.com" title="E-Mail → mailto:wtc84201068@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/cpp-11-14-decltype&lambdas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cpp 11&14 decltype&lambdas | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp 11&14 decltype&lambdas
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-04-16 00:30:31 / Modified: 01:49:15" itemprop="dateCreated datePublished" datetime="2022-04-16T00:30:31+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 11&14 decltype&lambdas" href="/2022/04/16/cpp-11-14-decltype&lambdas/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::e685c742941d9febcdc3c3e7f5ddfff4" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>decltype<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br></pre></td></tr></table></figure></li>
+<li>lambdas<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutable 关键字，表示是否可以改写</span></span><br><span class="line"><span class="comment">//thorwSpec 表示可以抛出的异常</span></span><br><span class="line"><span class="comment">//retType 表示返回值</span></span><br><span class="line"><span class="comment">//三个都没有(parameters)可以不写</span></span><br><span class="line"><span class="comment">//             ^</span></span><br><span class="line"><span class="comment">//[] 这个里面可以放外部的变量，不放入就看不见。可以传值和引用</span></span><br><span class="line">[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i=[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;()<span class="comment">//表示直接调用</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span></li>
+</ul>
+<h1 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h1><p><strong>获取一个表达式的类型</strong></p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br></pre></td></tr></table></figure>
+<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//**************************************//</span></span><br><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************************//</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1,<span class="keyword">typename</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="title">decltype</span><span class="params">(x+y)</span> <span class="title">add</span><span class="params">(T1 x,T2 y)</span></span>; <span class="comment">//表示表达式返回值的结果是x+y之后的类型，编译不过，</span></span><br><span class="line"><span class="comment">//改进方法</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1,<span class="keyword">typename</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(T1 x,T2 y)</span>-&gt;<span class="title">decltype</span><span class="params">(x+y)</span></span>; <span class="comment">//函数返回类型的制定方式，与lambda 表达式类似</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************************//</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">template</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test18_decltype</span><span class="params">(T obj)</span></span>&#123;</span><br><span class="line">    map&lt;string,<span class="type">float</span>&gt;::value_type elem1;</span><br><span class="line"></span><br><span class="line">    map&lt;string,<span class="type">float</span>&gt;coll;</span><br><span class="line">    <span class="keyword">decltype</span>(coll)::value_type elem2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="title">decltype</span><span class="params">(obj)</span>::iterator iType</span>;<span class="comment">//等价于 typedef typename T::iterator iType</span></span><br><span class="line"><span class="comment">// 我知道obj 是一个容器，因此一定有iterator, 一旦使用:: 前要跟上 typename 告诉编译器后面的是一个类型的名字</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************************//</span></span><br><span class="line"><span class="keyword">auto</span> cmp=[](<span class="type">const</span> Person&amp; p1,<span class="type">const</span> Person&amp; p2)&#123;</span><br><span class="line">    <span class="keyword">return</span> p1.<span class="built_in">lastname</span>()&lt;p2.<span class="built_in">lastname</span>()||(p1.<span class="built_in">lastname</span>()==p2.<span class="built_in">lastname</span>()&amp;&amp;p1.firstname&lt;p2.<span class="built_in">firstname</span>())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::set&lt;Person,<span class="keyword">decltype</span>(cmp)&gt; <span class="built_in">coll</span>(cmp);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="lambdas"><a href="#lambdas" class="headerlink" title="lambdas"></a>lambdas</h1><p><strong>是一个对象，但是用起来像一个function</strong><br><strong>类型是一个匿名的函数对象</strong></p>
+<h2 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutable 关键字，表示是否可以改写</span></span><br><span class="line"><span class="comment">//thorwSpec 表示可以抛出的异常</span></span><br><span class="line"><span class="comment">//retType 表示返回值</span></span><br><span class="line"><span class="comment">//三个都没有(parameters)可以不写</span></span><br><span class="line"><span class="comment">//             ^</span></span><br><span class="line"><span class="comment">//[] 这个里面可以放外部的变量，不放入就看不见。可以传值和引用</span></span><br><span class="line">[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i=[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;()<span class="comment">//表示直接调用</span></span><br></pre></td></tr></table></figure>
+<h2 id="sample-1"><a href="#sample-1" class="headerlink" title="sample"></a>sample</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//******************************</span></span><br><span class="line"><span class="type">int</span> id=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[id]()<span class="keyword">mutable</span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;id:&quot;</span>&lt;&lt;id&lt;&lt;std&lt;&lt;endl;</span><br><span class="line">    ++id;</span><br><span class="line"></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> x=<span class="number">5</span>; <span class="comment">//声明静态变量</span></span><br><span class="line">    <span class="type">int</span> y=<span class="number">6</span>;</span><br><span class="line">    <span class="keyword">return</span> id; <span class="comment">//返回数值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//上述表达式相当于如下代码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Functor</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            std::cout&lt;&lt;<span class="string">&quot;id&quot;</span>&lt;&lt;id&lt;&lt;endl;</span><br><span class="line">            id++;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Functor f;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line">id=<span class="number">42</span>;</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line">std::cout&lt;&lt;id&lt;&lt;std::endl;</span><br><span class="line"><span class="comment">// id:0</span></span><br><span class="line"><span class="comment">// id:1</span></span><br><span class="line"><span class="comment">// id:2</span></span><br><span class="line"><span class="comment">// 42</span></span><br><span class="line"><span class="comment">// 因为编译的时候id 已经变为0,因为[id]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//********************************</span></span><br><span class="line"><span class="type">int</span> tobefound=<span class="number">5l</span></span><br><span class="line"><span class="keyword">auto</span> lambda=[tobefound](<span class="type">int</span> val)&#123;<span class="keyword">return</span> val == tobefound;&#125;;</span><br><span class="line"><span class="comment">//上式等价于</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnNameLocalFunction</span>&#123;</span><br><span class="line">    <span class="type">int</span> localVar;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UnNamedLocalFunction</span>(<span class="type">int</span> var):<span class="built_in">localVar</span>(var)&#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> val==localVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="type">bool</span> b1=<span class="built_in">lambda1</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="function">UnNameLocalFunction <span class="title">lambda2</span><span class="params">(tobefound)</span></span>;</span><br><span class="line"><span class="type">bool</span> b2=<span class="built_in">lambda2</span>(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//**********************</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; vi&#123;<span class="number">5</span>,<span class="number">32</span>,<span class="number">56</span>,<span class="number">214</span>,<span class="number">777</span>,<span class="number">5543</span>,<span class="number">22</span>&#125;</span><br><span class="line"><span class="type">int</span> x=<span class="number">30</span>;</span><br><span class="line"><span class="type">int</span> y=<span class="number">100</span>;</span><br><span class="line">vi.<span class="built_in">erase</span>(<span class="built_in">remove_if</span>(vi.<span class="built_in">begin</span>(),vi.<span class="built_in">end</span>(),[x,y](<span class="type">int</span> n)&#123;<span class="keyword">return</span> x&lt;n &amp;&amp; n&lt;y&#125;))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i:vi)</span><br><span class="line">    cout&lt;&lt; i&lt;&lt;<span class="string">&quot;&quot;</span>; <span class="comment">//5,214,777,5543</span></span><br><span class="line">cout&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lambdas的对比"><a href="#lambdas的对比" class="headerlink" title="lambdas的对比"></a>lambdas的对比</h3><ul>
+<li><p>类型1(值传递,mutable)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> id=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[id]()<span class="keyword">mutable</span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;id:&quot;</span>&lt;&lt;id&lt;&lt;std&lt;&lt;endl;</span><br><span class="line">    ++id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id=<span class="number">42</span>;</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line">std::cout&lt;&lt;id&lt;&lt;std::endl;</span><br><span class="line"><span class="comment">// id:0</span></span><br><span class="line"><span class="comment">// id:1</span></span><br><span class="line"><span class="comment">// id:2</span></span><br><span class="line"><span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型2(引用传递)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> id=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[&amp;id]()<span class="keyword">mutable</span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;id:&quot;</span>&lt;&lt;id&lt;&lt;std&lt;&lt;endl;</span><br><span class="line">    ++id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id=<span class="number">42</span>;</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line">std::cout&lt;&lt;id&lt;&lt;std::endl;</span><br><span class="line"><span class="comment">// id:42</span></span><br><span class="line"><span class="comment">// id:43</span></span><br><span class="line"><span class="comment">// id:44</span></span><br><span class="line"><span class="comment">// 45</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型3(默认全部传递,值传递)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> id=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[=]()<span class="keyword">mutable</span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;id:&quot;</span>&lt;&lt;id&lt;&lt;std&lt;&lt;endl;</span><br><span class="line">    ++id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id=<span class="number">42</span>;</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line">std::cout&lt;&lt;id&lt;&lt;std::endl;</span><br><span class="line"><span class="comment">// id:42</span></span><br><span class="line"><span class="comment">// id:43</span></span><br><span class="line"><span class="comment">// id:44</span></span><br><span class="line"><span class="comment">// 45</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型4(值传递) Error</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> id=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//编译报错，因为id为只读不可修改</span></span><br><span class="line"><span class="keyword">auto</span> f=[id]()&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;id:&quot;</span>&lt;&lt;id&lt;&lt;std&lt;&lt;endl;</span><br><span class="line">    ++id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id=<span class="number">42</span>;</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line"><span class="built_in">f</span>();</span><br><span class="line">std::cout&lt;&lt;id&lt;&lt;std::endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><strong>当我们需要知道lambadas表达式的类型时，这种情况主要被应用在传递一个函数作为<em>hash函数</em>或者<em>排序函数</em>或者<em>排序的准则对于一个无序的容器</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> cmp=[](<span class="type">const</span> Person&amp; p1,<span class="type">const</span> Person&amp; p2)&#123;</span><br><span class="line">    <span class="keyword">return</span> p1.<span class="built_in">lastname</span>()&lt;p2.<span class="built_in">lastname</span>()||(p1.<span class="built_in">lastname</span>()==p2.<span class="built_in">lastname</span>()&amp;&amp;p1.firstname&lt;p2.<span class="built_in">firstname</span>())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::set&lt;Person,<span class="keyword">decltype</span>(cmp)&gt; <span class="built_in">coll</span>(cmp);</span><br><span class="line"><span class="comment">//对于这个实现，我们需要将cmp对象传入,要不然会默认调用Compare 的默认构造函数，但是由于传入的是匿名函数，所以没有默认构造。编译会报错</span></span><br></pre></td></tr></table></figure>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">Key</span>,<span class="keyword">class</span> <span class="title class_">Compare</span>=less&lt;Key&gt;,</span><br><span class="line">                   <span class="keyword">class</span> Alloc=alloc&gt;</span><br><span class="line"><span class="keyword">class</span> set&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//typedefs:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">typedef</span> Compare key_compare;</span><br><span class="line">    <span class="keyword">typedef</span> Compare value_compare;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"> <span class="keyword">typedef</span> rb_tree&lt;key_type,value_type,</span><br><span class="line">                identity&lt;value_type&gt;,</span><br><span class="line">                key_compare,Alloc&gt; rep_type;</span><br><span class="line"> rep_type t;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line"> ...</span><br><span class="line"> <span class="built_in">set</span>():<span class="built_in">t</span>(<span class="built_in">Compare</span>())&#123;&#125;</span><br><span class="line"> <span class="function"><span class="keyword">explicit</span> <span class="title">set</span><span class="params">(<span class="type">const</span> Compare&amp; comp)</span>:t(comp)</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+        <div class="popular-posts-date">2022-03-20</div>
+      <div class="popular-posts-title"><a href="2022/03/20/cpp-11-14-可变参数模板与空指针/" rel="bookmark">cpp 11&14 可变参数模板与空指针,auto</a></div>
+        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li><p>Variadic Templates(可变参数模板)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可变参数模板</span></span><br><span class="line"><span class="comment">// 无参数函数，用于结束调用 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 包含一个参数固定参数的可变模板函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> T&amp; firstArg,<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt; firstArg&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printX</span>(args...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>空指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;&#125;<span class="comment">//function1</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">void</span>* a)</span></span>&#123;&#125;<span class="comment">//funtion2</span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">NULL</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">nullptr</span>);<span class="comment">//call function2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模板函数书写变化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt; &gt;<span class="comment">//</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;<span class="comment">//Ok since c++11</span></span><br></pre></td></tr></table></figure></p></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="SkyBlue WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="SkyBlue Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/skyCW">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://www.zhihu.com/people/skyCW">
+          <span class="icon">
+            <i class="fab fa-zhihu"></i>
+          </span>
+
+          <span class="label">Zhihu</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/decltype/" rel="tag"><i class="fa fa-tag"></i> decltype</a>
+              <a href="/tags/lambdas/" rel="tag"><i class="fa fa-tag"></i> lambdas</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/15/cpp-11-14-type-Alias-nonexcep/" rel="prev" title="cpp 11&14 type Alias,nonexcep和override">
+                  <i class="fa fa-chevron-left"></i> cpp 11&14 type Alias,nonexcep和override
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-changyan">changyan</a></li>
+            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="e685c742941d9febcdc3c3e7f5ddfff4"></div>
+            </div>
+            <div class="tab-pane disqusjs" id="comment-disqusjs">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SkyBlue</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">28k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">25 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvXLLUFD","appkey":"ce48e24fb9dd5ba5923cc4921ebe91d7"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" integrity="sha256-GxdCIOyfxQ1OBfS99qAIJDoGK1ADuBsxhMTqXG82fAY=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":null,"apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"skycw-disqus-com","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>
