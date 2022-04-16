@@ -166,63 +166,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cpp 面向对象基础--基础与头文件声明</title>
-    <url>/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/</url>
-    <content><![CDATA[<!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
-<!-- 其中 class="blockquote-center" 是必须的 -->
-<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="c与cpp-的区别"><a href="#c与cpp-的区别" class="headerlink" title="c与cpp 的区别"></a>c与cpp 的区别</h3><table>
-<thead>
-<tr>
-<th>语言</th>
-<th>c</th>
-<th>cpp</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>Object Base(基于对象)</td>
-<td>Object Oriented(面向对象)</td>
-</tr>
-<tr>
-<td></td>
-<td>面对**单一的class(类)**设计</td>
-<td>面对多重classes的设计，着重于<strong>class之间的关系</strong></td>
-</tr>
-<tr>
-<td>头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c</td>
-<td>&lt;stdio&gt;</td>
-<td>&lt;cstdio&gt; &lt;iostream&gt;</td>
-</tr>
-</tbody></table>
-<span id="more"></span>
-
-<h3 id="防卫式生命"><a href="#防卫式生命" class="headerlink" title="防卫式生命"></a>防卫式生命</h3><p><em>为了解决引用顺序的问题</em></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="头文件布局"><a href="#头文件布局" class="headerlink" title="头文件布局"></a>头文件布局</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line"><span class="comment">// 前项生命</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类声明</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义</span></span><br><span class="line">complex::<span class="built_in">method</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<h2 id="class声明-模板类"><a href="#class声明-模板类" class="headerlink" title="class声明(模板类)"></a>class声明(模板类)</h2><ul>
-<li>complex.h</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125; <span class="comment">//表示函数不会修改任何东西</span></span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Complex 类的使用</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">complexDouble</span><span class="params">(<span class="number">1.0</span>,<span class="number">2.0</span>)</span></span>;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>技术</category>
-        <category>cpp</category>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>cpp</tag>
-        <tag>侯捷</tag>
-        <tag>头文件</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cpp 11&amp;14 统一初始化方式以及initializer_list,for</title>
     <url>/2022/04/13/cpp-11-14-%E7%BB%9F%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8Ainitializer-list/</url>
     <content><![CDATA[<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
@@ -292,17 +235,127 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 全局函数</span></span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x,<span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));<span class="comment">//类型（）创建临时变量。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x, <span class="type">double</span> y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +( <span class="type">double</span> x, <span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(x+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> +(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> -(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(-<span class="built_in">real</span>(x),-<span class="built_in">imag</span>(x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="built_in">imag</span>(y);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">double</span> y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==y &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">double</span> x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> x==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line">ostream &amp;</span><br><span class="line"><span class="keyword">operator</span> &lt;&lt; (ostream&amp; os,<span class="type">const</span> compelx&amp;x)&#123;<span class="comment">//os 不能const，因为每次输出改变os的状态</span></span><br><span class="line">    <span class="keyword">return</span> os&lt;&lt;<span class="string">&quot;&quot;</span>&lt;&lt;<span class="built_in">real</span>(x)&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;<span class="built_in">imag</span>(x)&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>技术</category>
-        <category>后端</category>
         <category>cpp</category>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+        <tag>构造</tag>
+        <tag>析构</tag>
+        <tag>侯捷</tag>
+        <tag>内联函数</tag>
+        <tag>操作符重载</tag>
+        <tag>临时对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cpp 面向对象基础--基础与头文件声明</title>
+    <url>/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/</url>
+    <content><![CDATA[<!-- HTML方式: 直接在 Markdown 文件中编写 HTML 来调用 -->
+<!-- 其中 class="blockquote-center" 是必须的 -->
+<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="c与cpp-的区别"><a href="#c与cpp-的区别" class="headerlink" title="c与cpp 的区别"></a>c与cpp 的区别</h3><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>c</th>
+<th>cpp</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>Object Base(基于对象)</td>
+<td>Object Oriented(面向对象)</td>
+</tr>
+<tr>
+<td></td>
+<td>面对**单一的class(类)**设计</td>
+<td>面对多重classes的设计，着重于<strong>class之间的关系</strong></td>
+</tr>
+<tr>
+<td>头文件的书写区别 注（头文件的后缀名在不同平台可能不同）引用c的头文件要在前面加c</td>
+<td>&lt;stdio&gt;</td>
+<td>&lt;cstdio&gt; &lt;iostream&gt;</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h3 id="防卫式生命"><a href="#防卫式生命" class="headerlink" title="防卫式生命"></a>防卫式生命</h3><p><em>为了解决引用顺序的问题</em></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="头文件布局"><a href="#头文件布局" class="headerlink" title="头文件布局"></a>头文件布局</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __FILENAME__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FILENAME__</span></span><br><span class="line"><span class="comment">// 前项生命</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类声明</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义</span></span><br><span class="line">complex::<span class="built_in">method</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="class声明-模板类"><a href="#class声明-模板类" class="headerlink" title="class声明(模板类)"></a>class声明(模板类)</h2><ul>
+<li>complex.h</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125; <span class="comment">//表示函数不会修改任何东西</span></span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Complex 类的使用</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">complexDouble</span><span class="params">(<span class="number">1.0</span>,<span class="number">2.0</span>)</span></span>;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+        <category>cpp</category>
+        <category>后端</category>
       </categories>
       <tags>
         <tag>cpp</tag>
         <tag>侯捷</tag>
-        <tag>构造</tag>
-        <tag>析构</tag>
-        <tag>内联函数</tag>
-        <tag>操作符重载</tag>
-        <tag>临时对象</tag>
+        <tag>头文件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>variadic Template(可变参数模板)</title>
+    <url>/2022/04/16/variadic-Template-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<p><strong>使用可变参数模板可以实现</strong></p>
+<ul>
+<li>递归调用</li>
+<li>递归创建</li>
+<li>递归继承</li>
+<li>递归复合<span id="more"></span></li>
+</ul>
+<h1 id="variadic-template"><a href="#variadic-template" class="headerlink" title="variadic template"></a>variadic template</h1><ul>
+<li>template<ul>
+<li>function template</li>
+<li>class tempalate</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>变化的区别</p>
+<ul>
+<li>参数个数<ul>
+<li>利用参数个数逐一递减的特性，实现递归函数调用，使用function template 完成</li>
+</ul>
+</li>
+<li>参数类型<ul>
+<li>利用参数个数逐一递减，导致参数函数类型也逐一递减实现递归集成,或递归复合，以class template 完成</li>
+</ul>
+</li>
+</ul>
+<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><ul>
+<li><p>例子1</p>
+  <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这个是特化版本，当前版本存在时，下面的函数不会呗调用 既 void printX(const Types&amp; args) 不会被调用</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(constT&amp; firstArg,<span class="type">const</span> Types&amp; args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt;fistArg&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">print</span>(args...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> Types&amp; args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt;fistArg&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">print</span>(args...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>例子2 重写printf function</p>
+  <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(*s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(*s == <span class="string">&#x27;%&#x27;</span>&amp;&amp;*(++s) !+<span class="string">&#x27;%&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;invalid format string:missing argument&quot;</span>)</span><br><span class="line">        std::cout&lt;&lt;*s++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Args&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*s,T value,Args... args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(*s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(*s == <span class="string">&#x27;%&#x27;</span> &amp;&amp; *(++s) !=<span class="string">&#x27;%&#x27;</span>)&#123;</span><br><span class="line">            std::cout&lt;&lt;value;</span><br><span class="line">            <span class="built_in">printf</span>(++s,args...);</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        &#125;</span><br><span class="line">        std::cout&lt;&lt;*s++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> std::<span class="built_in">logic_error</span>(<span class="string">&quot;extra argument provided to printf&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子3 max函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//stl_algo.h</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _ForwardIterator,<span class="keyword">typename</span> _Compare&gt;</span><br><span class="line">_ForwardIterator</span><br><span class="line">__max_element(_ForwardIterator __first,_ForwarIterator __last,_Compare __comp)&#123;</span><br><span class="line">    <span class="keyword">if</span>(__first==__last) <span class="keyword">return</span> __first;</span><br><span class="line">    _ForwardIterator __result=__first;</span><br><span class="line">    <span class="keyword">while</span>(++__first!=__last)</span><br><span class="line">        <span class="keyword">if</span>(__comp(result,__first))</span><br><span class="line">            __result =__first;</span><br><span class="line">    <span class="keyword">return</span> __result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _ForwardIterator&gt;</span></span><br><span class="line"><span class="function"> <span class="keyword">inline</span> _ForwardIterator</span></span><br><span class="line"><span class="function"> <span class="title">max_element</span><span class="params">(_ForwardIterator __first,_ForwarIterator __last)</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> __max_element(__first,__last,__iter_less_iter());</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//stl_algo.h</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> __Tp&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Tp</span></span><br><span class="line"><span class="function"><span class="title">max</span><span class="params">(initializer_list&lt;__Tp&gt; __l)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> *<span class="built_in">max_element</span>(_l.<span class="built_in">begin</span>(),_l.<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//predefined_oops.h</span></span><br><span class="line"><span class="keyword">inline</span> _Iter_less_iter</span><br><span class="line">__iter_less_iter()&#123;</span><br><span class="line">    <span class="keyword">return</span> _Iter_less_iter();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//predefined_oops.h</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">_Iter_less_iter</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Iterator1,</span></span><br><span class="line"><span class="function">             <span class="keyword">typename</span> _Iterator2&gt;</span></span><br><span class="line"><span class="function">    <span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(_Iterator1 __it1,_Iterator2 __it2)</span><span class="type">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *__it1&lt;*__it2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cout&lt;&lt;<span class="built_in">max</span>(&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">//改进</span></span><br><span class="line"></span><br><span class="line">cout&lt;&lt;<span class="built_in">max</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">maximum</span><span class="params">(<span class="type">int</span> n,Args... args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">max</span>(n,<span class="built_in">max</span>(...args));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="例子4-类模板"><a href="#例子4-类模板" class="headerlink" title="例子4 类模板"></a>例子4 类模板</h1><h2 id="用不同的方式处理first元素和last元素"><a href="#用不同的方式处理first元素和last元素" class="headerlink" title="用不同的方式处理first元素和last元素"></a>用不同的方式处理first元素和last元素</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">cout&lt;&lt; <span class="built_in">make_tuple</span>(<span class="number">7.5</span>,<span class="built_in">string</span>(<span class="string">&quot;hello&quot;</span>),<span class="built_in">bitset</span>&lt;<span class="number">16</span>&gt;(<span class="number">377</span>),<span class="number">42</span>);</span><br><span class="line"><span class="comment">//输出[7.5,hello,000000000101111001,42]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os,<span class="type">const</span> tuple&lt;Args...&gt;&amp; t)&#123;</span><br><span class="line">    os&lt;&lt;<span class="string">&quot;[&quot;</span>;</span><br><span class="line">    PRINT_TUPLE&lt;<span class="number">0</span>,<span class="keyword">sizeof</span>...(Args),Args...&gt;<span class="built_in">print</span>(os,t);</span><br><span class="line">    os&lt;&lt;<span class="string">&quot;]&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> os&lt;&lt;<span class="string">&quot;]&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//boost: util/printtuple.hpp</span></span><br><span class="line"><span class="comment">//helper:print elment with index IDX of tuple</span></span><br><span class="line"><span class="comment">// with MAX element</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> IDX,<span class="type">int</span> MAX,<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PRINT_TUPLE</span>&#123;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">print</span><span class="params">(ostream&amp; os,<span class="type">const</span> tuple&lt;Args...&gt;&amp; t)</span></span>&#123;</span><br><span class="line">        os&lt;&lt;<span class="built_in">get</span>&lt;IDX&gt;(t)&lt;&lt;(IDX+<span class="number">1</span>==MAX?<span class="string">&quot;&quot;</span>:<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        PRINT_TUPLE&lt;IDX+<span class="number">1</span>,MAX,Args...&gt;::<span class="built_in">print</span>(os,t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="type">int</span> MAX,<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PRINT_TUPLE</span>&lt;MAX,MAX,Args...&gt;&#123;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">print</span><span class="params">(std::ostream&amp; os,<span class="type">const</span> tuple&lt;Args...&gt;&amp;t)</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="例子5-用于递归继承"><a href="#例子5-用于递归继承" class="headerlink" title="例子5 用于递归继承"></a>例子5 用于递归继承</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>...,Values&gt; <span class="keyword">class</span> <span class="title class_">tuple</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;&gt;<span class="keyword">class</span> <span class="title class_">tuple</span>&lt;&gt;&#123;&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Head,typenmae... Tail&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">tuple</span>&lt;Head,Tail...&gt;:<span class="keyword">private</span> tuple&lt;Tail...&gt;&#123;</span><br><span class="line">    <span class="keyword">typedef</span> tuple&lt;Tail...&gt; inherited;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">       <span class="built_in">tuple</span>()&#123;&#125;</span><br><span class="line">       <span class="built_in">tuple</span>(Head v,Tail... vtail):<span class="built_in">m_head</span>(v),<span class="built_in">inherited</span>(vtail...)&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">typename</span> Head::type <span class="title">head</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_head;&#125;</span><br><span class="line">    <span class="function">inherited&amp; <span class="title">tail</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125; </span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">     Head m_head;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译不过，改进版本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>...,Values&gt; <span class="keyword">class</span> <span class="title class_">tuple</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;&gt;<span class="keyword">class</span> <span class="title class_">tuple</span>&lt;&gt;&#123;&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Head,typenmae... Tail&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">tuple</span>&lt;Head,Tail...&gt;:<span class="keyword">private</span> tuple&lt;Tail...&gt;&#123;</span><br><span class="line">    <span class="keyword">typedef</span> tuple&lt;Tail...&gt; inherited;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">     Head m_head;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">       <span class="built_in">tuple</span>()&#123;&#125;</span><br><span class="line">       <span class="built_in">tuple</span>(Head v,Tail... vtail):<span class="built_in">m_head</span>(v),<span class="built_in">inherited</span>(vtail...)&#123;&#125;</span><br><span class="line">    <span class="comment">//typename Head::type head()&#123;return m_head;&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">head</span><span class="params">()</span>-&gt;<span class="title">decltype</span><span class="params">(m_head)</span></span>&#123;<span class="keyword">return</span> m_head;&#125;</span><br><span class="line">    <span class="function">inherited&amp; <span class="title">tail</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125; </span><br><span class="line">    <span class="comment">// protected:</span></span><br><span class="line">    <span class="comment">//  Head m_head;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 简化版本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>...,Values&gt; <span class="keyword">class</span> <span class="title class_">tuple</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;&gt;<span class="keyword">class</span> <span class="title class_">tuple</span>&lt;&gt;&#123;&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Head,typenmae... Tail&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">tuple</span>&lt;Head,Tail...&gt;:<span class="keyword">private</span> tuple&lt;Tail...&gt;&#123;</span><br><span class="line">    <span class="keyword">typedef</span> tuple&lt;Tail...&gt; inherited;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">     Head m_head;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">       <span class="built_in">tuple</span>()&#123;&#125;</span><br><span class="line">       <span class="built_in">tuple</span>(Head v,Tail... vtail):<span class="built_in">m_head</span>(v),<span class="built_in">inherited</span>(vtail...)&#123;&#125;<span class="comment">//相当于调用父类的构造</span></span><br><span class="line">    <span class="comment">//typename Head::type head()&#123;return m_head;&#125;</span></span><br><span class="line">    <span class="function">Head <span class="title">head</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_head;&#125;</span><br><span class="line">    <span class="function">inherited&amp; <span class="title">tail</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *<span class="keyword">this</span>;&#125; <span class="comment">//相当于向上转型</span></span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">     Head m_head;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="例子6"><a href="#例子6" class="headerlink" title="例子6"></a>例子6</h1><h2 id="用于递归复合"><a href="#用于递归复合" class="headerlink" title="用于递归复合"></a>用于递归复合</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Values&gt;<span class="keyword">class</span> <span class="title class_">tup</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;&gt;<span class="keyword">class</span> <span class="title class_">tup</span>&lt;&gt;&#123;&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Head,<span class="keyword">typename</span>... Tail&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">tup</span>&lt;Head,Tail...&gt;&#123;</span><br><span class="line">    <span class="keyword">typedef</span> tup&lt;Tail...&gt; composited;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">        composited m_tail;</span><br><span class="line">        Head m_head;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">tup</span>()&#123;&#125;</span><br><span class="line">    <span class="built_in">tup</span>(Head v,Tail... vtail):<span class="built_in">m_tail</span>(vtail...),<span class="built_in">m_head</span>(v)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Head <span class="title">head</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_head;&#125;</span><br><span class="line">    <span class="function">composited&amp; <span class="title">tail</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_tail;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+        <category>cpp</category>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>variadic templates</tag>
       </tags>
   </entry>
 </search>
