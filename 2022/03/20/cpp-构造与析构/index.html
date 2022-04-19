@@ -25,15 +25,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="inline（内联函数）若在函数体内定义完成，变为内联函数的候选人inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定">
+    <meta name="description" content="inline（内联函数）   若在函数体内定义完成，变为内联函数的候选人  inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定  拷贝构造  拷贝赋值   包含指针需要单独实现，不可用默认的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cpp 构造与析构（侯捷）">
 <meta property="og:url" content="http://example.com/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/index.html">
 <meta property="og:site_name" content="CodeSkyBlue Blog">
-<meta property="og:description" content="inline（内联函数）若在函数体内定义完成，变为内联函数的候选人inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定">
+<meta property="og:description" content="inline（内联函数）   若在函数体内定义完成，变为内联函数的候选人  inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定  拷贝构造  拷贝赋值   包含指针需要单独实现，不可用默认的">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-20T12:26:09.000Z">
-<meta property="article:modified_time" content="2022-04-16T13:41:45.743Z">
+<meta property="article:modified_time" content="2022-04-19T13:30:48.939Z">
 <meta property="article:author" content="SkyBlue">
 <meta property="article:tag" content="cpp">
 <meta property="article:tag" content="侯捷">
@@ -42,6 +42,8 @@
 <meta property="article:tag" content="内联函数">
 <meta property="article:tag" content="操作符重载">
 <meta property="article:tag" content="临时对象">
+<meta property="article:tag" content="赋值构造">
+<meta property="article:tag" content="拷贝构造">
 <meta name="twitter:card" content="summary">
 
 
@@ -161,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#inline%EF%BC%88%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">inline（内联函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">3.</span> <span class="nav-text">友元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">4.</span> <span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%EF%BC%8C%E5%85%A5%E5%8F%82%E4%BB%A5%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">尽量使用引用传递，入参以及返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%EF%BC%8C%E8%8B%A5%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%9C%A8%E7%A6%BB%E5%BC%80%E5%87%BD%E6%95%B0%E5%90%8E%E4%B8%8D%E5%AD%98%E5%9C%A8"><span class="nav-number">4.2.</span> <span class="nav-text">返回值不能使用引用，若返回的值在离开函数后不存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">非成员函数</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">2.</span> <span class="nav-text">友元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">3.</span> <span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%EF%BC%8C%E5%85%A5%E5%8F%82%E4%BB%A5%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.1.</span> <span class="nav-text">尽量使用引用传递，入参以及返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8%EF%BC%8C%E8%8B%A5%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%9C%A8%E7%A6%BB%E5%BC%80%E5%87%BD%E6%95%B0%E5%90%8E%E4%B8%8D%E5%AD%98%E5%9C%A8"><span class="nav-number">3.2.</span> <span class="nav-text">返回值不能使用引用，若返回的值在离开函数后不存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">4.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">非成员函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0-amp-%E8%B5%8B%E5%80%BC%E6%9E%84%E9%80%A0"><span class="nav-number">5.</span> <span class="nav-text">拷贝构造&amp;赋值构造</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -176,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -187,7 +189,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -270,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-16 21:41:45" itemprop="dateModified" datetime="2022-04-16T21:41:45+08:00">2022-04-16</time>
+      <time title="Modified: 2022-04-19 21:30:48" itemprop="dateModified" datetime="2022-04-19T21:30:48+08:00">2022-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -311,14 +313,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2.5k</span>
+      <span>3.2k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>3 mins.</span>
     </span>
 </div>
 
@@ -329,7 +331,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="inline（内联函数）"><a href="#inline（内联函数）" class="headerlink" title="inline（内联函数）"></a>inline（内联函数）</h2><p><em>若在函数体内定义完成，变为内联函数的候选人</em><br>inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定</p>
+        <ul>
+<li><p>inline（内联函数）</p>
+<p>  <em>若在函数体内定义完成，变为内联函数的候选人</em><br>  inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定</p>
+</li>
+<li><p>拷贝构造</p>
+</li>
+<li><p>拷贝赋值</p>
+<p>  包含指针需要单独实现，不可用默认的</p>
+</li>
+</ul>
 <span id="more"></span>
 <h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>函数重载 :由编译器负责将函数命名唯一化，使用<strong>函数名</strong>和<strong>参数</strong> 有关</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __COMPLEX__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __COMPLEX__</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">complex</span>(T r=<span class="number">0</span>,T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125; <span class="comment">//inline 使用初始化构造列表,优点构造函数运行更快：因为在变量初始化时就进行了赋值</span></span><br><span class="line">    <span class="comment">// (T r=0,T i=0) 默认实参</span></span><br><span class="line">    <span class="built_in">complex</span>():<span class="built_in">re</span>(<span class="number">0</span>),<span class="built_in">im</span>(<span class="number">0</span>)&#123;&#125;<span class="comment">// 与 上面的构造函数冲突，因此这种构造不允许存在</span></span><br><span class="line">	complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">	<span class="function">T <span class="title">real</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> re;&#125; <span class="comment">//inline</span></span><br><span class="line">	<span class="function">T <span class="title">imag</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> im;&#125;<span class="comment">//inline</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T re,im;</span><br><span class="line">	<span class="keyword">friend</span> complex&amp; __doapl(complex*,<span class="type">const</span> complex&amp;); <span class="comment">//友元 可以直接访问类的私有成员</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
@@ -347,6 +358,8 @@
 
 <h3 id="非成员函数"><a href="#非成员函数" class="headerlink" title="非成员函数"></a>非成员函数</h3><p><em>临时对象</em><br>特殊操作符要使用全局的操作符重载<br>cout&lt;&lt; conj(c1);<br>cout&lt;&lt; c1&lt;&lt; conj(c1);</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局函数</span></span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x,<span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));<span class="comment">//类型（）创建临时变量。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +(<span class="type">const</span> compelx&amp;x, <span class="type">double</span> y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(<span class="built_in">real</span>(x)+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> compelx</span><br><span class="line"><span class="keyword">operator</span> +( <span class="type">double</span> x, <span class="type">const</span> complex&amp;y)&#123;</span><br><span class="line">    <span class="built_in">complex</span>(x+<span class="built_in">real</span>(y),<span class="built_in">imag</span>(x)+<span class="built_in">imag</span>(y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> +(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> complex <span class="keyword">operator</span> -(<span class="type">const</span> complex&amp;x)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">complex</span>(-<span class="built_in">real</span>(x),-<span class="built_in">imag</span>(x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="built_in">imag</span>(y);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">const</span> comolex&amp; x,<span class="type">double</span> y)&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">real</span>(x)==y &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">operator</span> ==(<span class="type">double</span> x,<span class="type">const</span> comolex&amp; y)&#123;</span><br><span class="line"> <span class="keyword">return</span> x==<span class="built_in">real</span>(y) &amp;&amp;<span class="built_in">imag</span>(x)==<span class="number">0</span>;  </span><br><span class="line">&#125;</span><br><span class="line">ostream &amp;</span><br><span class="line"><span class="keyword">operator</span> &lt;&lt; (ostream&amp; os,<span class="type">const</span> compelx&amp;x)&#123;<span class="comment">//os 不能const，因为每次输出改变os的状态</span></span><br><span class="line">    <span class="keyword">return</span> os&lt;&lt;<span class="string">&quot;&quot;</span>&lt;&lt;<span class="built_in">real</span>(x)&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;<span class="built_in">imag</span>(x)&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="拷贝构造-amp-赋值构造"><a href="#拷贝构造-amp-赋值构造" class="headerlink" title="拷贝构造&amp;赋值构造"></a>拷贝构造&amp;赋值构造</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">String</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">String</span>(<span class="type">const</span> <span class="type">char</span>* cstr=<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">String</span>(<span class="type">const</span> String&amp; str);</span><br><span class="line">        String&amp; <span class="keyword">operator</span>=(<span class="type">const</span> String&amp; str);</span><br><span class="line">        ~<span class="built_in">String</span>();</span><br><span class="line">        <span class="function"><span class="type">char</span>* <span class="title">get_c_str</span><span class="params">()</span> <span class="type">const</span></span>&#123;<span class="keyword">return</span> m_data&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">char</span>* m_data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="title">String::String</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* cstr=<span class="number">0</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cstr)&#123;</span><br><span class="line">        m_data = <span class="keyword">new</span> <span class="type">char</span>[<span class="built_in">strlen</span>(cstr)+<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">strcpy</span>(m_data,cstr);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        m_data=<span class="keyword">new</span> <span class="type">char</span>[<span class="number">1</span>];</span><br><span class="line">        *m_data=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> </span><br><span class="line">String&amp; String::<span class="keyword">operator</span>=(<span class="type">const</span> String&amp; str)&#123;</span><br><span class="line">    <span class="comment">//自我赋值检测</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> == &amp;str)&#123;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] m_data;</span><br><span class="line">    m_data = <span class="keyword">new</span> <span class="type">char</span>[<span class="built_in">strlen</span>(str.m_data)+<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">strcpy</span>(m_data,str.m_data);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> String::~<span class="built_in">String</span>()&#123;</span><br><span class="line">    <span class="keyword">delete</span>[] m_data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -409,14 +422,16 @@
               <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 内联函数</a>
               <a href="/tags/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag"><i class="fa fa-tag"></i> 操作符重载</a>
               <a href="/tags/%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 临时对象</a>
+              <a href="/tags/%E8%B5%8B%E5%80%BC%E6%9E%84%E9%80%A0/" rel="tag"><i class="fa fa-tag"></i> 赋值构造</a>
+              <a href="/tags/%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0/" rel="tag"><i class="fa fa-tag"></i> 拷贝构造</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/03/19/cpp-%E4%BE%AF%E6%8D%B7Note/" rel="prev" title="cpp 面向对象基础--基础与头文件声明">
-                  <i class="fa fa-chevron-left"></i> cpp 面向对象基础--基础与头文件声明
+                <a href="/2022/03/19/%E5%A0%86%E4%B8%8E%E6%A0%88/" rel="prev" title="堆与栈">
+                  <i class="fa fa-chevron-left"></i> 堆与栈
                 </a>
             </div>
             <div class="post-nav-item">
@@ -472,13 +487,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">38k</span>
+    <span title="Symbols count total">40k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">34 mins.</span>
+    <span title="Reading time total">36 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
