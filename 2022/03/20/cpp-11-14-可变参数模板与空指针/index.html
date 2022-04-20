@@ -173,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -184,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -374,6 +374,14 @@
 <li>递归复合</p></div>
     </li>
     <li class="popular-posts-item">
+        <div class="popular-posts-date">2022-04-16</div>
+      <div class="popular-posts-title"><a href="2022/04/16/cpp-11-14-decltype&lambdas/" rel="bookmark">cpp 11&14 decltype&lambdas</a></div>
+        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>decltype<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br></pre></td></tr></table></figure></li>
+<li>lambdas<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutable 关键字，表示是否可以改写</span></span><br><span class="line"><span class="comment">//thorwSpec 表示可以抛出的异常</span></span><br><span class="line"><span class="comment">//retType 表示返回值</span></span><br><span class="line"><span class="comment">//三个都没有(parameters)可以不写</span></span><br><span class="line"><span class="comment">//             ^</span></span><br><span class="line"><span class="comment">//[] 这个里面可以放外部的变量，不放入就看不见。可以传值和引用</span></span><br><span class="line">[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i=[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;()<span class="comment">//表示直接调用</span></span><br></pre></td></tr></table></figure></p></div>
+    </li>
+    <li class="popular-posts-item">
         <div class="popular-posts-date">2022-04-13</div>
       <div class="popular-posts-title"><a href="2022/04/13/cpp-11-14-default&delete 以及template/" rel="bookmark">cpp 11&14 default&delete 以及template</a></div>
         <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
@@ -383,14 +391,6 @@
 <li>template template parameter</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">template</span>&lt;<span class="keyword">class</span>&gt; <span class="keyword">class</span> <span class="title class_">Container</span>&gt;</span><br><span class="line"><span class="comment">//template&lt;typename T,template&lt;typename&gt; class Container&gt;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XCIs</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        Container&lt;T&gt; c;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">XCIs</span>()&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">long</span> i=<span class="number">0</span>;i&lt;SIZE;i++)&#123;</span><br><span class="line">                c.<span class="built_in">insert</span>(c.<span class="built_in">end</span>(),<span class="built_in">T</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">output_static_data</span>(<span class="built_in">T</span>());</span><br><span class="line">            <span class="function">Container&lt;T&gt; <span class="title">c1</span><span class="params">(c)</span></span>;</span><br><span class="line">            <span class="function">Container&lt;T&gt; <span class="title">c2</span><span class="params">(std::move(c))</span></span>;</span><br><span class="line">            c1.<span class="built_in">swap</span>(c2);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-16</div>
-      <div class="popular-posts-title"><a href="2022/04/16/cpp-11-14-decltype&lambdas/" rel="bookmark">cpp 11&14 decltype&lambdas</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>decltype<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">float</span>&gt; coll;</span><br><span class="line"><span class="keyword">decltype</span>(coll)::value_type elem; <span class="comment">// map&lt;string,float&gt;::value ele;</span></span><br></pre></td></tr></table></figure></li>
-<li>lambdas<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutable 关键字，表示是否可以改写</span></span><br><span class="line"><span class="comment">//thorwSpec 表示可以抛出的异常</span></span><br><span class="line"><span class="comment">//retType 表示返回值</span></span><br><span class="line"><span class="comment">//三个都没有(parameters)可以不写</span></span><br><span class="line"><span class="comment">//             ^</span></span><br><span class="line"><span class="comment">//[] 这个里面可以放外部的变量，不放入就看不见。可以传值和引用</span></span><br><span class="line">[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i=[...](parameters)<span class="built_in">mutable</span>(opt),<span class="built_in">thorwSpec</span>(opt)-&gt;<span class="built_in">retType</span>(opt)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;()<span class="comment">//表示直接调用</span></span><br></pre></td></tr></table></figure></p></div>
     </li>
   </ul>
 
@@ -452,8 +452,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/03/20/cpp-%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84/" rel="prev" title="cpp 构造与析构（侯捷）">
-                  <i class="fa fa-chevron-left"></i> cpp 构造与析构（侯捷）
+                <a href="/2022/03/20/OOP-OOD/" rel="prev" title="OOP&OOD">
+                  <i class="fa fa-chevron-left"></i> OOP&OOD
                 </a>
             </div>
             <div class="post-nav-item">
@@ -509,13 +509,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">40k</span>
+    <span title="Symbols count total">43k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">36 mins.</span>
+    <span title="Reading time total">39 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://example.com/2022/04/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2022-04-20</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2022/03/20/OOP-OOD/</loc>
+    <lastmod>2022-04-20</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2022/04/20/cpp-tips/</loc>
     <lastmod>2022-04-19</lastmod>
   </url>
