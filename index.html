@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -215,260 +215,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/image.jpg">
-      <meta itemprop="name" content="SkyBlue">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodeSkyBlue Blog">
-      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
-    </span>
-    
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/" class="post-title-link" itemprop="url">仿函数&share_ptr(指针类)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-04-22 00:22:23 / Modified: 01:00:50" itemprop="dateCreated datePublished" datetime="2022-04-22T00:22:23+08:00">2022-04-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Changyan: </span>
-    
-    <a title="仿函数&share_ptr(指针类)" href="/2022/04/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::e43765d88e9fe1560ac2d6f3e7da0dde" class="cy_cmt_count" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2.6k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>share_ptr<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">share_ptr</span>&#123;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">share_ptr</span>(T* p):<span class="built_in">px</span>(p)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    T* px;</span><br><span class="line">    <span class="type">long</span>* pn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/image.jpg">
-      <meta itemprop="name" content="SkyBlue">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodeSkyBlue Blog">
-      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
-    </span>
-    
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">conversion function(转换函数)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-04-21 01:01:30 / Modified: 01:24:14" itemprop="dateCreated datePublished" datetime="2022-04-21T01:01:30+08:00">2022-04-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Changyan: </span>
-    
-    <a title="conversion function(转换函数)" href="/2022/04/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::76809c9948800293dffe520ea816ffe9" class="cy_cmt_count" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>转换函数<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">double</span><span class="params">()</span> <span class="type">const</span></span>&#123; <span class="comment">//表示在需要转换为double时调用这个函数,将对象转换为double 返回值不需要编写</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="type">double</span>)(m_numertor / m_denominator)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -1402,7 +1148,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/class-template/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/image.jpg">
@@ -1420,7 +1166,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">cpp 11&14 可变参数模板与空指针,auto</a>
+          <a href="/2022/03/22/class-template/" class="post-title-link" itemprop="url">class template</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1431,14 +1177,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-03-20 23:08:29" itemprop="dateCreated datePublished" datetime="2022-03-20T23:08:29+08:00">2022-03-20</time>
+      <time title="Created: 2022-03-22 23:49:12" itemprop="dateCreated datePublished" datetime="2022-03-22T23:49:12+08:00">2022-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-16 21:42:10" itemprop="dateModified" datetime="2022-04-16T21:42:10+08:00">2022-04-16</time>
+      <time title="Modified: 2022-04-23 01:02:24" itemprop="dateModified" datetime="2022-04-23T01:02:24+08:00">2022-04-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1467,8 +1213,8 @@
       </span>
       <span class="post-meta-item-text">Changyan: </span>
     
-    <a title="cpp 11&14 可变参数模板与空指针,auto" href="/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::4b391012acde559061aac3b3ade67c85" class="cy_cmt_count" itemprop="commentCount"></span>
+    <a title="class template" href="/2022/03/22/class-template/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::58a27fc8a403bc9cc4b8895a7f564f43" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1479,14 +1225,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>3k</span>
+      <span>4.2k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>3 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -1499,17 +1245,299 @@
     <div class="post-body" itemprop="articleBody">
           <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
 <ul>
-<li><p>Variadic Templates(可变参数模板)</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可变参数模板</span></span><br><span class="line"><span class="comment">// 无参数函数，用于结束调用 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 包含一个参数固定参数的可变模板函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... types&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printX</span><span class="params">(<span class="type">const</span> T&amp; firstArg,<span class="type">const</span> Types&amp;... args)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt; firstArg&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printX</span>(args...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<li><p>class Template</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">complex</span>(T r=<span class="number">0</span>;T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">    complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">    <span class="function">T <span class="title">real</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> re;&#125;</span><br><span class="line">    <span class="function">T <span class="title">imag</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    T re,im;</span><br><span class="line">    <span class="keyword">friend</span> complex&amp; __doapl(complex*, <span class="type">const</span> complex)</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">c1</span><span class="params">(<span class="number">2.5</span>,<span class="number">1.4</span>)</span></span>;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">int</span>&gt; <span class="title">c2</span><span class="params">(<span class="number">2</span>,<span class="number">6</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>空指针</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;&#125;<span class="comment">//function1</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">void</span>* a)</span></span>&#123;&#125;<span class="comment">//funtion2</span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">NULL</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>);<span class="comment">//call function1 </span></span><br><span class="line"><span class="built_in">f</span>(<span class="literal">nullptr</span>);<span class="comment">//call function2</span></span><br></pre></td></tr></table></figure>
+<li><p>函数模板</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt; <span class="comment">//class 可以换位typename</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span></span></span><br><span class="line"><span class="function"><span class="type">const</span> T&amp; <span class="title">min</span><span class="params">(<span class="type">const</span> T&amp;a,<span class="type">const</span> T&amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b&lt;a ? b:a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">* 成员模板</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">pair</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    T1 first;</span><br><span class="line">    T2 second;</span><br><span class="line">    <span class="built_in">pair</span>():<span class="built_in">first</span>(<span class="built_in">T1</span>()),<span class="built_in">second</span>(<span class="built_in">T2</span>())&#123;&#125;</span><br><span class="line">    <span class="built_in">pair</span>(<span class="type">const</span> T1&amp; a,<span class="type">const</span> T2&amp; b):<span class="built_in">first</span>(a),<span class="built_in">second</span>(b)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">U1</span>,<span class="keyword">class</span> <span class="title class_">U2</span>&gt;</span><br><span class="line">    <span class="built_in">pair</span>(<span class="type">const</span> pair&lt;U1,U2&gt;&amp; p):<span class="built_in">first</span>(p.first),<span class="built_in">second</span>(p.second)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"><span class="meta"># class Template</span></span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">complex</span>(T r=<span class="number">0</span>;T i=<span class="number">0</span>):<span class="built_in">re</span>(r),<span class="built_in">im</span>(i)&#123;&#125;</span><br><span class="line">    complex&amp; <span class="keyword">operator</span> +=(<span class="type">const</span> complex&amp;);</span><br><span class="line">    <span class="function">T <span class="title">real</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> re;&#125;</span><br><span class="line">    <span class="function">T <span class="title">imag</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> im;&#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    T re,im;</span><br><span class="line">    <span class="keyword">friend</span> complex&amp; __doapl(complex*, <span class="type">const</span> complex)</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">double</span>&gt; <span class="title">c1</span><span class="params">(<span class="number">2.5</span>,<span class="number">1.4</span>)</span></span>;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">int</span>&gt; <span class="title">c2</span><span class="params">(<span class="number">2</span>,<span class="number">6</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="function-Template"><a href="#function-Template" class="headerlink" title="function Template"></a>function Template</h1><p><em>函数模板不用指明类型</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt; <span class="comment">//class 可以换位typename</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span></span></span><br><span class="line"><span class="function"><span class="type">const</span> T&amp; <span class="title">min</span><span class="params">(<span class="type">const</span> T&amp;a,<span class="type">const</span> T&amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b&lt;a ? b:a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果是类对象要看对象是否重载了操作符&lt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="成员模板"><a href="#成员模板" class="headerlink" title="成员模板"></a>成员模板</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">pair</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    T1 first;</span><br><span class="line">    T2 second;</span><br><span class="line">    <span class="built_in">pair</span>():<span class="built_in">first</span>(<span class="built_in">T1</span>()),<span class="built_in">second</span>(<span class="built_in">T2</span>())&#123;&#125;</span><br><span class="line">    <span class="built_in">pair</span>(<span class="type">const</span> T1&amp; a,<span class="type">const</span> T2&amp; b):<span class="built_in">first</span>(a),<span class="built_in">second</span>(b)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">U1</span>,<span class="keyword">class</span> <span class="title class_">U2</span>&gt;</span><br><span class="line">    <span class="built_in">pair</span>(<span class="type">const</span> pair&lt;U1,U2&gt;&amp; p):<span class="built_in">first</span>(p.first),<span class="built_in">second</span>(p.second)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base1</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived1</span>:<span class="keyword">public</span> Base1&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base2</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dervied2</span>:<span class="keyword">public</span> Base2&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    T1   ,T2             U1     ,  U2</span></span><br><span class="line"><span class="function">pair&lt;Base1,Base2&gt; <span class="title">p2</span><span class="params">(pair&lt;Dervied1,Derived2&gt;())</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><em>例子</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">shared_prt</span>:<span class="keyword">public</span> __share_ptr&lt;_Tp&gt;&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp1&gt;</span></span><br><span class="line"><span class="function">    <span class="keyword">explicit</span> <span class="title">shared_ptr</span><span class="params">(_Tp1 __p)</span>:__shared_ptr&lt;_Tp&gt;(__p)&#123;</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Base1* prt=<span class="keyword">new</span> Derived; <span class="comment">// up-cast</span></span><br><span class="line"><span class="function">shared_ptr&lt;Base1&gt; <span class="title">sptr</span><span class="params">(<span class="keyword">new</span> Derived1)</span></span>;<span class="comment">// 模拟 up-cast</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="特化"><a href="#特化" class="headerlink" title="特化"></a>特化</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">Key</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">has</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">hash</span>&lt;<span class="type">char</span>&gt;&#123;</span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">char</span> x)</span><span class="type">const</span> </span>&#123;<span class="keyword">return</span> x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">hash</span>&lt;<span class="type">int</span>&gt;&#123;</span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> x)</span><span class="type">const</span> </span>&#123;<span class="keyword">return</span> x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">hash</span>&lt;<span class="type">long</span>&gt;&#123;</span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">long</span> x)</span><span class="type">const</span> </span>&#123;<span class="keyword">return</span> x;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="偏特化"><a href="#偏特化" class="headerlink" title="偏特化"></a>偏特化</h1><ul>
+<li><p>个数的偏特化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从左向右特化，个数的特化，只有一个模板参数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span> Alloc=...&gt;</span><br><span class="line"><span class="keyword">class</span> Vector&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Alloc=...&gt;</span><br><span class="line"><span class="keyword">class</span> vector&lt;<span class="type">bool</span>,Alloc&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>模板函数书写变化</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt; &gt;<span class="comment">//</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;<span class="comment">//Ok since c++11</span></span><br></pre></td></tr></table></figure>
+<li><p>范围上的偏</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//指定是指针</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&lt;T*&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">C&lt;string&gt; obj1;</span><br><span class="line">C&lt;string*&gt; obj2;</span><br></pre></td></tr></table></figure>
+
+<h1 id="模板模板参数（template-template-parameter）"><a href="#模板模板参数（template-template-parameter）" class="headerlink" title="模板模板参数（template template parameter）"></a>模板模板参数（template template parameter）</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">template</span> T ,<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">Container</span>&gt; <span class="comment">//template&lt;template T ,template&lt;class T&gt; class Container&gt; </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XCls</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        Container&lt;T&gt; c; <span class="comment">//用第一个模板参数做参数</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        ....;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Lst = list&lt;T,allocator&lt;T&gt;&gt;;<span class="comment">//别名</span></span><br><span class="line"></span><br><span class="line">XCls&lt;string, list&gt; mylst1;<span class="comment">//Error 默认模板的第二参数，</span></span><br><span class="line"></span><br><span class="line">XCls&lt;string, Lst&gt; mylst1;<span class="comment">//</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">template</span> T ,<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">SmartPtr</span>&gt; <span class="comment">//template&lt;template T ,template&lt;class T&gt; class Container&gt; </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XCls</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        SmartPtr&lt;T&gt; c; <span class="comment">//用第一个模板参数做参数</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">XCls</span>():<span class="built_in">sp</span>(<span class="keyword">new</span> T)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Lst = list&lt;T,allocator&lt;T&gt;&gt;;<span class="comment">//别名</span></span><br><span class="line"></span><br><span class="line">XCls&lt;string, list&gt; mylst1;<span class="comment">//Error 默认模板的第二参数，</span></span><br><span class="line"></span><br><span class="line">XCls&lt;string, Lst&gt; mylst1;<span class="comment">//</span></span><br><span class="line"></span><br><span class="line">XCls&lt;string,shared_ptr&gt; p1;</span><br><span class="line">XCls&lt;<span class="type">double</span>,unique_ptr&gt; p2; <span class="comment">// Error</span></span><br><span class="line">XCls&lt;<span class="type">int</span>,weak_ptr&gt; p3;<span class="comment">// Error</span></span><br><span class="line">XCls&lt;<span class="type">int</span>,auto_ptr&gt; p4;</span><br></pre></td></tr></table></figure>
+
+<h2 id="是否是模板模板参数"><a href="#是否是模板模板参数" class="headerlink" title="是否是模板模板参数"></a>是否是模板模板参数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>,<span class="keyword">class</span> <span class="title class_">Sequence</span> = deque&lt;T&gt;&gt;</span><br><span class="line"><span class="keyword">class</span> stack&#123;</span><br><span class="line">    <span class="keyword">friend</span> <span class="type">bool</span> <span class="keyword">operator</span> == &lt;&gt; (<span class="type">const</span> stack&amp;,<span class="type">const</span> stack)</span><br><span class="line">    <span class="keyword">friend</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; &lt;&gt; (<span class="type">const</span> stack&amp;,<span class="type">const</span> stack)</span><br><span class="line"></span><br><span class="line">    protect:</span><br><span class="line">    Sequence c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s1;</span><br><span class="line">stack&lt;<span class="type">int</span>,list&lt;<span class="type">int</span>&gt;&gt; s2; <span class="comment">//没有模糊的地带了，是确定的。因此不是模板模板参数 </span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/" class="post-title-link" itemprop="url">仿函数&share_ptr(指针类)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-22 00:22:23" itemprop="dateCreated datePublished" datetime="2022-03-22T00:22:23+08:00">2022-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-23 01:03:03" itemprop="dateModified" datetime="2022-04-23T01:03:03+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="仿函数&share_ptr(指针类)" href="/2022/03/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::2163bebb3bb6add12411cf9d210daac0" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>share_ptr<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">share_ptr</span>&#123;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">share_ptr</span>(T* p):<span class="built_in">px</span>(p)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    T* px;</span><br><span class="line">    <span class="type">long</span>* pn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/03/20/cpp-11-14-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A9%BA%E6%8C%87%E9%92%88/#more" rel="contents">
+              <a class="btn" href="/2022/03/22/%E4%BB%BF%E5%87%BD%E6%95%B0-share-ptr/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">conversion function(转换函数)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-21 01:01:30" itemprop="dateCreated datePublished" datetime="2022-03-21T01:01:30+08:00">2022-03-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-23 01:03:18" itemprop="dateModified" datetime="2022-04-23T01:03:18+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="conversion function(转换函数)" href="/2022/03/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::812883fea8748c59bae7413cf0c8216c" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>转换函数<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">double</span><span class="params">()</span> <span class="type">const</span></span>&#123; <span class="comment">//表示在需要转换为double时调用这个函数,将对象转换为double 返回值不需要编写</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="type">double</span>)(m_numertor / m_denominator)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/21/conversion-function-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1558,13 +1586,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">48k</span>
+    <span title="Symbols count total">52k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">44 mins.</span>
+    <span title="Reading time total">48 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
