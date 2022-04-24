@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hD9G1CERbajkxJHKNOGHCZn211qP8IK9ARPWLrMaK4E">
+  <meta name="msvalidate.01" content="F2F94B24520E8120CD768575C9B5141C">
+  <meta name="yandex-verification" content="15903ac9a50f3a5d">
+  <meta name="baidu-site-verification" content="code-aE9xzlo0dF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="依赖倒置原则（DIP） 高层模块(稳定) 不应该依赖底层模块(不稳定)，二者都应该依赖于抽象(稳定) 抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)   开放封闭原则（OCP） 对扩展开放 对更改封闭   单一职责原则（SRP） 一个类应该仅有一个引起他变化的原因 变化的方向隐含着类的责任   Liskov 替换原则(LSP) 子类必须能够替换他的基类（is-a） 继">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象的设计原则">
+<meta property="og:url" content="http://example.com/2022/04/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/index.html">
+<meta property="og:site_name" content="CodeSkyBlue Blog">
+<meta property="og:description" content="依赖倒置原则（DIP） 高层模块(稳定) 不应该依赖底层模块(不稳定)，二者都应该依赖于抽象(稳定) 抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)   开放封闭原则（OCP） 对扩展开放 对更改封闭   单一职责原则（SRP） 一个类应该仅有一个引起他变化的原因 变化的方向隐含着类的责任   Liskov 替换原则(LSP) 子类必须能够替换他的基类（is-a） 继">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-04-24T16:06:55.000Z">
+<meta property="article:modified_time" content="2022-04-24T16:49:56.195Z">
+<meta property="article:author" content="SkyBlue">
+<meta property="article:tag" content="设计原则">
+<meta property="article:tag" content="依赖倒置原则（DIP）">
+<meta property="article:tag" content="开放封闭原则（OCP）">
+<meta property="article:tag" content="单一职责原则（SRP）">
+<meta property="article:tag" content="Liskov 替换原则(LSP)">
+<meta property="article:tag" content="接口隔离原则（ISP）">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/04/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/04/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/","path":"2022/04/25/面向对象的设计原则/","title":"面向对象的设计原则"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面向对象的设计原则 | CodeSkyBlue Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CodeSkyBlue Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99%EF%BC%88DIP%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">依赖倒置原则（DIP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E6%94%BE%E5%B0%81%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88OCP%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">开放封闭原则（OCP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99%EF%BC%88SRP%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">单一职责原则（SRP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Liskov-%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99-LSP"><span class="nav-number">4.</span> <span class="nav-text">Liskov 替换原则(LSP)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99%EF%BC%88ISP%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">接口隔离原则（ISP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%BB%84%E5%90%88%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E7%B1%BB%E7%BB%A7%E6%89%BF"><span class="nav-number">6.</span> <span class="nav-text">优先使用对象组合，而不是类继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%8F%98%E5%8C%96%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">封装变化点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E9%92%88%E5%AF%B9%E5%AE%9E%E7%8E%B0%E7%BC%96%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">针对接口编程，而不是针对实现编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">设计模式的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E7%9B%AE%E7%9A%84"><span class="nav-number">9.1.</span> <span class="nav-text">从目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E8%8C%83%E5%9B%B4%E6%9D%A5%E7%9C%8B"><span class="nav-number">9.2.</span> <span class="nav-text">从范围来看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E5%B0%81%E8%A3%85%E5%8F%98%E5%8C%96%E8%A7%92%E5%BA%A6%E5%AF%B9%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="nav-number">9.3.</span> <span class="nav-text">从封装变化角度对模式分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C"><span class="nav-number">9.3.1.</span> <span class="nav-text">组件协作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3"><span class="nav-number">9.3.2.</span> <span class="nav-text">单一职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA"><span class="nav-number">9.3.3.</span> <span class="nav-text">对象创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%80%A7%E8%83%BD"><span class="nav-number">9.3.4.</span> <span class="nav-text">对象性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB"><span class="nav-number">9.3.5.</span> <span class="nav-text">接口隔离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96"><span class="nav-number">9.3.6.</span> <span class="nav-text">状态变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">9.3.7.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.3.8.</span> <span class="nav-text">行为模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-number">9.3.9.</span> <span class="nav-text">领域问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%9E%84%E8%8E%B7%E5%BE%97%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.4.</span> <span class="nav-text">重构获得模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">9.4.1.</span> <span class="nav-text">学习方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%8A%80%E6%B3%95"><span class="nav-number">9.4.1.1.</span> <span class="nav-text">关键技法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SkyBlue"
+      src="/images/image.jpg">
+  <p class="site-author-name" itemprop="name">SkyBlue</p>
+  <div class="site-description" itemprop="description">Discipline is the bridege between goals and accomplishment</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wtc842017068" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wtc842017068" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wtc84201068@gmail.com" title="E-Mail → mailto:wtc84201068@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="面向对象的设计原则 | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象的设计原则
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-04-25 00:06:55 / Modified: 00:49:56" itemprop="dateCreated datePublished" datetime="2022-04-25T00:06:55+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="面向对象的设计原则" href="/2022/04/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::e03cb2c0e3ce0ba7c174599302f9b787" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>依赖倒置原则（DIP）<ul>
+<li>高层模块(稳定) 不应该依赖底层模块(不稳定)，二者都应该依赖于抽象(稳定)</li>
+<li>抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)</li>
+</ul>
+</li>
+<li>开放封闭原则（OCP）<ul>
+<li>对扩展开放</li>
+<li>对更改封闭</li>
+</ul>
+</li>
+<li>单一职责原则（SRP）<ul>
+<li>一个类应该仅有一个引起他变化的原因</li>
+<li>变化的方向隐含着类的责任</li>
+</ul>
+</li>
+<li>Liskov 替换原则(LSP)<ul>
+<li>子类必须能够替换他的基类（is-a）</li>
+<li>继承表达类型抽象</li>
+</ul>
+</li>
+<li>接口隔离原则（ISP）<ul>
+<li>接口小而完备</li>
+<li>不应该强迫客户依赖他们不用的方法<span id="more"></span>
+<h1 id="依赖倒置原则（DIP）"><a href="#依赖倒置原则（DIP）" class="headerlink" title="依赖倒置原则（DIP）"></a>依赖倒置原则（DIP）</h1></li>
+<li>高层模块(稳定) 不应该依赖底层模块(不稳定)，二者都应该依赖于抽象(稳定)</li>
+<li>抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)<h1 id="开放封闭原则（OCP）"><a href="#开放封闭原则（OCP）" class="headerlink" title="开放封闭原则（OCP）"></a>开放封闭原则（OCP）</h1></li>
+<li>对扩展开放</li>
+<li>对更改封闭<h1 id="单一职责原则（SRP）"><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h1></li>
+<li>一个类应该仅有一个引起他变化的原因</li>
+<li>变化的方向隐含着类的责任<h1 id="Liskov-替换原则-LSP"><a href="#Liskov-替换原则-LSP" class="headerlink" title="Liskov 替换原则(LSP)"></a>Liskov 替换原则(LSP)</h1></li>
+<li>子类必须能够替换他的基类（is-a）</li>
+<li>继承表达类型抽象<h1 id="接口隔离原则（ISP）"><a href="#接口隔离原则（ISP）" class="headerlink" title="接口隔离原则（ISP）"></a>接口隔离原则（ISP）</h1></li>
+<li>接口小而完备</li>
+<li>不应该强迫客户依赖他们不用的方法</li>
+</ul>
+</li>
+</ul>
+<h1 id="优先使用对象组合，而不是类继承"><a href="#优先使用对象组合，而不是类继承" class="headerlink" title="优先使用对象组合，而不是类继承"></a>优先使用对象组合，而不是类继承</h1><ul>
+<li>类继承通常为“白箱复用”，对象组合通常为“黑箱复用”</li>
+<li>继承在某种程度上破坏了封装性，子类父类耦合度较高</li>
+<li>而对象组合则只要求被组合对象具有良好定义的接口，耦合度低<h1 id="封装变化点"><a href="#封装变化点" class="headerlink" title="封装变化点"></a>封装变化点</h1></li>
+<li>使用封装来创建对象之间的分层界，让设计者可以在分解侧的一侧进行修改，而不会对另一侧产生不良的影响，从而实现松耦合</li>
+</ul>
+<h1 id="针对接口编程，而不是针对实现编程"><a href="#针对接口编程，而不是针对实现编程" class="headerlink" title="针对接口编程，而不是针对实现编程"></a>针对接口编程，而不是针对实现编程</h1><ul>
+<li>不将变量类型声明为某个特定的具体类，而是生名为接口</li>
+<li>客户程序无需获知对象的具体类型，只需要知道对象的接口</li>
+<li>减少系统中各部分的依赖关系，从而实现“高内聚，松耦合”的类型设计方案</li>
+</ul>
+<h1 id="设计模式的分类"><a href="#设计模式的分类" class="headerlink" title="设计模式的分类"></a>设计模式的分类</h1><h2 id="从目的"><a href="#从目的" class="headerlink" title="从目的"></a>从目的</h2><ul>
+<li><p>创建型模式</p>
+<p>  将对象的部分创建工作</p>
+</li>
+<li><p>结构型</p>
+<p>  通过类的继承或者组合，实现灵活的结构，从而应对需求的变化为对象的结构带来的冲击</p>
+</li>
+<li><p>行为型</p>
+<p>  通过类继承或者对象的组合来划分类与对象间的职责，从而应对需求变化为多个交互的对象的冲击</p>
+</li>
+</ul>
+<h2 id="从范围来看"><a href="#从范围来看" class="headerlink" title="从范围来看"></a>从范围来看</h2><ul>
+<li>类模式处理类与子类的静态关系</li>
+<li>对象模式处理对象间的动态关系</li>
+</ul>
+<h2 id="从封装变化角度对模式分类"><a href="#从封装变化角度对模式分类" class="headerlink" title="从封装变化角度对模式分类"></a>从封装变化角度对模式分类</h2><h3 id="组件协作"><a href="#组件协作" class="headerlink" title="组件协作"></a>组件协作</h3><ul>
+<li>Template Method</li>
+<li>Strategy</li>
+<li>Observer&#x2F;Event<h3 id="单一职责"><a href="#单一职责" class="headerlink" title="单一职责"></a>单一职责</h3></li>
+<li>Decorator</li>
+<li>Bridge<h3 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h3></li>
+<li>Factory Method</li>
+<li>Abstract Method</li>
+<li>Prototype</li>
+<li>Builder<h3 id="对象性能"><a href="#对象性能" class="headerlink" title="对象性能"></a>对象性能</h3></li>
+<li>singleton</li>
+<li>Flyweight<h3 id="接口隔离"><a href="#接口隔离" class="headerlink" title="接口隔离"></a>接口隔离</h3></li>
+<li>Facade</li>
+<li>Proxy</li>
+<li>Mediator</li>
+<li>Adapter<h3 id="状态变化"><a href="#状态变化" class="headerlink" title="状态变化"></a>状态变化</h3></li>
+<li>memento</li>
+<li>State<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3></li>
+<li>Composite</li>
+<li>Iterator</li>
+<li>Chain of Resposibility</li>
+</ul>
+<h3 id="行为模式"><a href="#行为模式" class="headerlink" title="行为模式"></a>行为模式</h3><ul>
+<li>Command</li>
+<li>Visitor<h3 id="领域问题"><a href="#领域问题" class="headerlink" title="领域问题"></a>领域问题</h3></li>
+<li>Interpreter</li>
+</ul>
+<h2 id="重构获得模式"><a href="#重构获得模式" class="headerlink" title="重构获得模式"></a>重构获得模式</h2><pre><code>好的面向对象设计，可以应对变化，提高复用
+</code></pre>
+<h3 id="学习方式"><a href="#学习方式" class="headerlink" title="学习方式"></a>学习方式</h3><pre><code>* 寻找变化点，应用设计模式
+* 不宜先入为主，没有一步到位的设计模式。重构到模式
+</code></pre>
+<h4 id="关键技法"><a href="#关键技法" class="headerlink" title="关键技法"></a>关键技法</h4><ul>
+<li>静态 -&gt; 动态</li>
+<li>早绑定 -&gt; 晚绑定</li>
+<li>继承 -&gt; 组合</li>
+<li>编译时依赖 -&gt; 运行时依赖</li>
+<li>紧耦合 -&gt; 松耦合</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+        <div class="popular-posts-date">2022-04-25</div>
+      <div class="popular-posts-title"><a href="2022/04/25/“模板方法”/" rel="bookmark">模板方法</a></div>
+        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>Template Method<ul>
+<li><p>特点：</p>
+<ul>
+<li>稳定的机构，但是子步骤有很多改变的需求。</li>
+<li>或者由于固有原因导致无法和任务的整体结构同时实现</li>
+</ul>
+</li>
+<li><p>目的：</p>
+<p>在稳定结构的前提下，灵活实现变化或者晚期再来实现需求</p>
+</li>
+</ul>
+</li>
+</ul></p></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="SkyBlue WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="SkyBlue Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/skyCW">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://www.zhihu.com/people/skyCW">
+          <span class="icon">
+            <i class="fab fa-zhihu"></i>
+          </span>
+
+          <span class="label">Zhihu</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag"><i class="fa fa-tag"></i> 设计原则</a>
+              <a href="/tags/%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99%EF%BC%88DIP%EF%BC%89/" rel="tag"><i class="fa fa-tag"></i> 依赖倒置原则（DIP）</a>
+              <a href="/tags/%E5%BC%80%E6%94%BE%E5%B0%81%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88OCP%EF%BC%89/" rel="tag"><i class="fa fa-tag"></i> 开放封闭原则（OCP）</a>
+              <a href="/tags/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99%EF%BC%88SRP%EF%BC%89/" rel="tag"><i class="fa fa-tag"></i> 单一职责原则（SRP）</a>
+              <a href="/tags/Liskov-%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99-LSP/" rel="tag"><i class="fa fa-tag"></i> Liskov 替换原则(LSP)</a>
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99%EF%BC%88ISP%EF%BC%89/" rel="tag"><i class="fa fa-tag"></i> 接口隔离原则（ISP）</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/20/cpp-tips/" rel="prev" title="cpp tips">
+                  <i class="fa fa-chevron-left"></i> cpp tips
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/" rel="next" title="模板方法">
+                  模板方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-changyan">changyan</a></li>
+            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="e03cb2c0e3ce0ba7c174599302f9b787"></div>
+            </div>
+            <div class="tab-pane disqusjs" id="comment-disqusjs">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SkyBlue</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">62k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">57 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvXLLUFD","appkey":"ce48e24fb9dd5ba5923cc4921ebe91d7"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" integrity="sha256-GxdCIOyfxQ1OBfS99qAIJDoGK1ADuBsxhMTqXG82fAY=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":null,"apikey":"xmAMDmdrDGHYquJkm9dE5amwgnqa4CtE2DmPMuXHHwTcfC6lxFr1j9vhWtRVZlIB","shortname":"skycw-disqus-com","js":{"url":"https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js","integrity":"sha256-LVaMHPQ2zLqOc5rXSAfr4d1PIkEGNLyyUTDNPZmTtUw="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>
