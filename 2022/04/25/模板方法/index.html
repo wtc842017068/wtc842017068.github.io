@@ -28,26 +28,26 @@
     <meta name="description" content="Template Method 特点：  稳定的机构，但是子步骤有很多改变的需求。 或者由于固有原因导致无法和任务的整体结构同时实现   目的： 在稳定结构的前提下，灵活实现变化或者晚期再来实现需求">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模板方法">
-<meta property="og:url" content="http://example.com/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/index.html">
+<meta property="og:url" content="http://example.com/2022/04/25/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="CodeSkyBlue Blog">
 <meta property="og:description" content="Template Method 特点：  稳定的机构，但是子步骤有很多改变的需求。 或者由于固有原因导致无法和任务的整体结构同时实现   目的： 在稳定结构的前提下，灵活实现变化或者晚期再来实现需求">
 <meta property="og:locale">
-<meta property="og:image" content="https://s2.loli.net/2022/04/25/fJaZNKIqi4ohWHc.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/04/26/3gTFYZB7ERQyApK.jpg">
 <meta property="article:published_time" content="2022-04-24T16:32:04.000Z">
-<meta property="article:modified_time" content="2022-04-24T17:35:59.989Z">
+<meta property="article:modified_time" content="2022-04-25T16:58:47.422Z">
 <meta property="article:author" content="SkyBlue">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="组件协作模式">
 <meta property="article:tag" content="模板方法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/04/25/fJaZNKIqi4ohWHc.jpg">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/26/3gTFYZB7ERQyApK.jpg">
 
 
-<link rel="canonical" href="http://example.com/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/">
+<link rel="canonical" href="http://example.com/2022/04/25/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/","path":"2022/04/25/“模板方法”/","title":"模板方法"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh","comments":true,"permalink":"http://example.com/2022/04/25/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/","path":"2022/04/25/模板方法/","title":"模板方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>模板方法 | CodeSkyBlue Blog</title>
@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -185,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -232,7 +232,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/25/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/image.jpg">
@@ -260,9 +260,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-04-25 00:32:04 / Modified: 01:35:59" itemprop="dateCreated datePublished" datetime="2022-04-25T00:32:04+08:00">2022-04-25</time>
+      <time title="Created: 2022-04-25 00:32:04" itemprop="dateCreated datePublished" datetime="2022-04-25T00:32:04+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-26 00:58:47" itemprop="dateModified" datetime="2022-04-26T00:58:47+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -291,8 +297,8 @@
       </span>
       <span class="post-meta-item-text">Changyan: </span>
     
-    <a title="模板方法" href="/2022/04/25/%E2%80%9C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E2%80%9D/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::db9301e5c97c8e229436aab6fd88fab0" class="cy_cmt_count" itemprop="commentCount"></span>
+    <a title="模板方法" href="/2022/04/25/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::0435807a591334b906e95fc89ec499e6" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -352,8 +358,8 @@
 <li>Application call Library 早绑定</li>
 <li>Library call Application 晚绑定</li>
 </ul>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>  定义一个操作中的算法的骨架(稳定)，而将一些步骤延迟（变化）到子类中。Template Method 使得子类可以不改变（复用）一个算法的结构即可重定义（override 重写）该算法的某些特定步骤</p>
-<h2 id="UML-表示"><a href="#UML-表示" class="headerlink" title="UML 表示"></a>UML 表示</h2><p><img src="https://s2.loli.net/2022/04/25/fJaZNKIqi4ohWHc.jpg" alt="模板方法UML"></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>  定义一个操作中的算法的骨架 **$\underline{ (稳定) }$**，而将一些步骤延迟 <strong>$\underline{ （变化） }$</strong> 到子类中。Template Method 使得子类可以不改变 <strong>$\underline{ （复用） }$</strong> 一个算法的结构即可重定义 <strong>$\underline{ （override 重写） }$</strong> 该算法的某些特定步骤</p>
+<h2 id="UML-表示"><a href="#UML-表示" class="headerlink" title="UML 表示"></a>UML 表示</h2><p><img src="https://s2.loli.net/2022/04/26/3gTFYZB7ERQyApK.jpg" alt="模板方法UML"></p>
 <h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ul>
 <li>Template Method 模式，是一种非常基础的设计模式，他用最简洁的机制(虚函数)为很多应用程序框架提供了灵活的扩展点，是代码结构实现复用</li>
 <li>除了可以灵活对应子步骤的变化外，“不要调用我”，“让我调用你”的反向控制结构是Template Method的典型</li>
@@ -371,6 +377,21 @@
       
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
+    <li class="popular-posts-item">
+        <div class="popular-posts-date">2022-04-25</div>
+      <div class="popular-posts-title"><a href="2022/04/25/策略模式/" rel="bookmark">策略模式</a></div>
+        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li><p>策略模式</p>
+<ul>
+<li>解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法</li>
+</ul>
+</li>
+<li><p>模式定义</p>
+<p>定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 <strong>（变化）</strong>。改模式使得算法可以独立于使用他的客户程序 <strong>(稳定)</strong> 而变化 <strong>（扩展，子类话）</strong></p>
+</li>
+</ul></p></div>
+    </li>
     <li class="popular-posts-item">
         <div class="popular-posts-date">2022-03-20</div>
       <div class="popular-posts-title"><a href="2022/03/20/OOP-OOD/" rel="bookmark">OOP&OOD</a></div>
@@ -405,35 +426,6 @@
 <li>递归创建</li>
 <li>递归继承</li>
 <li>递归复合</p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-25</div>
-      <div class="popular-posts-title"><a href="2022/04/25/面向对象的设计原则/" rel="bookmark">面向对象的设计原则</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>依赖倒置原则（DIP）<ul>
-<li>高层模块(稳定) 不应该依赖底层模块(不稳定)，二者都应该依赖于抽象(稳定)</li>
-<li>抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)</li>
-</ul>
-</li>
-<li>开放封闭原则（OCP）<ul>
-<li>对扩展开放</li>
-<li>对更改封闭</li>
-</ul>
-</li>
-<li>单一职责原则（SRP）<ul>
-<li>一个类应该仅有一个引起他变化的原因</li>
-<li>变化的方向隐含着类的责任</li>
-</ul>
-</li>
-<li>Liskov 替换原则(LSP)<ul>
-<li>子类必须能够替换他的基类（is-a）</li>
-<li>继承表达类型抽象</li>
-</ul>
-</li>
-<li>接口隔离原则（ISP）<ul>
-<li>接口小而完备</li>
-<li>不应该强迫客户依赖他们不用的方法</p></div>
     </li>
   </ul>
 
@@ -499,6 +491,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/04/25/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="next" title="策略模式">
+                  策略模式 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -517,7 +512,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane changyan" id="comment-changyan">
-              <div class="comments" id="SOHUCS" sid="db9301e5c97c8e229436aab6fd88fab0"></div>
+              <div class="comments" id="SOHUCS" sid="0435807a591334b906e95fc89ec499e6"></div>
             </div>
             <div class="tab-pane disqusjs" id="comment-disqusjs">
               
@@ -548,13 +543,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">62k</span>
+    <span title="Symbols count total">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">57 mins.</span>
+    <span title="Reading time total">58 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
