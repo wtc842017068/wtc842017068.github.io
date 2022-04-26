@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -215,6 +215,140 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/13/cpp-11-14-%E7%BB%9F%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8Ainitializer-list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.jpg">
+      <meta itemprop="name" content="SkyBlue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSkyBlue Blog">
+      <meta itemprop="description" content="Discipline is the bridege between goals and accomplishment">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CodeSkyBlue Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/13/cpp-11-14-%E7%BB%9F%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8Ainitializer-list/" class="post-title-link" itemprop="url">cpp 11&14 统一初始化方式以及initializer_list,for</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-13 01:01:20" itemprop="dateCreated datePublished" datetime="2022-04-13T01:01:20+08:00">2022-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-16 21:42:06" itemprop="dateModified" datetime="2022-04-16T21:42:06+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/cpp/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    <a title="cpp 11&14 统一初始化方式以及initializer_list,for" href="/2022/04/13/cpp-11-14-%E7%BB%9F%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8Ainitializer-list/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::16e3462bb499e1b519e62d642ac962fc" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <!-- <blockquote class="blockquote-center">this is note</blockquote> -->
+<ul>
+<li>一致初始化<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> values[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">vector&lt;string&gt; cities&#123;</span><br><span class="line">    <span class="string">&quot;Berlin&quot;</span>,<span class="string">&quot;New York&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">complex&lt;<span class="type">double</span>&gt; c&#123;<span class="number">3.0</span>,<span class="number">4.0</span>&#125;</span><br></pre></td></tr></table></figure></li>
+<li>initializer_list<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//***********************//</span></span><br><span class="line"><span class="comment">//initializer_list 传递的是引用,拷贝是浅拷贝</span></span><br><span class="line"><span class="comment">//***********************//</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;<span class="comment">// 会被编译器构造成一个initializer_list</span></span><br><span class="line"><span class="comment">//如果函数只接收initializer_list 则调用者要自己准备一包initializer_list,来使用</span></span><br><span class="line"><span class="comment">//如果目标函数不接受initializer_list，会被编译器分开来传入</span></span><br><span class="line"><span class="type">int</span> i;<span class="comment">//i的值是未定义</span></span><br><span class="line"><span class="type">int</span> j&#123;&#125;;<span class="comment">//设置初值为0</span></span><br><span class="line"><span class="type">int</span>* p;<span class="comment">//未定义初值</span></span><br><span class="line"><span class="type">int</span>* q&#123;&#125;;<span class="comment">//设置初值为nullptr</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">x1</span><span class="params">(<span class="number">5.3</span>)</span></span>; <span class="comment">// x1=5</span></span><br><span class="line"><span class="type">int</span> x2 = <span class="number">5.3</span>;<span class="comment">//x2=5</span></span><br><span class="line"><span class="type">int</span> x3&#123;<span class="number">5.0</span>&#125;;<span class="comment">//Error:narrowing ||-&gt; GCC Warning</span></span><br><span class="line"><span class="type">int</span> x4 =&#123;<span class="number">5.3</span>&#125;; <span class="comment">// Error:narrowing ||-&gt; GCC Warning</span></span><br><span class="line"><span class="type">char</span> c1&#123;<span class="number">7</span>&#125;;<span class="comment">//ok</span></span><br><span class="line"><span class="type">char</span> c2&#123;<span class="number">99999</span>&#125;;<span class="comment">//Error:narrowing ||-&gt; GCC Warning</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;<span class="comment">//ok</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.5</span>&#125;;<span class="comment">//Error:narrowing ||-&gt; GCC Warning</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">max</span>(&#123;<span class="built_in">stirng</span>(<span class="string">&quot;Ace&quot;</span>),<span class="built_in">string</span>(<span class="string">&quot;Stacy&quot;</span>),<span class="built_in">stirng</span>(<span class="string">&quot;qqq&quot;</span>),<span class="built_in">string</span>(<span class="string">&quot;ppp&quot;</span>)&#125;) <span class="comment">//函数可以接收initializer_list，作为入参</span></span><br><span class="line"><span class="built_in">min</span>(&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;)<span class="comment">//函数可以接收initializer_list，作为入参</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/13/cpp-11-14-%E7%BB%9F%E4%B8%80%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8Ainitializer-list/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1376,13 +1510,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">64k</span>
+    <span title="Symbols count total">68k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">58 mins.</span>
+    <span title="Reading time total">1:02</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
