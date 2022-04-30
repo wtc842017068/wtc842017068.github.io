@@ -187,7 +187,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -198,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -421,27 +421,6 @@
     
     
     
-      
-  <div class="popular-posts-header">Related Posts</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-13</div>
-      <div class="popular-posts-title"><a href="2022/04/13/cpp-11-14-default&delete 以及template/" rel="bookmark">cpp 11&14 default&delete 以及template</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>default&amp;delete<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Zoo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//big five 可以运用到default，其它函数上会报错</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">int</span> i1,<span class="type">int</span> i2):<span class="built_in">d1</span>(i1),<span class="built_in">d2</span>(i2)&#123;&#125;<span class="comment">//构造函数</span></span><br><span class="line">        <span class="built_in">Zoo</span>(<span class="type">const</span> Zoo&amp;)=<span class="keyword">delete</span>;<span class="comment">//拷贝构造函数，不要这个函数,不可以使用</span></span><br><span class="line">        <span class="built_in">Zoo</span>(Zoo&amp;&amp;)=<span class="keyword">default</span>;<span class="comment">//右值引用，使用编译器默认的版本</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;)=<span class="keyword">default</span>;<span class="comment">//拷贝赋值</span></span><br><span class="line">        Zoo&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Zoo&amp;&amp;)=<span class="keyword">delete</span>;<span class="comment">//移动赋值</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">Zoo</span>()&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> d1,d2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>alias Template<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Vec=std::vector&lt;T,MyAlloc&lt;T&gt;&gt;;</span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用宏定义</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Vec<span class="string">&lt;T&gt;</span> template<span class="string">&lt;typename T&gt;</span> std::vector<span class="string">&lt;T,MyAlloc&lt;T&gt;</span>&gt;;</span></span><br><span class="line">Vec&lt;<span class="type">int</span>&gt; coll;</span><br><span class="line"><span class="comment">//template&lt;typename int&gt; std::vector&lt;int,MyAlloc&lt;int&gt;&gt; 是这样的效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用typedef,因为typedef 不接收参数,只能使用如下所示</span></span><br><span class="line"><span class="keyword">typedef</span> std::vector&lt;<span class="type">int</span>,MyAlloc&lt;<span class="type">int</span>&gt;&gt; Vec;</span><br></pre></td></tr></table></figure></li>
-<li>template template parameter</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">template</span>&lt;<span class="keyword">class</span>&gt; <span class="keyword">class</span> <span class="title class_">Container</span>&gt;</span><br><span class="line"><span class="comment">//template&lt;typename T,template&lt;typename&gt; class Container&gt;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XCIs</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        Container&lt;T&gt; c;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">XCIs</span>()&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">long</span> i=<span class="number">0</span>;i&lt;SIZE;i++)&#123;</span><br><span class="line">                c.<span class="built_in">insert</span>(c.<span class="built_in">end</span>(),<span class="built_in">T</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">output_static_data</span>(<span class="built_in">T</span>());</span><br><span class="line">            <span class="function">Container&lt;T&gt; <span class="title">c1</span><span class="params">(c)</span></span>;</span><br><span class="line">            <span class="function">Container&lt;T&gt; <span class="title">c2</span><span class="params">(std::move(c))</span></span>;</span><br><span class="line">            c1.<span class="built_in">swap</span>(c2);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-20</div>
-      <div class="popular-posts-title"><a href="2022/04/20/cpp-tips/" rel="bookmark">cpp tips</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> --></p></div>
-    </li>
-  </ul>
-
 
     <footer class="post-footer">
           <div class="reward-container">
@@ -569,13 +548,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">77k</span>
+    <span title="Symbols count total">89k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">1:10</span>
+    <span title="Reading time total">1:21</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>

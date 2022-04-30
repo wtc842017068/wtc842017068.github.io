@@ -25,16 +25,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="观察者模式（Observe） 动机  在软件构建过程中，我们需要为某些对象建立一种  $\underline{ 通知依赖关系 }$     —— 一个对象 **$\underline{ (目标对象) }$** 的状态发生改变，所有的依赖对象 **$\underline{ （观察者对象） }$** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化   使用面向对象技术，可以">
+    <meta name="description" content="观察者模式（Observe） 动机  在软件构建过程中，我们需要为某些对象建立一种  (通知依赖关系)     —— 一个对象 ***(目标对象)*** 的状态发生改变，所有的依赖对象 ***(观察者对象)*** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化   使用面向对象技术，可以将这种依赖弱化，并形成一定稳定的依赖关系。从而实现软件体系结构的松耦合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="观察者模式">
 <meta property="og:url" content="http://example.com/2022/04/26/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="CodeSkyBlue Blog">
-<meta property="og:description" content="观察者模式（Observe） 动机  在软件构建过程中，我们需要为某些对象建立一种  $\underline{ 通知依赖关系 }$     —— 一个对象 **$\underline{ (目标对象) }$** 的状态发生改变，所有的依赖对象 **$\underline{ （观察者对象） }$** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化   使用面向对象技术，可以">
+<meta property="og:description" content="观察者模式（Observe） 动机  在软件构建过程中，我们需要为某些对象建立一种  (通知依赖关系)     —— 一个对象 ***(目标对象)*** 的状态发生改变，所有的依赖对象 ***(观察者对象)*** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化   使用面向对象技术，可以将这种依赖弱化，并形成一定稳定的依赖关系。从而实现软件体系结构的松耦合">
 <meta property="og:locale">
 <meta property="og:image" content="https://s2.loli.net/2022/04/27/S1VeubqvD9IRnzc.jpg">
 <meta property="article:published_time" content="2022-04-26T15:46:53.000Z">
-<meta property="article:modified_time" content="2022-04-26T18:05:17.583Z">
+<meta property="article:modified_time" content="2022-04-30T05:44:02.848Z">
 <meta property="article:author" content="SkyBlue">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="组件协作模式">
@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -185,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-27 02:05:17" itemprop="dateModified" datetime="2022-04-27T02:05:17+08:00">2022-04-27</time>
+      <time title="Modified: 2022-04-30 13:44:02" itemprop="dateModified" datetime="2022-04-30T13:44:02+08:00">2022-04-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,7 +309,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>4k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -331,9 +331,9 @@
 <ul>
 <li>观察者模式（Observe）<ul>
 <li><p>动机</p>
-<p> 在软件构建过程中，我们需要为某些对象建立一种  <strong>$\underline{ 通知依赖关系 }$</strong> </p>
- <br>
- —— 一个对象 **$\underline{ (目标对象) }$** 的状态发生改变，所有的依赖对象 **$\underline{ （观察者对象） }$** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化
+<p> 在软件构建过程中，我们需要为某些对象建立一种  <em><strong><u>(通知依赖关系)</u></strong></em> </p>
+ </br>
+ —— 一个对象 ***<u>(目标对象)</u>*** 的状态发生改变，所有的依赖对象 ***<u>(观察者对象)</u>*** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化
 
 <p> 使用面向对象技术，可以将这种依赖弱化，并形成一定稳定的依赖关系。从而实现软件体系结构的松耦合</p>
 </li>
@@ -349,7 +349,7 @@
 <li>违背设计的原则<ul>
 <li>依赖倒置原则，<ul>
 <li>高层模块不应该依赖底层模块，二者都应该依赖于抽象。</li>
-<li><strong>$\underline{ 抽象不应该依赖于实现细节，实现细节应该依赖抽象 }$</strong></li>
+<li><em><strong><u>抽象不应该依赖于实现细节，实现细节应该依赖抽象</u></strong></em></li>
 </ul>
 </li>
 </ul>
@@ -369,7 +369,7 @@
 <h2 id="改进-多通知"><a href="#改进-多通知" class="headerlink" title="改进(多通知)"></a>改进(多通知)</h2></li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IProcess</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">DoProgress</span><span class="params">(<span class="type">float</span> val)</span></span>=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">IProcess</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainForm</span> : <span class="keyword">public</span> Form,<span class="keyword">public</span> IProcess&#123;</span><br><span class="line">    TextBox* txtFilePath;</span><br><span class="line">    TextBox* textFileNumber;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>: <span class="built_in">Button_click</span>()&#123;</span><br><span class="line">        string filePath = txtFilePath-&gt;<span class="built_in">getText</span>();</span><br><span class="line">        <span class="type">int</span> number = <span class="built_in">atoi</span>(textFileNumber-&gt;<span class="built_in">getText</span>().<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">       <span class="comment">// ProgessBar m_progressBar; //具体的通知控件</span></span><br><span class="line">        ProcessBar* processBar; <span class="comment">// 抽象通知机制</span></span><br><span class="line">        ConsoleNotifier console;</span><br><span class="line">        <span class="function">FileSplitter <span class="title">splitter</span><span class="params">(filePath,number)</span></span>;</span><br><span class="line">        splitter.<span class="built_in">add</span>(<span class="keyword">this</span>);</span><br><span class="line">        splitter.<span class="built_in">add</span>(&amp;console)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        splitter.<span class="built_in">split</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">DoProgress</span><span class="params">(<span class="type">float</span> val)</span></span>&#123;</span><br><span class="line">        processBar-&gt;<span class="built_in">setValue</span>(val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConsoleNotifier</span> : <span class="keyword">public</span> IProgress&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">DoProgress</span><span class="params">(<span class="type">float</span> val)</span></span>&#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;.&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FileSplitter</span>&#123;</span><br><span class="line">    string m_filePath;</span><br><span class="line">    <span class="type">int</span> m_fileNumber;</span><br><span class="line">    List&lt;IProcess*&gt; m_iProcessList;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">FileSplitter</span>(<span class="type">const</span> string&amp; filePath,<span class="type">int</span> fileNumber,IProcess* iProcess):</span><br><span class="line">        <span class="built_in">m_filePath</span>(filePath),</span><br><span class="line">        <span class="built_in">m_fileNumber</span>(fileNumber)&#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">split</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 1.读取文件</span></span><br><span class="line">            <span class="comment">// 2.分批次向小文件中写入</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt; m_fileNumber;i++)&#123;</span><br><span class="line">                <span class="comment">//...</span></span><br><span class="line">                <span class="keyword">if</span>(m_progressBar != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                    <span class="built_in">onProgress</span>((i+<span class="number">1</span>)/m_fileNumber) <span class="comment">//更新进度条</span></span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(IProgress* iProgress )</span></span>&#123;</span><br><span class="line">            m_iProcessList.<span class="built_in">add</span>(iProgress);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(IProgress* iProgress)</span></span>&#123;</span><br><span class="line">            m_iProcessList.<span class="built_in">remove</span>(iProgress);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">onProgress</span><span class="params">(<span class="type">float</span> value)</span></span>&#123;</span><br><span class="line">            <span class="keyword">auto</span> ite = m_iProcessList.<span class="built_in">begin</span>();</span><br><span class="line">            <span class="keyword">while</span>(ite != m_iProcessList.<span class="built_in">end</span>())&#123;</span><br><span class="line">                (*ite)-&gt;<span class="built_in">DoProgress</span>(value); <span class="comment">//  更新进度条</span></span><br><span class="line">                ite++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h1><p>定义对象间的一种 <strong>$\underline{  一对多(变化) }$</strong> 的依赖关系，以便当一个对象(Subject)的状态发生改变时，**$\underline{  所有依赖于 }$** 它的对象都能够得到通知</p>
+<h1 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h1><p>定义对象间的一种 <em><strong><u>(一对多(变化))</u></strong></em>  的依赖关系，以便当一个对象(Subject)的状态发生改变时，***<u>(所有依赖于)</u>*** 它的对象都能够得到通知</p>
 <h1 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h1><p><img src="https://s2.loli.net/2022/04/27/S1VeubqvD9IRnzc.jpg" alt="观察者模式UML图"></p>
 
     </div>
@@ -377,45 +377,6 @@
     
     
     
-      
-  <div class="popular-posts-header">Related Posts</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-25</div>
-      <div class="popular-posts-title"><a href="2022/04/25/策略模式/" rel="bookmark">策略模式</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li><p>策略模式</p>
-<ul>
-<li>解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法</li>
-</ul>
-</li>
-<li><p>模式定义</p>
-<p>定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 <strong>（变化）</strong>。改模式使得算法可以独立于使用他的客户程序 <strong>(稳定)</strong> 而变化 <strong>（扩展，子类话）</strong></p>
-</li>
-</ul></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-25</div>
-      <div class="popular-posts-title"><a href="2022/04/25/模板方法/" rel="bookmark">模板方法</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>Template Method<ul>
-<li><p>特点：</p>
-<ul>
-<li>稳定的机构，但是子步骤有很多改变的需求。</li>
-<li>或者由于固有原因导致无法和任务的整体结构同时实现</li>
-</ul>
-</li>
-<li><p>目的：</p>
-<p>在稳定结构的前提下，灵活实现变化或者晚期再来实现需求</p>
-</li>
-</ul>
-</li>
-</ul></p></div>
-    </li>
-  </ul>
-
 
     <footer class="post-footer">
           <div class="reward-container">
@@ -530,13 +491,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">77k</span>
+    <span title="Symbols count total">89k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">1:10</span>
+    <span title="Reading time total">1:21</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>

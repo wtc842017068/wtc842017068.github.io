@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -185,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -353,64 +353,6 @@
     
     
     
-      
-  <div class="popular-posts-header">Related Posts</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-03-22</div>
-      <div class="popular-posts-title"><a href="2022/03/22/class-template/" rel="bookmark">class template</a></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-15</div>
-      <div class="popular-posts-title"><a href="2022/04/15/cpp-11-14-type-Alias-nonexcep/" rel="bookmark">cpp 11&14 type Alias,nonexcep和override</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>Type ALias <strong>(与typedef 相似)</strong><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//type alias,identical to</span></span><br><span class="line"><span class="comment">//typedef void(*func)(int,int);</span></span><br><span class="line"><span class="keyword">using</span> func=<span class="built_in">void</span>(*)(<span class="type">int</span>,<span class="type">int</span>);</span><br><span class="line"><span class="comment">//func 表示一个入参为(int,int)类型的函数指针</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">example</span><span class="params">(<span class="type">int</span>,<span class="type">int</span>)</span></span>&#123;&#125;</span><br><span class="line">func fn=example;</span><br><span class="line">typdef basic_string&lt;<span class="type">char</span>&gt; string;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//局部的typedef</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Container</span>&#123;</span><br><span class="line">    <span class="keyword">using</span> value_type=T;<span class="comment">//typedef T value_type</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//并且可以应用到原编程,如果上述定义了value_type</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Cntr&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fn2</span><span class="params">(<span class="type">const</span> Cntr&amp; c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">typename</span> Cntr::value_type n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**************************//</span></span><br><span class="line"><span class="comment">//用于隐藏模板参数</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">CharT</span>&gt; <span class="keyword">using</span> mystring=std::basic_string&lt;CharT,std::char_traits&lt;Chart&gt;&gt;</span><br><span class="line">mystring&lt;<span class="type">char</span>&gt; str;</span><br></pre></td></tr></table></figure></li>
-<li>nonexcep<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span>noexcep</span>;</span><br><span class="line"><span class="comment">//void foo()noexcept(true); 表示不会抛出异常</span></span><br></pre></td></tr></table></figure></li>
-</ul></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-16</div>
-      <div class="popular-posts-title"><a href="2022/04/16/variadic-Template-可变参数模板/" rel="bookmark">variadic Template(可变参数模板)</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<p><strong>使用可变参数模板可以实现</strong></p>
-<ul>
-<li>递归调用</li>
-<li>递归创建</li>
-<li>递归继承</li>
-<li>递归复合</p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-03-19</div>
-      <div class="popular-posts-title"><a href="2022/03/19/堆与栈/" rel="bookmark">堆与栈</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li><p>栈</p>
-<p>  是存在于某一作用域内的数据，在函数内声明的任何变量，其所使用的内存块都取自上述stack</p>
-</li>
-<li><p>堆</p>
-<p>  实在system heap,是由操作系统提供的一块global 内存空间，系统可动态分配其中的若干块，但是要</p>
-</li>
-</ul></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-03-20</div>
-      <div class="popular-posts-title"><a href="2022/03/20/cpp-构造与析构/" rel="bookmark">cpp 构造与析构（侯捷）</a></div>
-        <div class="popular-posts-excerpt"><p><ul>
-<li><p>inline（内联函数）</p>
-<p>  <em>若在函数体内定义完成，变为内联函数的候选人</em><br>  inline 函数运行更快，inline 只是建议，具体是否使用由编译器决定</p>
-</li>
-<li><p>拷贝构造</p>
-</li>
-<li><p>拷贝赋值</p>
-<p>  包含指针需要单独实现，不可用默认的</p>
-</li>
-<li><p>虚函数</p>
-</li>
-<li><p>虚函数表</p></p></div>
-    </li>
-  </ul>
-
 
     <footer class="post-footer">
           <div class="reward-container">
@@ -527,13 +469,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">77k</span>
+    <span title="Symbols count total">89k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">1:10</span>
+    <span title="Reading time total">1:21</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>

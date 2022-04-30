@@ -25,16 +25,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="策略模式  解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法   模式定义 定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 （变化）。改模式使得算法可以独立于使用他的客户程序 (稳定) 而变化 （扩展，子类话）">
+    <meta name="description" content="策略模式  解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法   模式定义 定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 (变化) 。改模式使得算法可以独立于使用他的客户程序 (稳定) 而变化 (扩展，子类话)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="策略模式">
 <meta property="og:url" content="http://example.com/2022/04/25/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="CodeSkyBlue Blog">
-<meta property="og:description" content="策略模式  解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法   模式定义 定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 （变化）。改模式使得算法可以独立于使用他的客户程序 (稳定) 而变化 （扩展，子类话）">
+<meta property="og:description" content="策略模式  解决某些对象使用多种算法。将算法与对象本身节藕，从而实现透明的更改对象的算法   模式定义 定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 (变化) 。改模式使得算法可以独立于使用他的客户程序 (稳定) 而变化 (扩展，子类话)">
 <meta property="og:locale">
 <meta property="og:image" content="https://s2.loli.net/2022/04/27/cPmbwaZi8x5XpGB.jpg">
 <meta property="article:published_time" content="2022-04-25T15:42:19.000Z">
-<meta property="article:modified_time" content="2022-04-26T18:06:58.049Z">
+<meta property="article:modified_time" content="2022-04-30T04:08:21.434Z">
 <meta property="article:author" content="SkyBlue">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="组件协作模式">
@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -185,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-27 02:06:58" itemprop="dateModified" datetime="2022-04-27T02:06:58+08:00">2022-04-27</time>
+      <time title="Modified: 2022-04-30 12:08:21" itemprop="dateModified" datetime="2022-04-30T12:08:21+08:00">2022-04-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -335,7 +335,7 @@
 </ul>
 </li>
 <li><p>模式定义</p>
-<p>定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 <strong>（变化）</strong>。改模式使得算法可以独立于使用他的客户程序 <strong>(稳定)</strong> 而变化 <strong>（扩展，子类话）</strong></p>
+<p>定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 <em><strong><u>(变化)</u></strong></em> 。改模式使得算法可以独立于使用他的客户程序 <em><strong><u>(稳定)</u></strong></em> 而变化 <em><strong><u>(扩展，子类话)</u></strong></em></p>
 </li>
 </ul>
 <span id="more"></span>
@@ -345,7 +345,7 @@
 <h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TaxStrategy</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">Calculate</span><span class="params">(<span class="type">const</span> Context&amp; context)</span></span>=<span class="number">0</span></span><br><span class="line">        <span class="keyword">virtual</span> ~<span class="built_in">TaxStrategy</span>()&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CNTax</span>:<span class="keyword">public</span> TaxStrategy&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">Calculate</span><span class="params">(<span class="type">const</span> Context&amp; context)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">USTax</span>:<span class="keyword">public</span> TaxStrategy&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">Calculate</span><span class="params">(<span class="type">const</span> Context&amp; context)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DETax</span>:<span class="keyword">public</span> TaxStrategy&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">Calculate</span><span class="params">(<span class="type">const</span> Context&amp; context)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//新增</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FR_Tax</span>:<span class="keyword">public</span> TaxStrategy&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">Calculate</span><span class="params">(<span class="type">const</span> Context&amp; context)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SalesOrder</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        TaxStrtegy* strategy;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">SalesOrder</span>(StrategyFactory* strategyFactory)&#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;strategy = strategyFactory-&gt;<span class="built_in">NewStrategy</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        ~<span class="built_in">SalesOrder</span>()&#123;</span><br><span class="line">            <span class="keyword">delete</span> <span class="keyword">this</span>-&gt;strategy;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="type">double</span> <span class="title">CalculateTax</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//....</span></span><br><span class="line">            Context context;</span><br><span class="line">            <span class="type">double</span> val = <span class="keyword">this</span>-&gt;strategy-&gt;<span class="built_in">Calculate</span>(context);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="复用性"><a href="#复用性" class="headerlink" title="复用性"></a>复用性</h3><p>主要指二进制层面的复用性</p>
-<h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><p>  定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 **$\underline{（变化）}$**。改模式使得算法可以独立于使用他的客户程序 <strong>$\underline{(稳定)}$</strong> 而变化 <strong>$\underline{（扩展，子类话）}$</strong></p>
+<h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><p>  定义一系列算法，把他们一个个封装起来，并且使他们可互相替换 <em><strong><u>(变化)</u></strong></em> 。改模式使得算法可以独立于使用他的客户程序 <em><strong><u>(稳定)</u></strong></em>  而变化 <em><strong><u>(扩展，子类话)</u></strong></em></p>
 <h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><p><img src="https://s2.loli.net/2022/04/27/cPmbwaZi8x5XpGB.jpg" alt="策略模式UML图"></p>
 <h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><h3 id="Strategy及其子类为组件提供了一系列可重用的算法"><a href="#Strategy及其子类为组件提供了一系列可重用的算法" class="headerlink" title="Strategy及其子类为组件提供了一系列可重用的算法"></a>Strategy及其子类为组件提供了一系列可重用的算法</h3><ul>
 <li>从而可以使得类型在运行时方便的根据需要在 <strong>$\underline{运行时}$</strong> 方便的根据需要切换<h3 id="Strategy-提供了用条件语句之外的另一种选择，消除条件判断语句"><a href="#Strategy-提供了用条件语句之外的另一种选择，消除条件判断语句" class="headerlink" title="Strategy 提供了用条件语句之外的另一种选择，消除条件判断语句"></a>Strategy 提供了用条件语句之外的另一种选择，消除条件判断语句</h3></li>
@@ -359,47 +359,6 @@
     
     
     
-      
-  <div class="popular-posts-header">Related Posts</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-26</div>
-      <div class="popular-posts-title"><a href="2022/04/26/观察者模式/" rel="bookmark">观察者模式</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>观察者模式（Observe）<ul>
-<li><p>动机</p>
-<p> 在软件构建过程中，我们需要为某些对象建立一种  <strong>$\underline{ 通知依赖关系 }$</strong> </p>
- <br>
- —— 一个对象 **$\underline{ (目标对象) }$** 的状态发生改变，所有的依赖对象 **$\underline{ （观察者对象） }$** 都将得到通知。如果这样的依赖关系过于紧密，将使得软件不能很好的抵御变化
-
-<p> 使用面向对象技术，可以将这种依赖弱化，并形成一定稳定的依赖关系。从而实现软件体系结构的松耦合</p>
-</li>
-</ul>
-</li>
-</ul></p></div>
-    </li>
-    <li class="popular-posts-item">
-        <div class="popular-posts-date">2022-04-25</div>
-      <div class="popular-posts-title"><a href="2022/04/25/模板方法/" rel="bookmark">模板方法</a></div>
-        <div class="popular-posts-excerpt"><p><!-- <blockquote class="blockquote-center">this is note</blockquote> -->
-<ul>
-<li>Template Method<ul>
-<li><p>特点：</p>
-<ul>
-<li>稳定的机构，但是子步骤有很多改变的需求。</li>
-<li>或者由于固有原因导致无法和任务的整体结构同时实现</li>
-</ul>
-</li>
-<li><p>目的：</p>
-<p>在稳定结构的前提下，灵活实现变化或者晚期再来实现需求</p>
-</li>
-</ul>
-</li>
-</ul></p></div>
-    </li>
-  </ul>
-
 
     <footer class="post-footer">
           <div class="reward-container">
@@ -514,13 +473,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">77k</span>
+    <span title="Symbols count total">89k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">1:10</span>
+    <span title="Reading time total">1:21</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
